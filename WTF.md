@@ -1,6 +1,6 @@
  **Integrating the Healthcare Enterprise**
 
-![IHE\_LOGO\_for\_tf-docs](media/IHE-logo.jpeg)
+![IHE\_LOGO\_for\_tf-docs](images/IHE-logo.jpeg)
 
 **[IHE ITI](https://profiles.ihe.net/ITI)**
 
