@@ -75,3 +75,152 @@ blah blah... blah blah...
 **Figure 1: Diagram**
 
 blah blah
+
+## High Level Concepts: Federation and Directories
+Federation
+Bridge/adapter
+
+## Federation Use Cases
+
+## Federation/Bridging Mechanisms
+(TBD whether we want to put directory representation before or after the specific transaction guidance)
+
+### Identities in a Federation/Bridge
+(May be better as part of the "High Level Concepts" section)
+
+Example: Org 1.2.3 exposes two endpoints: XCA and MHD. One interface is an adapter over the other (not sure if we need to show both ways). Whether the requester calls one or the other interface, they get clinical data from the same organization / set of identities. We would call this a TBD (bridge? adapter?)
+
+Example: Org 1.2.3 exposes an XCA endpoint, and behind that endpoint is another org 4.5.6 and MHD. One interface is an adapter over the other (not sure if we need to show both ways). Whether the requester calls one or the other interface, they get clinical data from the same organization / set of identities.
+
+### Federated Push
+
+### Federated Pull
+
+### Representing Federations in Directories
+
+(Content moved and tweaked from mCSD Vol 1 1:46.8 - can remove or reduce that section)
+
+This section provides guidance for representing and making use of federations in a directory (mCSD or otherwise) to enable electronic communication, for example defining local points of connectivity within a community, or defining a Health Information Exchange (HIE) that allows multiple communities to interoperate. It focuses on the following resources: Endpoint, Organization and OrganizationAffiliation.
+
+Many current Endpoint directories based on FHIR are purpose-built, which is to say they are deployed to a server that only hosts Organization and Endpoint resources, and only for the use case of Endpoint lookup. For this reason, directories often reflect network details directly in the Organization resource, such as:
+- The organization's role in the network, like participant or sub-participant, expressed as the type of organization.
+- The organization's relationship to its connectivity vendor, expressed as the organization hierarchy (i.e., partOf).
+- The organization's connectivity state as an extension.
+- Supported profiles, purposes of use, etc. as extensions.
+- The organization's identity as a home community ID, for use in IHE Document Sharing profiles.
+
+When the organization's structure and its network capabilities need to vary independently (e.g., an organization uses two connectivity vendors), directories typically handle this by creating parallel instances of the Organization resource that then have to be merged by custom code to display.
+
+We anticipate these conflicts increasing over time due to many forces:
+- Implementers taking advantage of profiles like mCSD to represent more comprehensive organizational and personnel structures.
+- Implementers scaling by delegating maintenance of organization sub-trees to the organizations themselves.
+- Directories consolidating/federating over time into more comprehensive "phonebooks", where a given organization participates in multiple HIEs. One example would be the USA ONC TEFCA Recognized Coordinating Entity, which will be maintaining a directory that consists of entries supplied by each Qualified Health Information Network (QHIN).
+
+In this guidance, we allow organization structure and network details to vary independently by moving network details out of the Organization and into the Endpoint and OrganizationAffiliation resources.
+
+##### 1:46.8.1 Endpoint to an Organization
+
+The simplest usage model for a client is when the organization it needs to contact has a dedicated Endpoint resource in Organization.endpoint. Because this Endpoint is Organization-specific, it does not matter to the client who hosts it. Some examples follow.
+
+Note: The managingOrganization of an Endpoint is who users need to contact for support. It may or may not be the same as the organization that hosts it. Since hosting is not reflected in the directory, we are indicating it in the diagrams below by the URLs.
+
+Organization A hosts its own Endpoint:
+<div>
+{%include dir-org-specific-endpoint-self.svg%}
+</div>
+<div style="clear: left;"/>
+**Figure 1:46.8.1-1: Organization-specific Endpoint Hosted by the Organization**
+
+Organization A is directly reachable by an endpoint hosted by its parent Organization B:
+<div>
+{%include dir-org-specific-endpoint-parent.svg%}
+</div>
+<div style="clear: left;"/>
+**Figure 1:46.8.1-2: Organization-specific Endpoint Hosted by Parent**
+
+Organization C is directly reachable by an endpoint hosted by its affiliated Organization D:
+<div>
+{%include dir-org-specific-endpoint-affil.svg%}
+</div>
+<div style="clear: left;"/>
+**Figure 1:46.8.1-3: Organization-specific Endpoint Hosted by Affiliation**
+
+Organization E is directly reachable by an endpoint hosted by a hidden (i.e., not in the directory) Intermediary F:
+<div>
+{%include dir-org-specific-endpoint-inter.svg%}
+</div>
+<div style="clear: left;"/>
+**Figure 1:46.8.1-4: Organization-specific Endpoint Hosted by Hidden Intermediary**
+
+##### 1:46.8.2 Endpoint to a Structure
+
+When an Organization with an Endpoint has a complex structure, for example, sub-organizations, clients can often make use of this structure:
+
+<div>
+{%include dir-endpoint-to-org-hierarchy.svg%}
+</div>
+<div style="clear: left;"/>
+
+**Figure 1:46.8.2-1: Endpoint to Organizational Hierarchy**
+
+Typical directories will take an organizational hierarchy to imply accessibility to parts of the structure, for example:
+- For FHIR REST endpoints, the URL is simply the Service Base URL as specified in [FHIR R4 3.1.0.1.2](http://hl7.org/fhir/R4/http.html#general). Clients can expect to find resources related to Organizations A, B and C.
+- For XCA endpoints, a client querying Organization A for documents (e.g., using \[ITI-38\]) may receive documents from Organizations A, B and C. If these organizations have identifiers of type Home Community ID in the directory, clients can expect to see these identifiers in the returned document metadata.
+- For XDR endpoints, a client sending a Provide and Register Document Set-b (\[ITI-41\]) request to Organization A can optionally specify Organizations B and/or C in intendedRecipient.
+- For MHD endpoints, a client sending a Provide Document Bundle (\[ITI-65\]) request to Organization A can optionally specify Organizations B and/or C in intendedRecipient.
+
+Specific details of addressing to federated recipients are out of the scope of this IG.
+
+Examples of this kind of federated structure are shown in [ITI TF-1: Appendix E.9](https://profiles.ihe.net/ITI/TF/Volume1/ch-E.html#E.9.3), for XCA Responding Gateways.
+
+By contrast, OrganizationAffiliations by themselves do not necessarily imply this kind of electronic accessibility. For this reason, this IG defines the code "DocShare-federate", which explicitly declares that the participatingOrganization is accessible as a federated organization via the OrganizationAffiliation.endpoint.
+
+The following diagram shows the same accessibility, but using OrganizationAffiliation.
+
+<div>
+{%include dir-endpoint-to-org-affiliates.svg%}
+</div>
+<div style="clear: left;"/>
+
+**Figure 1:46.8.2-2: Endpoint to Organizational Affiliates**
+
+In addition, these mechanisms may be combined. This may be useful, for example, when adding an existing organizational structure to an HIE.
+
+<div>
+{%include dir-endpoint-to-hybrid-org-structure.svg%}
+</div>
+<div style="clear: left;"/>
+
+**Figure 1:46.8.2-3: Endpoint to Hybrid Organizational Structure**
+
+##### 1:46.8.3 Grouping Actors
+
+Grouped actors may be represented as well, although not explicitly. In the following example, Participant A is reachable by either an MHD endpoint or XDR endpoints. The directory
+does not reflect which endpoint is the adapter or the adaptee.
+
+<div>
+{%include dir-endpoint-xdr-mhd.svg%}
+</div>
+<div style="clear: left;"/>
+
+**Figure 1:46.8.3-1: Endpoints to Grouped Actors**
+
+##### 1:46.8.4 Endpoint Discovery Usage
+
+The following example shows the steps used by a Care Services Selective Consumer to navigate a directory to find suitable electronic service Endpoints to some desired Organizations. In this example, a "suitable" Endpoint means it supports an IHE Document Sharing profile, and is based on .connectionType, .extension:specificType, .payloadType, .payloadMimeType, and status (both Endpoint.status as well as the actual status of the electronic service). The example uses the [mCSD-profiled OrganizationAffiliation] StructureDefinition-IHE.mCSD.OrganizationAffiliation.DocShare.html) that indicates federated connectivity for Document Sharing (e.g., affiliated organizations may be addressed as intendedRecipient). The pseudocode below uses a depth-first, first-match search, and does not protect against loops.
+
+Until a suitable Endpoint is found or the search is complete, check the following in this order:
+- Locate the desired Organization resource.
+- Check if it has a suitable Organization.endpoint.
+- Find OrganizationAffiliation resources where the Organization is the .participatingOrganization, and OrganizationAffiliation.code = DocShare-federate.
+- For each OrganizationAffiliation found:
+  - Check if it has a suitable OrganizationAffiliation.endpoint.
+  - Check if it has a suitable OrganizationAffiliation.organization.endpoint.
+  - Continue searching for a suitable Endpoint by traversing the OrganizationAffiliation resources recursively (i.e., where the OrganizationAffiliation.organization of the current resource is the .participatingOrganization of the next resource).
+- If there is an Organization.partOf (i.e., a parent), check if it has a suitable Organization.endpoint.
+  - Continue searching for a suitable Endpoint by traversing Organization.partOf recursively.
+
+Rather than a first-match search, the Care Services Selective Consumer might search for and decide among multiple electronic paths to the same Organization. For example:
+- It finds a suitable Endpoint resource for the target Organization, but instead uses an Endpoint for an Organization two levels higher to make a broader search for records.
+- It finds suitable Endpoint resources for equivalent mechanisms, XDR \[ITI-41\] and MHD \[ITI-65\], and chooses MHD as the preferred transaction.
+- It finds suitable Endpoint resources to the same Organization via two different HIEs, and prefers one HIE based on lower fees and authorization differences.
