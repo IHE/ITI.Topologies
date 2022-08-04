@@ -16,7 +16,7 @@ Author: ITI Technical Committee
 
 Email: iti@ihe.net
 
-**Please verify you have the most recent version of this document.** See [here](http://profiles.ihe.net/ITI) for Trial Implementation and Final Text versions and [here](https://www.ihe.net/resources/public_comment/) for Public Comment versions.
+**Please verify you have the most recent version of this white paper. See [here](http://profiles.ihe.net/ITI) for the Published version.
 
 **Foreword**
 
@@ -35,7 +35,7 @@ The current version of the IHE Technical Framework can be found at [https://prof
 **CONTENTS**
 
 <!-- TOC depthFrom:1 depthTo:2 -->
-
+<!--
 - [Introduction to this Supplement](#introduction-to-this-supplement)
 - [Open Issues and Question](#open-issues-and-question)
 - [Closed Issues](#closed-issues)
@@ -60,13 +60,23 @@ The current version of the IHE Technical Framework can be found at [https://prof
     - [3.103 Get Authorization Server Metadata [ITI-103]](#3103-get-authorization-server-metadata-iti-103)
 - [33 MHD Profile](#33-mhd-profile)
 - [9 ATNA Profile](#9-atna-profile)
-
+-->
 <!-- /TOC -->
 
-# Introduction to this Supplement
 
-## Problem Statement
+# 1 Introduction
 
+TODO:  Text covering the high level purpose of this whitepaper
+
+## 1.1 Scope
+
+TODO:  Describe the scope of this whitepaper
+
+## 1.2 Intended Audience
+
+TODO:  Describe intended audience
+
+## 1.3 High Level Concepts
 blah blah... blah blah...
 
 
@@ -76,11 +86,61 @@ blah blah... blah blah...
 
 blah blah
 
-## High Level Concepts: Federation and Directories
-Federation
-Bridge/adapter
 
-## Federation Use Cases
+### Document Sharing Community
+Briefly introduce concept of Document Sharing Community as it exists in XC* profiles
+
+TODO:  Flesh out
+
+### Document Sharing Network
+Network defined as a collection of Communities
+
+TODO:  Flesh out
+
+### Network Gateway
+Actor that allows access to a network from outside the network. Would be Initiating/Responding Gateway in XC* profiles. 
+
+TODO:  Flesh out
+
+### Federation
+Cross-network communication
+
+TODO:  Flesh out
+
+### Directories
+Will discuss the functionality that Directories can provide; point to mCSD
+
+TODO:  Flesh out
+
+### Patient Identity Management/Linking
+Concepts around determining that 2 patient identities across 2 networks or communities can be associated to be the same person. Point heavily at XCPD, maybe PDQm. 
+
+TODO:  Flesh out
+
+### Query and Retrieve
+Discuss document query and retrieve as a general document exchange pattern. Point at XCA and MHD. 
+
+TODO:  Flesh out
+
+### Message Delivery
+Discuss document "push" and general message delivery pattern. Point at XDR, XCDR, MHD. 
+
+TODO:  Flesh out
+
+### Translation Capabilities
+Network Gateways might have the ability to translate between different communication protocols. Ex:  translation between XCA and MHD. 
+
+TODO:  Flesh out
+
+# 2 Federation Use Cases
+
+## Document Access
+
+TODO:  Write User Story
+
+## Message Delivery
+
+TODO:  Write User Story
 
 ## Federation/Bridging Mechanisms
 (TBD whether we want to put directory representation before or after the specific transaction guidance)
