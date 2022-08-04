@@ -130,6 +130,8 @@ TODO:  Flesh out
 ### Translation Capabilities
 Network Gateways might have the ability to translate between different communication protocols. Ex:  translation between XCA and MHD. 
 
+Example: Org 1.2.3 exposes two endpoints: XCA and MHD. One interface is an adapter over the other (not sure if we need to show both ways). Whether the requester calls one or the other interface, they get clinical data from the same organization / set of identities. We would call this a TBD (bridge? adapter?)
+
 TODO:  Flesh out
 
 # 2 Federation Use Cases
@@ -142,13 +144,49 @@ TODO:  Write User Story
 
 TODO:  Write User Story
 
-## Federation/Bridging Mechanisms
-(TBD whether we want to put directory representation before or after the specific transaction guidance)
+# 3 Example Network Topologies
 
-### Identities in a Federation/Bridge
-(May be better as part of the "High Level Concepts" section)
+## Single Community With Data Aggregator
+This will be the case where a network has a single community. That community has a responding gateway that aggregates data from within the community and generates aggregate documents for the community as a whole. 
 
-Example: Org 1.2.3 exposes two endpoints: XCA and MHD. One interface is an adapter over the other (not sure if we need to show both ways). Whether the requester calls one or the other interface, they get clinical data from the same organization / set of identities. We would call this a TBD (bridge? adapter?)
+## Single Community With Multiple Affinity Domains
+This is the case where the network has a single community. That community might have one or more XDS affinity domains which the Responding Gateway gathers documents.
+
+## Multiple Community Network
+This is the case where the network has multiple communities within. Some message types need to be addressed to a specific community when interacting with the network gateway. 
+
+# 4 Directory Structure
+
+## General Guidance
+This section will lay out guidance on how to represent different topologies in an mCSD directory
+
+### Relationships between mCSD Resources
+This section will cover how different mCSD Resources relate to one another from the perspective of representing network topology
+
+### Inclusion of Message Delivery Addresses
+This section will discuss how to represent message delivery addresses in an mCSD directory
+
+## Examples
+In this section we will take the example topologies from above and show how they would be represented in an mCSD directory
+
+### Single Community With Data Aggregator
+
+### Single Community With Multiple Affinity Domains 
+
+### Multiple Community Network 
+
+# 5 Example Use Case Solutions
+This section will describe how the use cases in section 2 are enabled by the above suggestions
+
+## Document Access 
+
+## Message Delivery
+
+# 6 Miscellaneous
+
+## Further Reading
+
+
 
 Example: Org 1.2.3 exposes an XCA endpoint, and behind that endpoint is another org 4.5.6 and MHD. One interface is an adapter over the other (not sure if we need to show both ways). Whether the requester calls one or the other interface, they get clinical data from the same organization / set of identities.
 
@@ -174,7 +212,7 @@ When the organization's structure and its network capabilities need to vary inde
 We anticipate these conflicts increasing over time due to many forces:
 - Implementers taking advantage of profiles like mCSD to represent more comprehensive organizational and personnel structures.
 - Implementers scaling by delegating maintenance of organization sub-trees to the organizations themselves.
-- Directories consolidating/federating over time into more comprehensive "phonebooks", where a given organization participates in multiple HIEs. One example would be the USA ONC TEFCA Recognized Coordinating Entity, which will be maintaining a directory that consists of entries supplied by each Qualified Health Information Network (QHIN).
+- Directories consolidating/federating over time into more comprehensive "phone books", where a given organization participates in multiple HIEs. One example would be the USA ONC TEFCA Recognized Coordinating Entity, which will be maintaining a directory that consists of entries supplied by each Qualified Health Information Network (QHIN).
 
 In this guidance, we allow organization structure and network details to vary independently by moving network details out of the Organization and into the Endpoint and OrganizationAffiliation resources.
 
