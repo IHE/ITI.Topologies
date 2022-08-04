@@ -10,7 +10,7 @@
 
 **Revision 0.1 - Draft**
 
-Date: June 10, 2022
+Date: TODO:  Update
 
 Author: ITI Technical Committee
 
@@ -63,6 +63,7 @@ The current version of the IHE Technical Framework can be found at [https://prof
 -->
 <!-- /TOC -->
 
+TODO:  Fix
 
 # 1 Introduction
 
@@ -77,6 +78,8 @@ TODO:  Describe the scope of this whitepaper
 TODO:  Describe intended audience
 
 ## 1.3 High Level Concepts
+TODO:
+
 blah blah... blah blah...
 
 
@@ -132,6 +135,8 @@ Network Gateways might have the ability to translate between different communica
 
 Example: Org 1.2.3 exposes two endpoints: XCA and MHD. One interface is an adapter over the other (not sure if we need to show both ways). Whether the requester calls one or the other interface, they get clinical data from the same organization / set of identities. We would call this a TBD (bridge? adapter?)
 
+Example: Org 1.2.3 exposes an XCA endpoint, and behind that endpoint is another org 4.5.6 and MHD. One interface is an adapter over the other (not sure if we need to show both ways). Whether the requester calls one or the other interface, they get clinical data from the same organization / set of identities.
+
 TODO:  Flesh out
 
 # 2 Federation Use Cases
@@ -146,53 +151,32 @@ TODO:  Write User Story
 
 # 3 Example Network Topologies
 
+## Single Community With Single Affinity Domain
+This will be the case where the network has a single community, and that community itself has a single source for clinical data. 
+
+TODO:  Flesh out
+
 ## Single Community With Data Aggregator
 This will be the case where a network has a single community. That community has a responding gateway that aggregates data from within the community and generates aggregate documents for the community as a whole. 
+
+TODO:  Flesh out
 
 ## Single Community With Multiple Affinity Domains
 This is the case where the network has a single community. That community might have one or more XDS affinity domains which the Responding Gateway gathers documents.
 
+TODO:  Flesh out
+
 ## Multiple Community Network
 This is the case where the network has multiple communities within. Some message types need to be addressed to a specific community when interacting with the network gateway. 
+
+TODO:  Flesh out
 
 # 4 Directory Structure
 
 ## General Guidance
 This section will lay out guidance on how to represent different topologies in an mCSD directory
 
-### Relationships between mCSD Resources
-This section will cover how different mCSD Resources relate to one another from the perspective of representing network topology
-
-### Inclusion of Message Delivery Addresses
-This section will discuss how to represent message delivery addresses in an mCSD directory
-
-## Examples
-In this section we will take the example topologies from above and show how they would be represented in an mCSD directory
-
-### Single Community With Data Aggregator
-
-### Single Community With Multiple Affinity Domains 
-
-### Multiple Community Network 
-
-# 5 Example Use Case Solutions
-This section will describe how the use cases in section 2 are enabled by the above suggestions
-
-## Document Access 
-
-## Message Delivery
-
-# 6 Miscellaneous
-
-## Further Reading
-
-
-
-Example: Org 1.2.3 exposes an XCA endpoint, and behind that endpoint is another org 4.5.6 and MHD. One interface is an adapter over the other (not sure if we need to show both ways). Whether the requester calls one or the other interface, they get clinical data from the same organization / set of identities.
-
-### Federated Push
-
-### Federated Pull
+TODO:  Flesh out and adapt the below
 
 ### Representing Federations in Directories
 
@@ -216,7 +200,7 @@ We anticipate these conflicts increasing over time due to many forces:
 
 In this guidance, we allow organization structure and network details to vary independently by moving network details out of the Organization and into the Endpoint and OrganizationAffiliation resources.
 
-##### 1:46.8.1 Endpoint to an Organization
+##### Endpoint to an Organization
 
 The simplest usage model for a client is when the organization it needs to contact has a dedicated Endpoint resource in Organization.endpoint. Because this Endpoint is Organization-specific, it does not matter to the client who hosts it. Some examples follow.
 
@@ -250,7 +234,7 @@ Organization E is directly reachable by an endpoint hosted by a hidden (i.e., no
 <div style="clear: left;"/>
 **Figure 1:46.8.1-4: Organization-specific Endpoint Hosted by Hidden Intermediary**
 
-##### 1:46.8.2 Endpoint to a Structure
+##### Endpoint to a Structure
 
 When an Organization with an Endpoint has a complex structure, for example, sub-organizations, clients can often make use of this structure:
 
@@ -291,7 +275,7 @@ In addition, these mechanisms may be combined. This may be useful, for example, 
 
 **Figure 1:46.8.2-3: Endpoint to Hybrid Organizational Structure**
 
-##### 1:46.8.3 Grouping Actors
+##### Grouping Actors
 
 Grouped actors may be represented as well, although not explicitly. In the following example, Participant A is reachable by either an MHD endpoint or XDR endpoints. The directory
 does not reflect which endpoint is the adapter or the adaptee.
@@ -303,7 +287,7 @@ does not reflect which endpoint is the adapter or the adaptee.
 
 **Figure 1:46.8.3-1: Endpoints to Grouped Actors**
 
-##### 1:46.8.4 Endpoint Discovery Usage
+##### Endpoint Discovery Usage
 
 The following example shows the steps used by a Care Services Selective Consumer to navigate a directory to find suitable electronic service Endpoints to some desired Organizations. In this example, a "suitable" Endpoint means it supports an IHE Document Sharing profile, and is based on .connectionType, .extension:specificType, .payloadType, .payloadMimeType, and status (both Endpoint.status as well as the actual status of the electronic service). The example uses the [mCSD-profiled OrganizationAffiliation] StructureDefinition-IHE.mCSD.OrganizationAffiliation.DocShare.html) that indicates federated connectivity for Document Sharing (e.g., affiliated organizations may be addressed as intendedRecipient). The pseudocode below uses a depth-first, first-match search, and does not protect against loops.
 
@@ -322,3 +306,45 @@ Rather than a first-match search, the Care Services Selective Consumer might sea
 - It finds a suitable Endpoint resource for the target Organization, but instead uses an Endpoint for an Organization two levels higher to make a broader search for records.
 - It finds suitable Endpoint resources for equivalent mechanisms, XDR \[ITI-41\] and MHD \[ITI-65\], and chooses MHD as the preferred transaction.
 - It finds suitable Endpoint resources to the same Organization via two different HIEs, and prefers one HIE based on lower fees and authorization differences.
+
+### Relationships between mCSD Resources
+This section will cover how different mCSD Resources relate to one another from the perspective of representing network topology
+
+TODO:  Flesh out
+
+### Inclusion of Message Delivery Addresses
+This section will discuss how to represent message delivery addresses in an mCSD directory
+
+TODO:  Flesh out
+
+## Examples
+In this section we will take the example topologies from above and show how they would be represented in an mCSD directory
+
+### Single Community With Data Aggregator
+
+TODO
+
+### Single Community With Multiple Affinity Domains 
+
+TODO
+
+### Multiple Community Network 
+
+TODO
+
+# 5 Example Use Case Solutions
+This section will describe how the use cases in section 2 are enabled by the above suggestions
+
+TODO:  Flesh out
+
+## Document Access 
+
+TODO
+
+## Message Delivery
+
+TODO
+
+# 6 Miscellaneous
+
+## Further Reading
