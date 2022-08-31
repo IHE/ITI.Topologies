@@ -67,27 +67,46 @@ TODO:  Fix
 
 # 1 Introduction
 
-TODO:  Text covering the high level purpose of this whitepaper
+As civilization becomes increasingly connected, it is becoming increasingly important, and expected, that all stakeholders in a health information ecosystem can access the information they need quickly, seamlessly, and without concern for jurisdictional, geographic, or organizational boundaries. To do so requires vast information exchange networks that span entire countries, or ideally, the world. 
+
+The [Integrating the Healthcare Enterprise (IHE)](http://www.ihe.net) standards profiling
+organization has previously published a Health Information Exchange (HIE) Whitepaper (TODO: link) that gives an overview of the IHE integration profiles and policy decisions that should be considered when planning the architecture of a document sharing community. This whitepaper expands on the HIE whitepaper by exploring strategies for integrating multiple document sharing communities into one federated exchange ecosystem with wide and comprehensive reach at the national or global level. Readers are expected to be familiar with the concepts and ideas presented in the HIE whitepaper, as those concepts will be used and expanded upon here. 
 
 ## 1.1 Scope
 
-TODO:  Describe the scope of this whitepaper
+The scope of this whitepaper is to expand upon the IHE HIE Whitepaper by providing additional guidance on how existing document sharing communities can be interconnected for form a unified federated exchange ecosystem with wide and comprehensive reach. This whitepaper will assume that since existing networks are being connected, document sharing must be federated across the networks, but each network might use either a federated or centralized architecture. This whitepaper will not address any topics regarding the creation of a document sharing community or affinity domain. Readers interested in those topics are advised to look to the following existing IHE resources:
+
+- HIE Whitepaper
+- Template for XDS Affinity Domain Deployment Mapping
+- Metadata Handbook
+- TODO:  Link
+
+While document sharing will be federated across networks, this whitepaper recommends the use of a centralized directory, likely operated by an entity not part of any of the networks, that aggregates technical and organizational information about all participants in all connected networks. Examples will be based on the IHE mCSD integration profile (TODO:  link), which offers the functionality needed by such a directory, and also offers a transaction that can be used to synchronize the central directory with directories operated by each network.  
+
+In general, it is recommended that inter-network communication be architected such that members of one network need not understand the topology of the other interconnected networks. Networks should expose to each other standard interfaces that abstract away their underlying topologies to the greatest extent possible, and this can be accomplished with thoughtful and consistent use of IHE's integration profiles. That said, there a a few instances where members of one network might need to introspect into another network. The two cases this whitepaper will address are
+
+1. Situations where information received from another network needs to be attributed to a particular organization inside of that network
+2. Situations where a message needs to be delivered to a particular recipient within another network
+
+In both of these cases, the centralized directory will be used to correlate identifiers in document sharing messages with Organization Resources in the directory, such that a discrete association can be made programmatically.
+
+In addressing these use cases, this whitepaper's scope is limited to the exchange of healthcare documents across networks. Document exchange provides a good baseline for healthcare data interoperability, as it simplifies exchange by grouping data into documents. Document sharing allows for the exchange of both structured data (for example, CDA or FHIR documents) as well as unstructured data (for example, scanned documents, PDF files, etc.). This makes document exchange a good choice for establishing baseline data exchange, whereas other forms of exchange, such as search and read of discrete FHIR resources via a RESTful API, are more advanced and can be added to an existing exchange ecosystem once baseline goals are met. As such, this whitepaper focuses only on document sharing, and does not address problems that might arise from other forms of data exchange. 
 
 ## 1.2 Intended Audience
 
-TODO:  Describe intended audience
+The intended audience of this whitepaper includes those involved in promoting, coordinating, architecting or participating in federated exchange across existing health information sharing networks. This paper covers high level data exchange philosophies and architectures, but does not cover implementation details. Such details can be found in the underlying IHE profiles leveraged here. Furthermore, the intended audience is assumed to have a strong understanding of document sharing communities and other topics covered in the IHE HIE whitepaper. 
+
+Some intended audiences include:
+
+- Those charged with enabling widespread healthcare data exchange
+- Health Information Exchange Executives and Architects
+- Health-IT Vendor Architects and Developers
+- Standards Development Architects
+- Academic Health Data Exchange Stakeholders
 
 ## 1.3 High Level Concepts
 TODO:
 
-blah blah... blah blah...
-
-
-![General Diagram](images/diagram.png)
-
-**Figure 1: Diagram**
-
-blah blah
 
 
 ### Document Sharing Community
@@ -348,3 +367,10 @@ TODO
 # 6 Miscellaneous
 
 ## Further Reading
+
+## Scratchpad
+TODO:  This section SHALL be removed prior to public comment
+
+![General Diagram](images/diagram.png)
+
+**Figure 1: Diagram**
