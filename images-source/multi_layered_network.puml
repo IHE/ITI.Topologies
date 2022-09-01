@@ -1,0 +1,50 @@
+@startuml
+title "Example Multi-Layered Network"
+skinparam linetype ortho
+rectangle topLevelNetwork as "Top Level Network" {
+    rectangle lowerNetworkB as "Lower Network B" {
+        rectangle community3 as "Community 3" {
+            node ig3 as "Initiating Gateway"
+            node rg3 as "Responding Gateway"
+        }
+    }
+    rectangle lowerNetworkA as "Lower Network A" {
+        together {
+            node nig as "Initiating Gateway"
+            node nrg as "Responding Gateway"
+        }
+        rectangle community1 as "Community 1" {
+            together {
+                node ig1 as "Initiating Gateway"
+                node rg1 as "Responding Gateway"
+            }
+        node registry as "Document Registry"
+        node repo as "Document Repository"
+        node dc as "Document Consumer"
+        node ds as "Document Source"
+        } 
+        rectangle community2 as "Community 2" {
+            node ig2 as "Initiating Gateway"
+            node rg2 as "Responding Gateway"
+        }
+    }
+}
+ig3 -l-> nrg
+nig -r-> rg3
+ig1 -u-> nig
+ig2 -r-> nig
+nrg -d-> rg1
+nrg -l-> rg2
+ig1 -l-> rg2
+ig2 -r-> rg1
+dc -u-> ig1
+rg1 -d-> registry
+rg1 -d-> repo
+dc -u-> registry
+dc -r-> repo
+ds -l-> repo
+repo -u-> registry
+nig --[hidden]> nrg
+rg3 --[hidden]> ig3
+ig2 --[hidden]> rg2
+@enduml

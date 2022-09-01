@@ -67,7 +67,7 @@ TODO:  Fix
 
 # 1 Introduction
 
-As civilization becomes increasingly connected, it is becoming increasingly important, and expected, that all stakeholders in a health information ecosystem can access the information they need quickly, seamlessly, and without concern for jurisdictional, geographic, or organizational boundaries. 
+As civilization becomes increasingly connected, it is becoming increasingly important and expected that all stakeholders in a health information ecosystem can access the information they need quickly, seamlessly, and without concern for jurisdictional, geographic, or organizational boundaries. 
 To do so requires vast information exchange networks that span entire countries, or ideally, the world. 
 
 The [Integrating the Healthcare Enterprise (IHE)](http://www.ihe.net) standards profiling
@@ -138,7 +138,7 @@ A **Multi-Layered Document Sharing Network** is a document sharing network that 
 
 For the sake of clarity, this whitepaper will refer to the most atomic actors in a multi-layered network as the "bottom" layers, and the least atomic actors as the "top" layers. 
 
-TODO:  Diagram
+![Multi-Layered Diagram](images/multi_layered_network.png)
 
 ### Document Sharing Federation
 **Document Sharing Federation** refers to the act of architecting a document sharing network such that actors within the network exchange healthcare documents directly with one another rather than through a central actor. 
