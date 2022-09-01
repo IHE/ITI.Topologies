@@ -67,7 +67,8 @@ TODO:  Fix
 
 # 1 Introduction
 
-As civilization becomes increasingly connected, it is becoming increasingly important, and expected, that all stakeholders in a health information ecosystem can access the information they need quickly, seamlessly, and without concern for jurisdictional, geographic, or organizational boundaries. To do so requires vast information exchange networks that span entire countries, or ideally, the world. 
+As civilization becomes increasingly connected, it is becoming increasingly important, and expected, that all stakeholders in a health information ecosystem can access the information they need quickly, seamlessly, and without concern for jurisdictional, geographic, or organizational boundaries. 
+To do so requires vast information exchange networks that span entire countries, or ideally, the world. 
 
 The [Integrating the Healthcare Enterprise (IHE)](http://www.ihe.net) standards profiling
 organization has previously published a Health Information Exchange (HIE) Whitepaper (TODO: link) that gives an overview of the IHE integration profiles and policy decisions that should be considered when planning the architecture of a document sharing community. This whitepaper expands on the HIE whitepaper by exploring strategies for integrating multiple document sharing communities into one federated exchange ecosystem with wide and comprehensive reach at the national or global level. Readers are expected to be familiar with the concepts and ideas presented in the HIE whitepaper, as those concepts will be used and expanded upon here. 
@@ -105,29 +106,49 @@ Some intended audiences include:
 - Academic Health Data Exchange Stakeholders
 
 ## 1.3 High Level Concepts
-TODO:
-
-
+The following concepts and definitions will be used throughout this whitepaper. 
 
 ### Document Sharing Community
-Briefly introduce concept of Document Sharing Community as it exists in XC* profiles
+A **Document Sharing Community** is defined by XCPD (TODO:  Link) and XCA (TODO:  Link) as a group of facilities/enterprises that have agreed to work together using a common set of policies for the purpose of sharing health information within the community via an established mechanism. 
 
-TODO:  Flesh out
+Within each community, there exists a pair of gateways that are used to exchange data across community boundaries. 
+The Initiating Gateway is used by members within a community to send messages to actors outside of the community. 
+The Responding Gateway is the access point for actors outside of the community to access services within the community. 
+
+### Home Community ID
+A **Home Community ID** (HCID) is a globally unique identifier for a community. 
+Note that in the case where a community contains a single organization, a home community ID will also uniquely identify that organization, but in the general case where a community contains several organizations, the HCID will be distinctly different from individual organization identifiers. 
 
 ### Document Sharing Network
-Network defined as a collection of Communities
+A **Document Sharing Network** is defined as a collection of one or more Document Sharing Communities and/or Document Sharing Networks that agree to a common, higher level governance structure, participate in document sharing with one another, and share network central resources among one another. 
 
-TODO:  Flesh out
+Document Sharing Networks might provide their participant communities with a variety of services. 
+The most common are centralized directories, certificate authorities, and centralized network gateways. 
 
 ### Network Gateway
-Actor that allows access to a network from outside the network. Would be Initiating/Responding Gateway in XC* profiles. 
+A **Network Gateway** is a system, central to a given network, that facilitates data exchange across network boundaries. 
+The Initiating Gateway is used by participants within a network to send messages to actors belonging to other networks. 
+The Responding Gateway is the access point for actors belonging to other networks to access services within the network.
 
-TODO:  Flesh out
+Network Gateways expose the same interfaces and are interacted with in the same way as community gateways. The difference is that a Network Gateway might provide access to several communities. 
+Therefore, where network gateways are used, participants can interact with the network gateway in the same way as a community gateway, with the caveat that the network gateway might process information for several Home Community IDs. 
 
-### Federation
-Cross-network communication
+### Multi-Layered Document Sharing Network
+A **Multi-Layered Document Sharing Network** is a document sharing network that contains other document sharing networks as members. That is to say, such a network is a "network of networks". 
 
-TODO:  Flesh out
+For the sake of clarity, this whitepaper will refer to the most atomic actors in a multi-layered network as the "bottom" layers, and the least atomic actors as the "top" layers. 
+
+TODO:  Diagram
+
+### Document Sharing Federation
+**Document Sharing Federation** refers to the act of architecting a document sharing network such that actors within the network exchange healthcare documents directly with one another rather than through a central actor. 
+Since there is no central actor that facilitates exchange, the network actors must join together to form a larger entity - the document sharing network. 
+In this model, the removal of any actor from the network is subtractive - the network has lost the information made available by that actor. 
+
+In contrast, a centralized network has a set of central actors that aggregate information, and a set of ancillary actors that communicate with the central actors. 
+In this contrasting model, the removal of ancillary actors does not subtract from the information available in the network, since that information remains available in the central actors. 
+
+Federation can occur at any layer of a multi-layered document sharing network, though it becomes more likely as higher and higher layers are added, because centralization becomes cumbersome as the network topological depth increases. 
 
 ### Directories
 Will discuss the functionality that Directories can provide; point to mCSD
