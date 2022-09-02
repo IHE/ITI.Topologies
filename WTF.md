@@ -75,7 +75,7 @@ organization has previously published a Health Information Exchange (HIE) Whitep
 
 ## 1.1 Scope
 
-The scope of this whitepaper is to expand upon the IHE HIE Whitepaper by providing additional guidance on how existing document sharing communities can be interconnected for form a unified federated exchange ecosystem with wide and comprehensive reach. This whitepaper will assume that since existing networks are being connected, document sharing must be federated across the networks, but each network might use either a federated or centralized architecture. This whitepaper will not address any topics regarding the creation of a document sharing community or affinity domain. Readers interested in those topics are advised to look to the following existing IHE resources:
+The scope of this whitepaper is to expand upon the IHE HIE Whitepaper by providing additional guidance on how existing document sharing communities can be interconnected to form a unified federated exchange ecosystem with wide and comprehensive reach. This whitepaper will assume that since existing networks are being connected, document sharing must be federated across the networks, but each network might use either a federated or centralized architecture. This whitepaper will not address any topics regarding the creation of a document sharing community or affinity domain. Readers interested in those topics are advised to look to the following existing IHE resources:
 
 - HIE Whitepaper
 - Template for XDS Affinity Domain Deployment Mapping
