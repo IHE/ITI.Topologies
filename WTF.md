@@ -150,34 +150,74 @@ In this contrasting model, the removal of ancillary actors does not subtract fro
 
 Federation can occur at any layer of a multi-layered document sharing network, though it becomes more likely as higher and higher layers are added, because centralization becomes cumbersome as the network topological depth increases. 
 
-### Directories
-Will discuss the functionality that Directories can provide; point to mCSD
+### Care Services Directory
+A **Care Services Directory** is a common, authoritative registry of the healthcare organizations, locations, practitioners, etc. and their contact information (both electronic and otherwise). 
+A document sharing network, at minimum, needs a directory that contains the set of organizations that are members of the network and the communication endpoints for document sharing. 
+More advanced networks will also want to have information about the network topology in the directory, as well as information about the healthcare locations, practitioners, jurisdictions, services, and organizational business relationships. 
 
-TODO:  Flesh out
+IHE offers the Mobile Care Services Directory (mCSD) (TODO:  link) integration profile to specify how such a directory should operate, and the mCSD White Paper (TODO:  link) offers additional explanation on how the mCSD profile can be implemented to solve the business needs of a healthcare information exchange. 
 
 ### Patient Identity Management/Linking
-Concepts around determining that 2 patient identities across 2 networks or communities can be associated to be the same person. Point heavily at XCPD, maybe PDQm. 
+In order to successfully and safely exchange patient health information within and across document sharing communities and networks, it is imperative that the parties doing the exchange are able to establish agreement about the patient that is the subject of their communication. 
 
-TODO:  Flesh out
+The concepts and profiles discussed in section 5 of the HIE Whitepaper (TODO:  link) can be successfully applied across communities and networks.
+An important note is that in cases where interaction with network gateways that represent multiple communities is needed, only the XCPD profile currently offers the functionality needed to give systems outside of the network access to patient identities for each community within the network. 
+Other IHE profiles, such as the PDQ family of profiles, do not allow distinguishing between different identities across different communities, and so would only be sufficient when interacting with gateways that represent a single community or offer the facade of a single community.
 
 ### Query and Retrieve
-Discuss document query and retrieve as a general document exchange pattern. Point at XCA and MHD. 
+**Document Query and Retrieve** refers to a document sharing model where documents are exchanged in a two step process. 
+In the first step, the document consumer actor sends a request for a list of available documents. 
+In the second step, the document consumer actor reviews the obtained list of documents and retrieves certain documents from the list. 
 
-TODO:  Flesh out
+This model is often referred to as the "pull" model. 
+It is generally used in situations where the actors consuming the document need to be able to search and retrieve information about a patient. 
+This is most often the case for end user stories that involve reviewing the medical history, or current medical chart, for the patient. 
+
+Document Query and Retrieve is enabled by the IHE XCA profile (TODO:  link) in a network setting, but can also be enabled by the MHD profile (TODO:  Link). 
 
 ### Message Delivery
-Discuss document "push" and general message delivery pattern. Point at XDR, XCDR, MHD. 
+**Message Delivery** refers to a document sharing model where an information source wants to communicate healthcare information to a particular, intended recipient. 
+In this model, documents are prepared by the source and then need to be communicated and routed to a recipient that consumes them directly. 
 
-TODO:  Flesh out
+This model can be thought of as a direct replacement for email, fax, postal mail, etc. and is often referred to as a "push" model.
+
+Message Delivery is enabled by the IHE XDR (TODO:  link), MHD, and XCDR (TODO:  link) integration profiles. 
 
 ### Translation Capabilities
-Network Gateways might have the ability to translate between different communication protocols. Ex:  translation between XCA and MHD. 
+When a community or network is being constructed in a completely greenfield space, ie, one that does not have any existing technology to reconcile with, a single information exchange standard can be chosen such that all systems seamlessly and natively interoperate with each other.
+However, when existing networks become interconnected, and as old systems are replaced with new systems, there will eventually be a need to be able to translate between different communication standards. 
+This might mean translating between different IHE integration profiles, such as XCA and the FHIR based MHD profiles, between proprietary data exchange formats and standard formats, or between formats offered by different standards bodies, such as HL7 FHIR IPA and IHE MHD+CDA documents. 
 
-Example: Org 1.2.3 exposes two endpoints: XCA and MHD. One interface is an adapter over the other (not sure if we need to show both ways). Whether the requester calls one or the other interface, they get clinical data from the same organization / set of identities. We would call this a TBD (bridge? adapter?)
+One of IHE's general principles is to describe interactions between systems and to avoid specifying implementations within systems. 
+This design principle lends itself well to translation, since it means that as long as the interface exposed by the translating system fully conforms to the relevant IHE integration profile, other systems implementing the other ends of those profiles will be able to interoperate without even realizing that translation is taking place. 
 
-Example: Org 1.2.3 exposes an XCA endpoint, and behind that endpoint is another org 4.5.6 and MHD. One interface is an adapter over the other (not sure if we need to show both ways). Whether the requester calls one or the other interface, they get clinical data from the same organization / set of identities.
+One of the primary use cases of the IHE MHD integration profile is to act as a translation layer between FHIR based systems and systems that implement IHE's XDS family of integration profiles. 
+Therefore, IHE has already done the work of mapping the MHD elements to their XDS equivalents, making translation between MHD and XD* profiles exceptionally natural. 
 
-TODO:  Flesh out
+Translation will generally be added to networks in the gateways. 
+The gateways will expose one set of interfaces to the systems inside of the network, and a separate set of interfaces to systems outside of the network. 
+They might even expose multiple functionally sets of interfaces inside or outside of the network, in order to offer a choice to the systems they must communicate with around which communication protocols can be used. 
+
+Example: Community A exposes two endpoints on its Responding Gateway: XCA and MHD. 
+The community is implemented as an XDS Affinity Domain internally, so the MHD interface must translate between XDS and MHD messages. 
+Systems outside of the community can use either endpoint, depending on their communication preferences, and in both cases the same set of documents are returned from the internal XDS Affinity Domain. 
+
+Example: Community B exposes an XCA endpoint to the rest of the network it is a part of, according to network governance. Internally, Community B contains a mix of systems that use XDS.b and MHD. 
+The XCA Responding Gateway of Community B is grouped with XDS.b and MHD Document Consumers, so that it can accept requests from outside of the community and federate them among the internal systems that contain data being searched for. 
+Once it receives responses from all systems, it must translate those responses into an XCA response to meet the network expectations. 
+It will do so in a way that is transparent, such that actors outside of the community are not aware of the mixed architecture of the community. 
+
+### Facade Community
+Rather than expose internal networks and communities directly, a network could be designed to expose a single facade community to other networks with which it is interconnected.
+Such a community would have a single Home Community ID, different from those of the internal communities. 
+The network gateways would therefore be responsible for aggregating information from all of the systems within, in order to appear as a single cohesive community to the outside. 
+
+A network offering a facade community must be able to act as a single community for all interactions. 
+It must maintain a patient identity cross reference manager, so that patient identities across the internal communities can be aggregated into a single patient identity in the facade community.
+When it receives a document list query, it must be able to forward that query to all communities that are part of the facade, and aggregate the responses into a single unified response. 
+When it receives a message for delivery, it must be able to route the message to the appropriate community without using a home community id. 
+
+The advantages of such an architecture is that it offers a simplified mechanism for interacting with the network for systems outside of the network, at the cost of complicating the network architecture. 
 
 # 2 Federation Use Cases
 
