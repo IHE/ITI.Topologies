@@ -140,6 +140,8 @@ For the sake of clarity, this whitepaper will refer to the most atomic actors in
 
 ![Multi-Layered Diagram](images/multi_layered_network.png)
 
+**Figure # - Example Multi-Layered Network**
+
 ### Document Sharing Federation
 **Document Sharing Federation** refers to the act of architecting a document sharing network such that actors within the network exchange healthcare documents directly with one another rather than through a central actor. 
 Since there is no central actor that facilitates exchange, the network actors must join together to form a larger entity - the document sharing network. 
@@ -236,7 +238,7 @@ This will be the case where the network has a single community, and that communi
 
 TODO:  Flesh out
 
-## Single Community With Data Aggregator
+## Single Facade Community
 This will be the case where a network has a single community. That community has a responding gateway that aggregates data from within the community and generates aggregate documents for the community as a whole. 
 
 TODO:  Flesh out
