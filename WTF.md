@@ -2,11 +2,9 @@
 
 ![IHE\_LOGO\_for\_tf-docs](images/IHE-logo.jpeg)
 
-**[IHE ITI](https://profiles.ihe.net/ITI)**
+**[IHE IT Infrastructure (ITI)](https://profiles.ihe.net/ITI) White Paper**
 
-**Technical Framework Supplement**
-
-**Whitepaper on Topological Federation of document sharing**
+**Topological Federation of Document Sharing**
 
 **Revision 0.1 - Draft**
 
@@ -16,21 +14,21 @@ Author: ITI Technical Committee
 
 Email: iti@ihe.net
 
-**Please verify you have the most recent version of this white paper. See [here](http://profiles.ihe.net/ITI) for the Published version.
+**Please verify you have the most recent version of this white paper. See [here](https://profiles.ihe.net/ITI/#1.6) for the Published version and [here] (https://profiles.ihe.net/ITI/#1.3) for Public Comment versions.
 
 **Foreword**
 
-This is a whitepaper to the IHE IT Infrastructure Technical Framework. Each whitepaper undergoes a process of public comment and publication. IHE whitepapers are informative, and are used to describe or investigate the needs for normative publications.
+This is a white paper to the IHE IT Infrastructure Technical Framework. Each white paper undergoes a process of public comment and publication. IHE white papers are informative and are used to describe or investigate the need for normative publications.
 
-Comments are invited and can be submitted using the [ITI Public Comment form](http://www.ihe.net/ITI_Public_Comments/) or by creating a [GitHub Issue](https://github.com/IHE/ITI.WTF/issues/new?assignees=&labels=&template=public-comment-issue-template.md&title=).
+Comments are invited and can be submitted using the [IT Infrastructure Comment Form](http://www.ihe.net/ITI_Public_Comments/) or by creating a [GitHub Issue](https://github.com/IHE/ITI.WTF/issues/new?assignees=&labels=&template=public-comment-issue-template.md&title=).
 
-General information about IHE can be found at [http://www.ihe.net](http://www.ihe.net).
+General information about IHE can be found at [IHE.net](http://www.ihe.net).
 
-Information about the IHE IT Infrastructure domain can be found at [https://www.ihe.net/IHE_Domains](https://www.ihe.net/IHE_Domains/).
+Information about the IHE IT Infrastructure domain can be found at [IHE Domains](https://www.ihe.net/IHE_Domains/).
 
-Information about the organization of IHE Technical Frameworks and Supplements and the process used to create them can be found at [https://www.ihe.net/about_ihe/ihe_process](https://www.ihe.net/about_ihe/ihe_process/) and [https://www.ihe.net/resources/profiles](https://www.ihe.net/resources/profiles/).
+Information about the organization of IHE Technical Frameworks and Supplements and the process used to create them can be found at [Profiles](https://www.ihe.net/resources/profiles/) and [IHE Process](https://www.ihe.net/about_ihe/ihe_process/).
 
-The current version of the IHE Technical Framework can be found at [https://profiles.ihe.net/](https://profiles.ihe.net/).
+The current version of the IHE IT Infrastructure Technical Framework can be found at [IT Infrastructure Technical Framework](https://profiles.ihe.net/).
 
 **CONTENTS**
 
@@ -71,31 +69,30 @@ As civilization becomes increasingly connected, it is becoming increasingly impo
 To do so requires vast information exchange networks that span entire countries, or ideally, the world. 
 
 The [Integrating the Healthcare Enterprise (IHE)](http://www.ihe.net) standards profiling
-organization has previously published a Health Information Exchange (HIE) Whitepaper (TODO: link) that gives an overview of the IHE integration profiles and policy decisions that should be considered when planning the architecture of a document sharing community. This whitepaper expands on the HIE whitepaper by exploring strategies for integrating multiple document sharing communities into one federated exchange ecosystem with wide and comprehensive reach at the national or global level. Readers are expected to be familiar with the concepts and ideas presented in the HIE whitepaper, as those concepts will be used and expanded upon here. 
+organization has previously published a [Health Information Exchange (HIE) White Paper](https://profiles.ihe.net/ITI/HIE-Whitepaper/index.html) that gives an overview of the IHE integration profiles and policy decisions that should be considered when planning the architecture of a document sharing community. This white paper expands on the HIE White Paper by exploring strategies for integrating multiple document sharing communities into one federated exchange ecosystem with wide and comprehensive reach at the national or global level. Readers are expected to be familiar with the concepts and ideas presented in the HIE White Paper, as those concepts will be used and expanded upon here. 
 
 ## 1.1 Scope
 
-The scope of this whitepaper is to expand upon the IHE HIE Whitepaper by providing additional guidance on how existing document sharing communities can be interconnected to form a unified federated exchange ecosystem with wide and comprehensive reach. This whitepaper will assume that since existing networks are being connected, document sharing must be federated across the networks, but each network might use either a federated or centralized architecture. This whitepaper will not address any topics regarding the creation of a document sharing community or affinity domain. Readers interested in those topics are advised to look to the following existing IHE resources:
+The scope of this white paper is to expand upon the ITI HIE White Paper by providing additional guidance on how existing document sharing communities can be interconnected to form a unified federated exchange ecosystem with wide and comprehensive reach. This white paper will assume that since existing networks are being connected, document sharing must be federated across the networks, but each network might use either a federated or centralized architecture. This white paper will not address any topics regarding the creation of a document sharing community or affinity domain. Readers interested in those topics are advised to look to the following existing IHE resources:
 
-- HIE Whitepaper
-- Template for XDS Affinity Domain Deployment Mapping
-- Metadata Handbook
-- TODO:  Link
+- [HIE White Paper](https://profiles.ihe.net/ITI/HIE-Whitepaper/index.html)
+- [Template for XDS Affinity Domain Deployment Mapping](https://www.ihe.net/Technical_Framework/upload/IHE_ITI_White_Paper_XDS_Affinity_Domain_Template_TI_2008-12-02.pdf)
+- [Metadata Handbook](https://profiles.ihe.net/ITI/papers/metadata/index.html) 
 
-While document sharing will be federated across networks, this whitepaper recommends the use of a centralized directory, likely operated by an entity not part of any of the networks, that aggregates technical and organizational information about all participants in all connected networks. Examples will be based on the IHE mCSD integration profile (TODO:  link), which offers the functionality needed by such a directory, and also offers a transaction that can be used to synchronize the central directory with directories operated by each network.  
+While document sharing will be federated across networks, this white paper recommends the use of a centralized directory, likely operated by an entity not part of any of the networks, that aggregates technical and organizational information about all participants in all connected networks. Examples will be based on the [mCSD](https://profiles.ihe.net/ITI/mCSD/index.html) Profile, which offers the functionality needed by such a directory, and also offers a transaction that can be used to synchronize the central directory with directories operated by each network.  
 
-In general, it is recommended that inter-network communication be architected such that members of one network need not understand the topology of the other interconnected networks. Networks should expose to each other standard interfaces that abstract away their underlying topologies to the greatest extent possible, and this can be accomplished with thoughtful and consistent use of IHE's integration profiles. That said, there a a few instances where members of one network might need to introspect into another network. The two cases this whitepaper will address are
+In general, it is recommended that inter-network communication be architected such that members of one network need not understand the topology of the other interconnected networks. Networks should expose to each other standard interfaces that abstract away their underlying topologies to the greatest extent possible, and this can be accomplished with thoughtful and consistent use of IHE's integration profiles. That said, there a a few instances where members of one network might need to introspect into another network. The two cases this white paper will address are
 
 1. Situations where information received from another network needs to be attributed to a particular organization inside of that network
 2. Situations where a message needs to be delivered to a particular recipient within another network
 
 In both of these cases, the centralized directory will be used to correlate identifiers in document sharing messages with Organization Resources in the directory, such that a discrete association can be made programmatically.
 
-In addressing these use cases, this whitepaper's scope is limited to the exchange of healthcare documents across networks. Document exchange provides a good baseline for healthcare data interoperability, as it simplifies exchange by grouping data into documents. Document sharing allows for the exchange of both structured data (for example, CDA or FHIR documents) as well as unstructured data (for example, scanned documents, PDF files, etc.). This makes document exchange a good choice for establishing baseline data exchange, whereas other forms of exchange, such as search and read of discrete FHIR resources via a RESTful API, are more advanced and can be added to an existing exchange ecosystem once baseline goals are met. As such, this whitepaper focuses only on document sharing, and does not address problems that might arise from other forms of data exchange. 
+In addressing these use cases, this white paper's scope is limited to the exchange of healthcare documents across networks. Document exchange provides a good baseline for healthcare data interoperability, as it simplifies exchange by grouping data into documents. Document sharing allows for the exchange of both structured data (for example, CDA or FHIR documents) as well as unstructured data (for example, scanned documents, PDF files, etc.). This makes document exchange a good choice for establishing baseline data exchange, whereas other forms of exchange, such as search and read of discrete FHIR resources via a RESTful API, are more advanced and can be added to an existing exchange ecosystem once baseline goals are met. As such, this white paper focuses only on document sharing, and does not address problems that might arise from other forms of data exchange. 
 
 ## 1.2 Intended Audience
 
-The intended audience of this whitepaper includes those involved in promoting, coordinating, architecting or participating in federated exchange across existing health information sharing networks. This paper covers high level data exchange philosophies and architectures, but does not cover implementation details. Such details can be found in the underlying IHE profiles leveraged here. Furthermore, the intended audience is assumed to have a strong understanding of document sharing communities and other topics covered in the IHE HIE whitepaper. 
+The intended audience of this white paper includes those involved in promoting, coordinating, architecting or participating in federated exchange across existing health information sharing networks. This paper covers high level data exchange philosophies and architectures, but does not cover implementation details. Such details can be found in the underlying IHE profiles leveraged here. Furthermore, the intended audience is assumed to have a strong understanding of document sharing communities and other topics covered in the ITI HIE White Paper. 
 
 Some intended audiences include:
 
@@ -106,10 +103,10 @@ Some intended audiences include:
 - Academic Health Data Exchange Stakeholders
 
 ## 1.3 High Level Concepts
-The following concepts and definitions will be used throughout this whitepaper. 
+The following concepts and definitions will be used throughout this white paper. 
 
 ### Document Sharing Community
-A **Document Sharing Community** is defined by XCPD (TODO:  Link) and XCA (TODO:  Link) as a group of facilities/enterprises that have agreed to work together using a common set of policies for the purpose of sharing health information within the community via an established mechanism. 
+A **Document Sharing Community** is defined by the [XCPD](https://profiles.ihe.net/ITI/TF/Volume1/ch-27.html) Profle and the [XCA](https://profiles.ihe.net/ITI/TF/Volume1/ch-18.html) Profile as a group of facilities/enterprises that have agreed to work together using a common set of policies for the purpose of sharing health information within the community via an established mechanism. 
 
 Within each community, there exists a pair of gateways that are used to exchange data across community boundaries. 
 The Initiating Gateway is used by members within a community to send messages to actors outside of the community. 
@@ -136,11 +133,11 @@ Therefore, where network gateways are used, participants can interact with the n
 ### Multi-Layered Document Sharing Network
 A **Multi-Layered Document Sharing Network** is a document sharing network that contains other document sharing networks as members. That is to say, such a network is a "network of networks". 
 
-For the sake of clarity, this whitepaper will refer to the most atomic actors in a multi-layered network as the "bottom" layers, and the least atomic actors as the "top" layers. 
+For the sake of clarity, this white paper will refer to the most atomic actors in a multi-layered network as the "bottom" layers, and the least atomic actors as the "top" layers. 
 
 ![Multi-Layered Diagram](images/multi_layered_network.png)
 
-**Figure # - Example Multi-Layered Network**
+**Figure 1.3-1: Example Multi-Layered Network**
 
 ### Document Sharing Federation
 **Document Sharing Federation** refers to the act of architecting a document sharing network such that actors within the network exchange healthcare documents directly with one another rather than through a central actor. 
@@ -157,13 +154,13 @@ A **Care Services Directory** is a common, authoritative registry of the healthc
 A document sharing network, at minimum, needs a directory that contains the set of organizations that are members of the network and the communication endpoints for document sharing. 
 More advanced networks will also want to have information about the network topology in the directory, as well as information about the healthcare locations, practitioners, jurisdictions, services, and organizational business relationships. 
 
-IHE offers the Mobile Care Services Directory (mCSD) (TODO:  link) integration profile to specify how such a directory should operate, and the mCSD White Paper (TODO:  link) offers additional explanation on how the mCSD profile can be implemented to solve the business needs of a healthcare information exchange. 
+IHE offers the [Mobile Care Services Directory (mCSD)](https://profiles.ihe.net/ITI/mCSD/index.html) Profile to specify how such a directory should operate, and the [mCSD White Paper](https://profiles.ihe.net/ITI/papers/mCSD/index.html) offers additional explanation on how the mCSD Profile can be implemented to solve the business needs of a healthcare information exchange. 
 
 ### Patient Identity Management/Linking
 In order to successfully and safely exchange patient health information within and across document sharing communities and networks, it is imperative that the parties doing the exchange are able to establish agreement about the patient that is the subject of their communication. 
 
-The concepts and profiles discussed in section 5 of the HIE Whitepaper (TODO:  link) can be successfully applied across communities and networks.
-An important note is that in cases where interaction with network gateways that represent multiple communities is needed, only the XCPD profile currently offers the functionality needed to give systems outside of the network access to patient identities for each community within the network. 
+The concepts and profiles discussed in Section 5 of the [HIE White Paper](https://profiles.ihe.net/ITI/HIE-Whitepaper/index.html#5-patient-identity-management) can be successfully applied across communities and networks.
+An important note is that in cases where interaction with network gateways that represent multiple communities is needed, only the XCPD Profile currently offers the functionality needed to give systems outside of the network access to patient identities for each community within the network. 
 Other IHE profiles, such as the PDQ family of profiles, do not allow distinguishing between different identities across different communities, and so would only be sufficient when interacting with gateways that represent a single community or offer the facade of a single community.
 
 ### Query and Retrieve
@@ -175,7 +172,7 @@ This model is often referred to as the "pull" model.
 It is generally used in situations where the actors consuming the document need to be able to search and retrieve information about a patient. 
 This is most often the case for end user stories that involve reviewing the medical history, or current medical chart, for the patient. 
 
-Document Query and Retrieve is enabled by the IHE XCA profile (TODO:  link) in a network setting, but can also be enabled by the MHD profile (TODO:  Link). 
+Document Query and Retrieve is enabled by the [XCA](https://profiles.ihe.net/ITI/TF/Volume1/ch-18.html) Profile in a network setting, but can also be enabled by the [MHD](https://profiles.ihe.net/ITI/MHD/index.html) Profile. 
 
 ### Message Delivery
 **Message Delivery** refers to a document sharing model where an information source wants to communicate healthcare information to a particular, intended recipient. 
@@ -183,7 +180,7 @@ In this model, documents are prepared by the source and then need to be communic
 
 This model can be thought of as a direct replacement for email, fax, postal mail, etc. and is often referred to as a "push" model.
 
-Message Delivery is enabled by the IHE XDR (TODO:  link), MHD, and XCDR (TODO:  link) integration profiles. 
+Message Delivery is enabled by the [XDR](https://profiles.ihe.net/ITI/TF/Volume1/ch-15.html), [MHD](https://profiles.ihe.net/ITI/TF/Volume1/ch-33.html), and [XCDR](https://profiles.ihe.net/ITI/TF/Volume1/ch-40.html) Profiles. 
 
 ### Translation Capabilities
 When a community or network is being constructed in a completely greenfield space, ie, one that does not have any existing technology to reconcile with, a single information exchange standard can be chosen such that all systems seamlessly and natively interoperate with each other.
