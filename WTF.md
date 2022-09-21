@@ -121,11 +121,14 @@ Some intended audiences include:
 The following concepts and definitions will be used throughout this white paper. 
 
 ### Document Sharing Community
-A **Document Sharing Community** is defined by the [XCPD](https://profiles.ihe.net/ITI/TF/Volume1/ch-27.html) Profle and the [XCA](https://profiles.ihe.net/ITI/TF/Volume1/ch-18.html) Profile as a group of facilities/enterprises that have agreed to work together using a common set of policies for the purpose of sharing health information within the community via an established mechanism. 
+A **Document Sharing Community** is a group of facilities/enterprises that have agreed to work together using a common set of policies for the purpose of sharing health information within the community via an established mechanism. 
 
 Within each community, there exists a pair of gateways that are used to exchange data across community boundaries. 
 The Initiating Gateway is used by members within a community to send messages to actors outside of the community. 
 The Responding Gateway is the access point for actors outside of the community to access services within the community. 
+These Actors are logically separate, but can be combined into a single system at the discression of the implementer.
+
+This pattern was established in the [XCPD](https://profiles.ihe.net/ITI/TF/Volume1/ch-27.html) and [XCA](https://profiles.ihe.net/ITI/TF/Volume1/ch-18.html) Profiles, but can be applied to other environments as well.
 
 ### Home Community ID
 A **Home Community ID** (HCID) is a globally unique identifier for a community. 
