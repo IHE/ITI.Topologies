@@ -87,9 +87,10 @@ Readers interested in those topics are advised to look to the following existing
 While document sharing will be federated across networks, this white paper recommends the use of a centralized directory, likely operated by an entity not part of any of the networks, that aggregates technical and organizational information about all participants in all connected networks. 
 Examples will be based on the [mCSD](https://profiles.ihe.net/ITI/mCSD/index.html) Profile, which offers the functionality needed by such a directory, and also offers a transaction that can be used to synchronize the central directory with directories operated by each network.  
 
-In general, it is recommended that inter-network communication be architected such that members of one network need not understand the topology of the other interconnected networks. 
-Networks should expose to each other standard interfaces that abstract away their underlying topologies to the greatest extent possible, and this can be accomplished with thoughtful and consistent use of IHE's integration profiles. 
-That said, there a a few instances where members of one network might need to introspect into another network. 
+Networks should expose to each other standard interfaces that abstract away their underlying topologies to the greatest extent possible.
+Ideally, these would be the same standards based interfaces used to communicate between communities within networks, and this can be accomplished with thoughtful and consistent use of IHE's integration profiles. If this is done well, then introspection into another network is not necessary to facilitate the flow of information. 
+
+That said, there a a few instances where members of one network might need to introspect into another network in order to interpret the information they are receiving.
 The two cases this white paper will address are
 
 1. Situations where information received from another network needs to be attributed to a particular organization inside of that network
