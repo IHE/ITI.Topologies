@@ -283,12 +283,16 @@ The EHR needs to be able to send a message that will be received by the communit
 
 # 3 Example Network Topologies
 
-
+This white paper does not specify or endorse any particular network topology. Instead, it recommends the use of standard exchange interfaces at the network gateway level, so that when networks must be interconnected, they can be regardless of topology. What follows are possible example network topologies:
 
 ## Single Community With Single Affinity Domain
-This will be the case where the network has a single community, and that community itself has a single source for clinical data. 
+In this example, a standalone community interfaces directly with other networks. In this sense, any community can be thought of as it's own individual network. 
 
-TODO:  Flesh out
+Our example community here consists of a single XDS Affinity Domain. The community gateways abstract away the details of the XDS Affinity Domain from other communities and networks that must interoperate.
+
+![Multi-Layered Diagram](images/single_affinity_domain_community.png)
+
+**Figure 1.3-1: Example Multi-Layered Network**
 
 ## Single Facade Community
 This will be the case where a network has a single community. That community has a responding gateway that aggregates data from within the community and generates aggregate documents for the community as a whole. 
