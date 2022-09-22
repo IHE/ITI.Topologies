@@ -241,13 +241,49 @@ The advantages of such an architecture is that it offers a simplified mechanism 
 
 ## Document Access
 
-TODO:  Write User Story
+In the Document Access use case, a user with a legitimate need to access healthcare information, such as a member of a patient's treatment team, wants to discover all available healthcare information for a patient and review information that they find most pertinent. 
+Consider the following scenario:
+
+Dr. Suwati is a primary care physician that works for New Hope Medical Partners. 
+Her new patient, Vanna Patterson, recently moved to the area from across the country. 
+Before moving, Vanna had been undergoing cancer treatment for about 9 months at several healthcare organizations. 
+Since she lived in a rural town, her old primary care physician worked for a small community health center - Valley Access Healthcare. 
+Meanwhile, she received her specialty oncology care from a larger, academic health system - University Health. 
+To complicate matters, University Health had completed a re-branding 4 month's prior, right in the middle of Vanna's treatment, which means any healthcare summary documents generated prior will have the organization's old name. 
+
+Dr. Suwati will be taking over as Vanna's new primary care physician, and wants to understand the history and progression of Vanna's disease and the treatment she has undergone thus far. 
+Dr. Suwati has listened to Vanna recount the care she has received, and now Dr. Suwati would like to review her medical records to gain clarity from the physician point of view. 
+While recounting her medical journey, Vanna described most of the care she received in the context of the organization where she received it, and Dr. Suwati would like to be able to correlate Vanna's story with her medical record. 
+
+Dr. Suwati requests her EHR to find all available medical records for Vanna using Vanna's patient demographics. 
+The EHR searches other communities for patients with Vanna's demographics and, once matching patients are found, queries for the documents that make up Vanna's chart. 
+Dr. Suwati also finds that additional records were found at Urgent Health. 
+Those documents mentioned that Vanna had had a severe reaction to some medication she had been prescribed, such that Vanna should not be prescribed that medication again.
+Vanna hadn't mentioned that she was seen at Urgent Health, so Dr. Suwati is grateful that the records were located automatically. 
+In order to help organize the documents, Dr. Suwati requests her EHR to sort the documents by date and group by source healthcare organization. 
+Dr. Suwati is not concerned with University Health's recent rebranding, she wants to see all of the documents available from that organization throughout history to gain an overview of Vanna's specialty care. 
+
+To meet Dr. Suwati's needs, the EHR needs to be able to programatically broadcast a set of patient discovery requests to other communities, evaluate the responses and follow-up with queries for medical documents, and then collelate the medical documents by discrete Organization.
+In order to respond quickly enough for Dr. Suwati's busy schedule, all of this needs to happen efficiently, and without actually retrieving or parsing the contents of all of the documents that were found.  
 
 ## Message Delivery
 
-TODO:  Write User Story
+In the Message Delivery use case, a user has a message that they want to convey to a particular recipient in another - potentially far away community. 
+The destination recipient might be an individual, a department at a healthcare organization, or other such addressable entity. Consider the following scenario:
+
+Dr. Suwati has a patient, Leon Sanford, that has a rare genetic disorder that Dr. Suwati is unfamiliar with. 
+Dr. Suwati has learned that University Health, on the other side of the country, as a department that specializes in this particular disorder. 
+Dr. Suwati wants to refer Leon to the team of experts at University Health so that Leon can be evaluated by the world renowned experts in his condition. 
+
+Dr. Suwati prepares a referral order and a letter in which she details her treatment of Leon thus far and the clinical questions she has for the experts. 
+Dr. Suwati requests her EHR to send the referral, the letter, and a summary of care document to the expert department at University Health. 
+
+University health is located in another document sharing community, but there is a communication path between New Hope Medical Partners and University Health. 
+The EHR needs to be able to send a message that will be received by the community to which University Health is a member, and further see the message automatically routed to the genetic specialists at University Health. 
 
 # 3 Example Network Topologies
+
+
 
 ## Single Community With Single Affinity Domain
 This will be the case where the network has a single community, and that community itself has a single source for clinical data. 
