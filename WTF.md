@@ -279,7 +279,7 @@ Dr. Suwati prepares a referral order and a letter in which she details her treat
 Dr. Suwati requests her EHR to send the referral, the letter, and a summary of care document to the expert department at University Health. 
 
 University health is located in another document sharing community, but there is a communication path between New Hope Medical Partners and University Health. 
-The EHR needs to be able to send a message that will be received by the community to which University Health is a member, and further see the message automatically routed to the genetic specialists at University Health. 
+The EHR needs to be able to send a message that will be received by the community to which University Health is a member, and further know that the message will be automatically routed to the genetic specialists at University Health. 
 
 # 3 Example Network Topologies
 
