@@ -272,7 +272,7 @@ In the Message Delivery use case, a user has a message that they want to convey 
 The destination recipient might be an individual, a department at a healthcare organization, or other such addressable entity. Consider the following scenario:
 
 Dr. Suwati has a patient, Leon Sanford, that has a rare genetic disorder that Dr. Suwati is unfamiliar with. 
-Dr. Suwati has learned that University Health, on the other side of the country, as a department that specializes in this particular disorder. 
+Dr. Suwati has learned that University Health, on the other side of the country, has a department that specializes in this particular disorder. 
 Dr. Suwati wants to refer Leon to the team of experts at University Health so that Leon can be evaluated by the world renowned experts in his condition. 
 
 Dr. Suwati prepares a referral order and a letter in which she details her treatment of Leon thus far and the clinical questions she has for the experts. 
