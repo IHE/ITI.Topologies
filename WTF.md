@@ -285,29 +285,51 @@ The EHR needs to be able to send a message that will be received by the communit
 
 This white paper does not specify or endorse any particular network topology. Instead, it recommends the use of standard exchange interfaces at the network gateway level, so that when networks must be interconnected, they can be regardless of topology. What follows are possible example network topologies:
 
-## Single Community With Single Affinity Domain
-In this example, a standalone community interfaces directly with other networks. In this sense, any community can be thought of as it's own individual network. 
+## Single Organization Community
+It is possible for a singleton organization to form a community by itself, and for that community to interface directly with other networks. 
 
-Our example community here consists of a single XDS Affinity Domain. The community gateways abstract away the details of the XDS Affinity Domain from other communities and networks that must interoperate.
+The following example shows Home Community 1.2.3, architected as a single XDS Affinity Domain that is completely controlled by Organization ABC.
 
 ![Multi-Layered Diagram](images/single_affinity_domain_community.png)
 
 **Figure 1.3-1: Example Multi-Layered Network**
 
+## Multi-Organization Community
+Multiple organizations can also join together into a community. In this case, querying the community responding gateway will return results for data produced by both organizations. 
+
+The below example shows one such topology, where two organizations have chosen to belong to the same XDS Affinity Domain and therefore share the same XDS infrastructure. 
+
+![Multi-Layered Diagram](images/multi_organization_community.png)
+**Figure 1.3-1: Example Multi-Layered Network**
+
 ## Single Facade Community
-This will be the case where a network has a single community. That community has a responding gateway that aggregates data from within the community and generates aggregate documents for the community as a whole. 
+A community might have a fairly complex architecture internally. It might even be composed of many organizations that exchange data using proprietary mechanisms. However, if the community exposes gateways that are able to abstract away the internal complexities and expose data in the form of documents, then it can successfully act as a node in a multi-layered document sharing network.
 
-TODO:  Flesh out
+In this example, a community is made up of three organizations that exchange data using proprietary methods. The Responding Gateway includes functionality to access this data and generates documents on-demand that can be shared with others in the network. As such, the interface exposed is the same as the single affinity domain case, even though the internal architecture is quite different!
 
-## Single Community With Multiple Affinity Domains
-This is the case where the network has a single community. That community might have one or more XDS affinity domains which the Responding Gateway gathers documents.
+![Multi-Layered Diagram](images/facade_community.png)
 
-TODO:  Flesh out
+**Figure 1.3-1: Example Multi-Layered Network**
 
 ## Multiple Community Network
-This is the case where the network has multiple communities within. Some message types need to be addressed to a specific community when interacting with the network gateway. 
+Multiple communities can be joined together to form a network of communities. The network infrastructure can offer initiating and responding gateways that make the internals of the network accessable to other networks. This would allow other networks access to all communities in the network, but they would typically need to interact with one community at a time.
 
-TODO:  Flesh out
+The XCPD integration profile provides a mechanism to query the network with patient demographics with the result being the list of community+patient identifier pairs that have data for the patient. Each community can be queried for data using the patient ID for that community via the network gateway. This is a bit more burdensome on consumers in other networks. If it is desired to interact with the network as if it were a single community, then architecting a facade community might be considered. 
+
+The following diagram shows an example of a multi-community network. The network contains three communities, the inner details of which are not shown:
+
+![Multi-Layered Diagram](images/multi_community_network.png)
+
+**Figure 1.3-1: Example Multi-Layered Network**
+
+## Multi Layered Network
+Similar to a multi-community network, multiple networks can be joined together to form larger, interconnected networks. Similar to multi-community networks, actors external to a multi-layered network can broadcast a patient query into the network and get back a patient identifier for each community within. The patient identifiers can then be used to query for documents. 
+
+By layering networks in this way, the interconnection of different networks can be accomplished in a way that provides a consistent interface for actors both within and outside of each network. 
+
+![Multi-Layered Diagram](images/multi_layered_network.png)
+
+**Figure 1.3-1: Example Multi-Layered Network**
 
 # 4 Directory Structure
 

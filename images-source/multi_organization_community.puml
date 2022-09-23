@@ -1,0 +1,34 @@
+@startuml
+title "Multiple Organization Community"
+skinparam linetype ortho
+package "Home Community ID 1.2.5" as community {
+    rectangle "Community Infrastructure" as hie {
+        together {
+            node ig1 as "Initiating Gateway"
+            node rg1 as "Responding Gateway"
+        }
+        node registry as "Document Registry"
+        node repo as "Document Repository"
+    }
+    rectangle "Organization ABC" as org1 {
+        node dc1 as "Document Consumer"
+        node ds1 as "Document Source"
+    }
+        rectangle "Organization EFG" as org2 {
+        node dc2 as "Document Consumer"
+        node ds2 as "Document Source"
+    }
+}
+dc1 -u-> ig1
+dc2 -u-> ig1
+rg1 -d-> registry
+rg1 -d-> repo
+dc1 -u-> registry
+dc2 -u-> registry
+dc1 -r-> repo
+dc2 -r-> repo
+ds1 --> repo
+ds2 --> repo
+repo -u-> registry
+
+@enduml

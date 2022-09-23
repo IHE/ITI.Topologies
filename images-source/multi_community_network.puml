@@ -1,0 +1,38 @@
+@startuml
+title "Network of Multiple Communities"
+skinparam linetype ortho
+rectangle "Higher Level Network" as net {
+    package "Home Community 1.2.3" as com1 {
+        node "Initiating Gateway" as ig1
+        node "Responding Gateway" as rg1
+    }
+    rectangle "Network Level Infrastructure" {
+        node "Initiating Gateway" as nig
+        node "Responding Gateway" as nrg
+    }
+    package "Home Community 1.2.4" as com2 {
+        node "Initiating Gateway" as ig2
+        node "Responding Gateway" as rg2
+    }
+    package "Home Community 1.2.5" as com3 {
+        node "Initiating Gateway" as ig3
+        node "Responding Gateway" as rg3
+    }
+}
+
+nrg --> rg1
+nrg --> rg2
+nrg --> rg3
+nig <-- ig1
+nig <-- ig2
+nig <-- ig3
+
+ig1 --> rg2
+ig1 --> rg3
+
+ig2 --> rg1
+ig2 --> rg3
+
+ig3 --> rg1
+ig3 --> rg2
+@enduml

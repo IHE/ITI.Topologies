@@ -1,0 +1,20 @@
+@startuml
+title "Facade Community with Three Organizations"
+skinparam linetype ortho
+package "Home Community ID 1.2.4" as community {
+rectangle "Community Infrastructure" as hie {
+    node ig1 as "Initiating Gateway"
+    node rg1 as "Responding Gateway" {
+        component dg as "Document Generation"
+    }
+}
+node ds1 as "Org ABC"
+node ds2 as "Org EFG"
+node ds3 as "Org HIJ"
+}
+
+hie <--> ds1
+hie <--> ds2
+hie <--> ds3
+
+@enduml

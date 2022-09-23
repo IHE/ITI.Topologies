@@ -1,15 +1,18 @@
 @startuml
 title "Single Affinity Domain Community"
 skinparam linetype ortho
-together {
-    node ig1 as "Initiating Gateway"
-    node rg1 as "Responding Gateway"
+package "Home Community ID 1.2.3" as community {
+    rectangle "Organization ABC" as org {
+        together {
+            node ig1 as "Initiating Gateway"
+            node rg1 as "Responding Gateway"
+        }
+        node registry as "Document Registry"
+        node repo as "Document Repository"
+        node dc as "Document Consumer"
+        node ds as "Document Source"
+    }
 }
-node registry as "Document Registry"
-node repo as "Document Repository"
-node dc as "Document Consumer"
-node ds as "Document Source"
-
 dc -u-> ig1
 rg1 -d-> registry
 rg1 -d-> repo

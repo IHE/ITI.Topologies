@@ -3,7 +3,7 @@ title "Example Multi-Layered Network"
 skinparam linetype ortho
 rectangle topLevelNetwork as "Top Level Network" {
     rectangle lowerNetworkB as "Lower Network B" {
-        rectangle community3 as "Community 3" {
+        package community3 as "HCID = 1.2.8" {
             node ig3 as "Initiating Gateway"
             node rg3 as "Responding Gateway"
         }
@@ -13,7 +13,7 @@ rectangle topLevelNetwork as "Top Level Network" {
             node nig as "Initiating Gateway"
             node nrg as "Responding Gateway"
         }
-        rectangle community1 as "Community 1" {
+        package community1 as "HCID = 1.2.6" {
             together {
                 node ig1 as "Initiating Gateway"
                 node rg1 as "Responding Gateway"
@@ -23,7 +23,7 @@ rectangle topLevelNetwork as "Top Level Network" {
         node dc as "Document Consumer"
         node ds as "Document Source"
         } 
-        rectangle community2 as "Community 2" {
+        package community2 as "HCID = 1.2.7" {
             node ig2 as "Initiating Gateway"
             node rg2 as "Responding Gateway"
         }
