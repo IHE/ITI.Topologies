@@ -263,7 +263,7 @@ Vanna hadn't mentioned that she was seen at Urgent Health, so Dr. Suwati is grat
 In order to help organize the documents, Dr. Suwati requests her EHR to sort the documents by date and group by source healthcare organization. 
 Dr. Suwati is not concerned with University Health's recent rebranding, she wants to see all of the documents available from that organization throughout history to gain an overview of Vanna's specialty care. 
 
-To meet Dr. Suwati's needs, the EHR needs to be able to programatically broadcast a set of patient discovery requests to other communities, evaluate the responses and follow-up with queries for medical documents, and then collelate the medical documents by discrete Organization.
+To meet Dr. Suwati's needs, the EHR needs to be able to programatically broadcast a set of patient discovery requests to other communities, evaluate the responses and follow-up with queries for medical documents, and then correlate the medical documents by discrete Organization.
 In order to respond quickly enough for Dr. Suwati's busy schedule, all of this needs to happen efficiently, and without actually retrieving or parsing the contents of all of the documents that were found.  
 
 ## Message Delivery
