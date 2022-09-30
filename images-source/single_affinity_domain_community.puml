@@ -1,4 +1,4 @@
-@startuml
+@startuml single_affinity_domain_community.png
 title "Single Affinity Domain Community"
 skinparam linetype ortho
 package "Home Community ID 1.2.3" as community {
