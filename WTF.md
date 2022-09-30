@@ -250,6 +250,7 @@ Before moving, Vanna had been undergoing cancer treatment for about 9 months at 
 Since she lived in a rural town, her old primary care physician worked for a small community health center - Valley Access Healthcare. 
 Meanwhile, she received her specialty oncology care from a larger, academic health system - University Health. 
 To complicate matters, University Health had completed a re-branding 4 month's prior, right in the middle of Vanna's treatment, which means any healthcare summary documents generated prior will have the organization's old name. 
+While they are different healthcare organizations, Valley Access Healthcare and University Health do belong to the same regional HIE. 
 
 Dr. Suwati will be taking over as Vanna's new primary care physician, and wants to understand the history and progression of Vanna's disease and the treatment she has undergone thus far. 
 Dr. Suwati has listened to Vanna recount the care she has received, and now Dr. Suwati would like to review her medical records to gain clarity from the physician point of view. 
