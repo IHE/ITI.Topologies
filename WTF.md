@@ -127,7 +127,7 @@ A **Document Sharing Community** is a group of facilities/enterprises that have 
 Within each community, there exists a pair of gateways that are used to exchange data across community boundaries. 
 The Initiating Gateway is used by members within a community to send messages to actors outside of the community. 
 The Responding Gateway is the access point for actors outside of the community to access services within the community. 
-These Actors are logically separate, but can be combined into a single system at the discression of the implementer.
+These Actors are logically separate, but can be combined into a single system at the discretion of the implementer.
 
 This pattern was established in the [XCPD](https://profiles.ihe.net/ITI/TF/Volume1/ch-27.html) and [XCA](https://profiles.ihe.net/ITI/TF/Volume1/ch-18.html) Profiles, but can be applied to other environments as well.
 
@@ -263,7 +263,7 @@ Vanna hadn't mentioned that she was seen at Urgent Health, so Dr. Suwati is grat
 In order to help organize the documents, Dr. Suwati requests her EHR to sort the documents by date and group by source healthcare organization. 
 Dr. Suwati is not concerned with University Health's recent rebranding, she wants to see all of the documents available from that organization throughout history to gain an overview of Vanna's specialty care. 
 
-To meet Dr. Suwati's needs, the EHR needs to be able to programatically broadcast a set of patient discovery requests to other communities, evaluate the responses and follow-up with queries for medical documents, and then correlate the medical documents by discrete Organization.
+To meet Dr. Suwati's needs, the EHR needs to be able to programmatically broadcast a set of patient discovery requests to other communities, evaluate the responses and follow-up with queries for medical documents, and then correlate the medical documents by discrete Organization.
 In order to respond quickly enough for Dr. Suwati's busy schedule, all of this needs to happen efficiently, and without actually retrieving or parsing the contents of all of the documents that were found.  
 
 ## Message Delivery
@@ -312,7 +312,7 @@ In this example, a community is made up of three organizations that exchange dat
 **Figure 1.3-1: Example Multi-Layered Network**
 
 ## Multiple Community Network
-Multiple communities can be joined together to form a network of communities. The network infrastructure can offer initiating and responding gateways that make the internals of the network accessable to other networks. This would allow other networks access to all communities in the network, but they would typically need to interact with one community at a time.
+Multiple communities can be joined together to form a network of communities. The network infrastructure can offer initiating and responding gateways that make the internals of the network accessible to other networks. This would allow other networks access to all communities in the network, but they would typically need to interact with one community at a time.
 
 The XCPD integration profile provides a mechanism to query the network with patient demographics with the result being the list of community+patient identifier pairs that have data for the patient. Each community can be queried for data using the patient ID for that community via the network gateway. This is a bit more burdensome on consumers in other networks. If it is desired to interact with the network as if it were a single community, then architecting a facade community might be considered. 
 
