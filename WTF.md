@@ -356,30 +356,24 @@ By layering networks in this way, the interconnection of different networks can 
 
 # 4 Directory Structure
 
-## General Guidance
-This section will lay out guidance on how to represent different topologies in an mCSD directory
+This section provides guidance on how the above community topologies might be represented in a central network directory. 
 
-TODO:  Flesh out and adapt the below
+## Purpose Built vs Comprehensive Directories
 
-### Representing Federations in Directories
-
-(Content moved and tweaked from mCSD Vol 1 1:46.8 - can remove or reduce that section)
-
-This section provides guidance for representing and making use of federations in a directory (mCSD or otherwise) to enable electronic communication, for example defining local points of connectivity within a community, or defining a Health Information Exchange (HIE) that allows multiple communities to interoperate. It focuses on the following resources: Endpoint, Organization and OrganizationAffiliation.
-
-Many current Endpoint directories that are in production at the time of this writing are purpose-built, which is to say they are deployed to a server that only hosts Organization and Endpoint resources, and only for the use case of Endpoint lookup. For this reason, directories often reflect network details directly in the Organization resource, such as:
+Many current Endpoint directories that are in production at the time of this writing are purpose-built, which is to say they only store information about organization, location, and endpoint information. 
+The sole use case of these directories is endpoint lookup, and for this reason, directories often reflect network details directly in the Organization resource, such as:
 - The organization's role in the network, like participant or sub-participant, expressed as the type of organization.
-- The organization's relationship to its connectivity vendor, expressed as the organization hierarchy (i.e., partOf).
-- The organization's connectivity state as an extension.
-- Supported profiles, purposes of use, etc. as extensions.
-- The organization's identity as a home community ID, for use in IHE Document Sharing profiles.
+- The organization's relationship to its connectivity vendor, expressed as the organization hierarchy (i.e. Organization.partOf in FHIR).
+- The organization's connectivity state 
+- Supported communication profiles, purposes of use, etc. 
+- A single type of organizational identifier, most commonly used as the Home Community ID for IHE cross community integration profiles
 
 The purpose-built nature of these directories makes representation of other organizational hierarchies, such as business relationships and jurisdictional governance, challenging. 
 This is because business, jurisdictional, and technical system relationships tend to have organizational hierarchies that do not match one another. 
 A directory purpose-built for electronic endpoint exchange tends to prioritize technical system relationships in hierarchical representations, which means that other types of hierarchical relationships are not represented properly. 
 This is a significant drawback, as electronic communication information becomes more useful when paired with user facing information.
 
-For example, a clinician works for an organization that contracts out services to several healthcare provider organizations, and that clinician has a specific electronic delivery address for each healthcare provider organization. 
+For example, suppose a clinician works for an organization that contracts out services to several healthcare provider organizations, and that clinician has a specific electronic delivery address for each healthcare provider organization. 
 An individual trying to message that clinician about one of their patients would need to understand this well enough to choose the correct delivery address to send their message. 
 At the same time, a public health worker might want to be able to quickly identify and message all of the infection disease experts in their government jurisdiction to alert them of a new disease outbreak. 
 As expectations of connectedness and automation grow, we predict that it will be necessary to have an increasing amount of information available in a single, centralized directory.
@@ -388,11 +382,17 @@ This means that it will be necessary to represent multiple disparate systemic hi
 The IHE mCSD integration profile is well suited to address this problem by utilizing the OrganizationAffiliation resource to provide for the representation of multiple organizational hierarchies, and by also considering how the Practitioner and PractitionerRole resources can be integrated into such a directory. 
 This allows for healthcare facilities, care services, healthcare workers, and other healthcare entities to all exist in a central location along with their communication details. 
 
-##### Endpoint to an Organization
+## Directory Layout Guidance
 
-The simplest usage model for a client is when the organization it needs to contact has a dedicated Endpoint resource in Organization.endpoint. Because this Endpoint is Organization-specific, it does not matter to the client who hosts it. Some examples follow.
+In this section, we provide guidance on how to represent the example communities introduced in section 3 in a central network directory. This guidance will be focused on a central network directory that uses the HL7 FHIR Organization, OrganizationAffiliation, Location, and Endpoint resources to store directory information. The guidance is meant to be compatible with the mCSD integration profile, so that it can live in a directory that has other hierarchical relationships without conflict. 
 
-Note: The managingOrganization of an Endpoint is who users need to contact for support. It may or may not be the same as the organization that hosts it. Since hosting is not reflected in the directory, we are indicating it in the diagrams below by the URLs.
+### Single Organization Community
+
+In a Single Organization Community, the Community can be represented as a single Organization resource with an Organization identifier and a Home Community ID, and these identifiers might even be the same. Since the Community's Responding Gateway serves a single Organization, Endpoints for each service provided by the Responding Gateway can be tied directly to the Organization resource, using the Organization.endpoint element. 
+
+The managingOrganization of an Endpoint is the Organization that provides support for the endpoint. It might be the same organization that uses the endpoint to provide access to data, a third party that hosts the IT infrastructure for the endpoint, or another third party that simply provides support services.
+
+Since hosting is not reflected in the directory, we are indicating it in the diagrams below by the URLs.
 
 Organization A hosts its own Endpoint:
 <div>
