@@ -269,18 +269,22 @@ In order to respond quickly enough for Dr. Suwati's busy schedule, all of this n
 
 ## Message Delivery
 
-In the Message Delivery use case, a user has a message that they want to convey to a particular recipient in another - potentially far away community. 
-The destination recipient might be an individual, a department at a healthcare organization, or other such addressable entity. Consider the following scenario:
+In the Message Delivery use case, a user has a message that they want to convey to a particular recipient in another, potentially far away, community. 
+The destination recipient might be an individual, a department at a healthcare organization, or other such addressable entity. 
+The user might have a particular recipient in mind for which they need to discover connectivity, or they might need to be able to discover available recipients. 
+Consider the following scenario:
 
-Dr. Suwati has a patient, Leon Sanford, that has a rare genetic disorder that Dr. Suwati is unfamiliar with. 
-Dr. Suwati has learned that University Health, on the other side of the country, has a department that specializes in this particular disorder. 
-Dr. Suwati wants to refer Leon to the team of experts at University Health so that Leon can be evaluated by the world renowned experts in his condition. 
+Dr. Suwati has a patient, Leon Sanford, that has a rare neurological disorder that Dr. Suwati is unfamiliar with. 
+However, Dr. Suwati knows that University Health, on the other side of the country, has a strong reputation for treating patients with this disorder. 
+Dr. Suwati wants to refer Leon to a neurologist at University Health for evaluation. 
+She needs to use her EHR to search the central network directory for a list of providers that offer neurological services at University Health, and are currently accepting new patients. 
+She reviews the list of providers with Leon and together they determine that Dr. Santos is the best fit for Leon.
 
-Dr. Suwati prepares a referral order and a letter in which she details her treatment of Leon thus far and the clinical questions she has for the experts. 
-Dr. Suwati requests her EHR to send the referral, the letter, and a summary of care document to the expert department at University Health. 
+Dr. Suwati prepares a referral order and a letter in which she details her treatment of Leon thus far and the concerns she has for Dr. Santos to review. 
+Dr. Suwati requests her EHR to send the referral, the letter, and a summary of care document to Dr. Santos at University Health. 
 
 University health is located in another document sharing community, but there is a communication path between New Hope Medical Partners and University Health. 
-The EHR needs to be able to send a message that will be received by the community to which University Health is a member, and further know that the message will be automatically routed to the genetic specialists at University Health. 
+The EHR needs to be able to send a message that will be received by the community to which University Health is a member and confirm that the message was delivered to Dr. Santos at University Health. 
 
 # 3 Example Network Topologies
 
