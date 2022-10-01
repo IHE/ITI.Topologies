@@ -367,21 +367,26 @@ TODO:  Flesh out and adapt the below
 
 This section provides guidance for representing and making use of federations in a directory (mCSD or otherwise) to enable electronic communication, for example defining local points of connectivity within a community, or defining a Health Information Exchange (HIE) that allows multiple communities to interoperate. It focuses on the following resources: Endpoint, Organization and OrganizationAffiliation.
 
-Many current Endpoint directories based on FHIR are purpose-built, which is to say they are deployed to a server that only hosts Organization and Endpoint resources, and only for the use case of Endpoint lookup. For this reason, directories often reflect network details directly in the Organization resource, such as:
+Many current Endpoint directories that are in production at the time of this writing are purpose-built, which is to say they are deployed to a server that only hosts Organization and Endpoint resources, and only for the use case of Endpoint lookup. For this reason, directories often reflect network details directly in the Organization resource, such as:
 - The organization's role in the network, like participant or sub-participant, expressed as the type of organization.
 - The organization's relationship to its connectivity vendor, expressed as the organization hierarchy (i.e., partOf).
 - The organization's connectivity state as an extension.
 - Supported profiles, purposes of use, etc. as extensions.
 - The organization's identity as a home community ID, for use in IHE Document Sharing profiles.
 
-When the organization's structure and its network capabilities need to vary independently (e.g., an organization uses two connectivity vendors), directories typically handle this by creating parallel instances of the Organization resource that then have to be merged by custom code to display.
+The purpose-built nature of these directories makes representation of other organizational hierarchies, such as business relationships and jurisdictional governance, challenging. 
+This is because business, jurisdictional, and technical system relationships tend to have organizational hierarchies that do not match one another. 
+A directory purpose-built for electronic endpoint exchange tends to prioritize technical system relationships in hierarchical representations, which means that other types of hierarchical relationships are not represented properly. 
+This is a significant drawback, as electronic communication information becomes more useful when paired with user facing information.
 
-We anticipate these conflicts increasing over time due to many forces:
-- Implementers taking advantage of profiles like mCSD to represent more comprehensive organizational and personnel structures.
-- Implementers scaling by delegating maintenance of organization sub-trees to the organizations themselves.
-- Directories consolidating/federating over time into more comprehensive "phone books", where a given organization participates in multiple HIEs. One example would be the USA ONC TEFCA Recognized Coordinating Entity, which will be maintaining a directory that consists of entries supplied by each Qualified Health Information Network (QHIN).
+For example, a clinician works for an organization that contracts out services to several healthcare provider organizations, and that clinician has a specific electronic delivery address for each healthcare provider organization. 
+An individual trying to message that clinician about one of their patients would need to understand this well enough to choose the correct delivery address to send their message. 
+At the same time, a public health worker might want to be able to quickly identify and message all of the infection disease experts in their government jurisdiction to alert them of a new disease outbreak. 
+As expectations of connectedness and automation grow, we predict that it will be necessary to have an increasing amount of information available in a single, centralized directory.
+This means that it will be necessary to represent multiple disparate systemic hierarchies in a single directory. 
 
-In this guidance, we allow organization structure and network details to vary independently by moving network details out of the Organization and into the Endpoint and OrganizationAffiliation resources.
+The IHE mCSD integration profile is well suited to address this problem by utilizing the OrganizationAffiliation resource to provide for the representation of multiple organizational hierarchies, and by also considering how the Practitioner and PractitionerRole resources can be integrated into such a directory. 
+This allows for healthcare facilities, care services, healthcare workers, and other healthcare entities to all exist in a central location along with their communication details. 
 
 ##### Endpoint to an Organization
 
