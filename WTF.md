@@ -119,9 +119,11 @@ Some intended audiences include:
 - Academic Health Data Exchange Stakeholders
 
 ## 1.3 High Level Concepts
+
 The following concepts and definitions will be used throughout this white paper. 
 
 ### Document Sharing Community
+
 A **Document Sharing Community** is a group of facilities/enterprises that have agreed to work together using a common set of policies for the purpose of sharing health information within the community via an established mechanism. 
 
 Within each community, there exists a pair of gateways that are used to exchange data across community boundaries. 
@@ -132,16 +134,19 @@ These Actors are logically separate, but can be combined into a single system at
 This pattern was established in the [XCPD](https://profiles.ihe.net/ITI/TF/Volume1/ch-27.html) and [XCA](https://profiles.ihe.net/ITI/TF/Volume1/ch-18.html) Profiles, but can be applied to other environments as well.
 
 ### Home Community ID
+
 A **Home Community ID** (HCID) is a globally unique identifier for a community. 
 Note that in the case where a community contains a single organization, a home community ID will also uniquely identify that organization, but in the general case where a community contains several organizations, the HCID will be distinctly different from individual organization identifiers. 
 
 ### Document Sharing Network
+
 A **Document Sharing Network** is defined as a collection of one or more Document Sharing Communities and/or Document Sharing Networks that agree to a common, higher level governance structure, participate in document sharing with one another, and share network central resources among one another. 
 
 Document Sharing Networks might provide their participant communities with a variety of services. 
 The most common are centralized directories, certificate authorities, and centralized network gateways. 
 
 ### Network Gateway
+
 A **Network Gateway** is a system, central to a given network, that facilitates data exchange across network boundaries. 
 The Initiating Gateway is used by participants within a network to send messages to actors belonging to other networks. 
 The Responding Gateway is the access point for actors belonging to other networks to access services within the network.
@@ -150,6 +155,7 @@ Network Gateways expose the same interfaces and are interacted with in the same 
 Therefore, where network gateways are used, participants can interact with the network gateway in the same way as a community gateway, with the caveat that the network gateway might process information for several Home Community IDs. 
 
 ### Multi-Layered Document Sharing Network
+
 A **Multi-Layered Document Sharing Network** is a document sharing network that contains other document sharing networks as members. That is to say, such a network is a "network of networks". 
 
 For the sake of clarity, this white paper will refer to the most atomic actors in a multi-layered network as the "bottom" layers, and the least atomic actors as the "top" layers. 
@@ -159,6 +165,7 @@ For the sake of clarity, this white paper will refer to the most atomic actors i
 **Figure 1.3-1: Example Multi-Layered Network**
 
 ### Document Sharing Federation
+
 **Document Sharing Federation** refers to the act of architecting a document sharing network such that actors within the network exchange healthcare documents directly with one another rather than through a central actor. 
 Since there is no central actor that facilitates exchange, the network actors must join together to form a larger entity - the document sharing network. 
 In this model, the removal of any actor from the network is subtractive - the network has lost the information made available by that actor. 
@@ -169,6 +176,7 @@ In this contrasting model, the removal of ancillary actors does not subtract fro
 Federation can occur at any layer of a multi-layered document sharing network, though it becomes more likely as higher and higher layers are added, because centralization becomes cumbersome as the network topological depth increases. 
 
 ### Care Services Directory
+
 A **Care Services Directory** is a common, authoritative registry of the healthcare organizations, locations, practitioners, etc. and their contact information (both electronic and otherwise). 
 A document sharing network, at minimum, needs a directory that contains the set of organizations that are members of the network and the communication endpoints for document sharing. 
 More advanced networks will also want to have information about the network topology in the directory, as well as information about the healthcare locations, practitioners, jurisdictions, services, and organizational business relationships. 
@@ -176,6 +184,7 @@ More advanced networks will also want to have information about the network topo
 IHE offers the [Mobile Care Services Directory (mCSD)](https://profiles.ihe.net/ITI/mCSD/index.html) Profile to specify how such a directory should operate, and the [mCSD White Paper](https://profiles.ihe.net/ITI/papers/mCSD/index.html) offers additional explanation on how the mCSD Profile can be implemented to solve the business needs of a healthcare information exchange. 
 
 ### Patient Identity Management/Linking
+
 In order to successfully and safely exchange patient health information within and across document sharing communities and networks, it is imperative that the parties doing the exchange are able to establish agreement about the patient that is the subject of their communication. 
 
 The concepts and profiles discussed in Section 5 of the [HIE White Paper](https://profiles.ihe.net/ITI/HIE-Whitepaper/index.html#5-patient-identity-management) can be successfully applied across communities and networks.
@@ -183,6 +192,7 @@ An important note is that in cases where interaction with network gateways that 
 Other IHE profiles, such as the PDQ family of profiles, do not allow distinguishing between different identities across different communities, and so would only be sufficient when interacting with gateways that represent a single community or offer the facade of a single community.
 
 ### Query and Retrieve
+
 **Document Query and Retrieve** refers to a document sharing model where documents are exchanged in a two step process. 
 In the first step, the document consumer actor sends a request for a list of available documents. 
 In the second step, the document consumer actor reviews the obtained list of documents and retrieves certain documents from the list. 
@@ -194,6 +204,7 @@ This is most often the case for end user stories that involve reviewing the medi
 Document Query and Retrieve is enabled by the [XCA](https://profiles.ihe.net/ITI/TF/Volume1/ch-18.html) Profile in a network setting, but can also be enabled by the [MHD](https://profiles.ihe.net/ITI/MHD/index.html) Profile. 
 
 ### Message Delivery
+
 **Message Delivery** refers to a document sharing model where an information source wants to communicate healthcare information to a particular, intended recipient. 
 In this model, documents are prepared by the source and then need to be communicated and routed to a recipient that consumes them directly. 
 
@@ -202,6 +213,7 @@ This model can be thought of as a direct replacement for email, fax, postal mail
 Message Delivery is enabled by the [XDR](https://profiles.ihe.net/ITI/TF/Volume1/ch-15.html), [MHD](https://profiles.ihe.net/ITI/TF/Volume1/ch-33.html), and [XCDR](https://profiles.ihe.net/ITI/TF/Volume1/ch-40.html) Profiles. 
 
 ### Translation Capabilities
+
 When a community or network is being constructed in a completely greenfield space, ie, one that does not have any existing technology to reconcile with, a single information exchange standard can be chosen such that all systems seamlessly and natively interoperate with each other.
 However, when existing networks become interconnected, and as old systems are replaced with new systems, there will eventually be a need to be able to translate between different communication standards. 
 This might mean translating between different IHE integration profiles, such as XCA and the FHIR based MHD profiles, between proprietary data exchange formats and standard formats, or between formats offered by different standards bodies, such as HL7 FHIR IPA and IHE MHD+CDA documents. 
@@ -226,6 +238,7 @@ Once it receives responses from all systems, it must translate those responses i
 It will do so in a way that is transparent, such that actors outside of the community are not aware of the mixed architecture of the community. 
 
 ### Facade Community
+
 Rather than expose internal networks and communities directly, a network could be designed to expose a single facade community to other networks with which it is interconnected.
 Such a community would have a single Home Community ID, different from those of the internal communities. 
 The network gateways would therefore be responsible for aggregating information from all of the systems within, in order to appear as a single cohesive community to the outside. 
@@ -291,50 +304,55 @@ The EHR needs to be able to send a message that will be received by the communit
 This white paper does not specify or endorse any particular network topology. Instead, it recommends the use of standard exchange interfaces at the network gateway level, so that when networks must be interconnected, they can be regardless of topology. What follows are possible example network topologies:
 
 ## Single Organization Community
+
 It is possible for a singleton organization to form a community by itself, and for that community to interface directly with other networks. 
 
 The following example shows Home Community 1.2.3, architected as a single XDS Affinity Domain that is completely controlled by Organization ABC.
 
-![Multi-Layered Diagram](images/single_affinity_domain_community.png)
+![Single Organization Community](images/single_affinity_domain_community.png)
 
-**Figure 1.3-1: Example Multi-Layered Network**
+**Figure 1.3-1: Single Organization Community Layout**
 
 ## Multi-Organization Community
+
 Multiple organizations can also join together into a community. In this case, querying the community responding gateway will return results for data produced by both organizations. 
 
 The below example shows one such topology, where two organizations have chosen to belong to the same XDS Affinity Domain and therefore share the same XDS infrastructure. 
 
-![Multi-Layered Diagram](images/multi_organization_community.png)
-**Figure 1.3-1: Example Multi-Layered Network**
+![Multi-Organization Community](images/multi_organization_community.png)
+**Figure 1.3-1: Multi-Organization Community Layout**
 
 ## Single Facade Community
+
 A community might have a fairly complex architecture internally. It might even be composed of many organizations that exchange data using proprietary mechanisms. However, if the community exposes gateways that are able to abstract away the internal complexities and expose data in the form of documents, then it can successfully act as a node in a multi-layered document sharing network.
 
 In this example, a community is made up of three organizations that exchange data using proprietary methods. The Responding Gateway includes functionality to access this data and generates documents on-demand that can be shared with others in the network. As such, the interface exposed is the same as the single affinity domain case, even though the internal architecture is quite different!
 
-![Multi-Layered Diagram](images/facade_community.png)
+![Single Facade Community](images/facade_community.png)
 
-**Figure 1.3-1: Example Multi-Layered Network**
+**Figure 1.3-1: Single Facade Community Layout**
 
 ## Multiple Community Network
+
 Multiple communities can be joined together to form a network of communities. The network infrastructure can offer initiating and responding gateways that make the internals of the network accessible to other networks. This would allow other networks access to all communities in the network, but they would typically need to interact with one community at a time.
 
 The XCPD integration profile provides a mechanism to query the network with patient demographics with the result being the list of community+patient identifier pairs that have data for the patient. Each community can be queried for data using the patient ID for that community via the network gateway. This is a bit more burdensome on consumers in other networks. If it is desired to interact with the network as if it were a single community, then architecting a facade community might be considered. 
 
 The following diagram shows an example of a multi-community network. The network contains three communities, the inner details of which are not shown:
 
-![Multi-Layered Diagram](images/multi_community_network.png)
+![Multi-Community Network](images/multi_community_network.png)
 
-**Figure 1.3-1: Example Multi-Layered Network**
+**Figure 1.3-1: Multi-Community Network Layout**
 
 ## Multi Layered Network
+
 Similar to a multi-community network, multiple networks can be joined together to form larger, interconnected networks. Similar to multi-community networks, actors external to a multi-layered network can broadcast a patient query into the network and get back a patient identifier for each community within. The patient identifiers can then be used to query for documents. 
 
 By layering networks in this way, the interconnection of different networks can be accomplished in a way that provides a consistent interface for actors both within and outside of each network. 
 
 ![Multi-Layered Diagram](images/multi_layered_network.png)
 
-**Figure 1.3-1: Example Multi-Layered Network**
+**Figure 1.3-1: Multi-Layered Network Layout**
 
 # 4 Directory Structure
 
