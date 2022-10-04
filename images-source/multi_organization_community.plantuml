@@ -1,4 +1,4 @@
-@startuml multi_organization_community.png
+@startuml multi_organization_community
 title "Multiple Organization Community"
 skinparam linetype ortho
 package "Home Community ID 1.2.5" as community {

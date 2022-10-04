@@ -1,4 +1,4 @@
-@startuml facade_community.png
+@startuml facade_community
 title "Facade Community with Three Organizations"
 skinparam linetype ortho
 package "Home Community ID 1.2.4" as community {

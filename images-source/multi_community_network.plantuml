@@ -1,4 +1,4 @@
-@startuml multi_community_network.png
+@startuml multi_community_network
 title "Network of Multiple Communities"
 skinparam linetype ortho
 rectangle "Higher Level Network" as net {

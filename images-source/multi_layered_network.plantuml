@@ -1,4 +1,4 @@
-@startuml multi_layered_network.png
+@startuml multi_layered_network
 title "Example Multi-Layered Network"
 skinparam linetype ortho
 rectangle topLevelNetwork as "Top Level Network" {

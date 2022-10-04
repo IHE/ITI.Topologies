@@ -1,4 +1,4 @@
-@startuml dir-org-specific-endpoint-self.png
+@startuml dir-org-specific-endpoint-self
 hide footbox
 
 object "Organization A" as OrganizationA
