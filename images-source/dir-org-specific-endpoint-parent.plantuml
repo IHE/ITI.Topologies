@@ -1,0 +1,16 @@
+@startuml dir-org-specific-endpoint-parent.png
+hide footbox
+
+object "Organization A" as OrganizationA
+OrganizationA : OrgID = 1.2.3
+OrganizationA : HCID = 1.2.3
+object "Parent Organization B" as OrganizationB
+OrganizationB : OrgID = 1.3.1
+object "Endpoint for A" as EndpointA
+EndpointA : address = https://orgB.org/orgA
+
+OrganizationB <-- OrganizationA : partOf
+OrganizationA -> EndpointA : endpoint
+OrganizationB <- EndpointA : managingOrganization
+
+@enduml

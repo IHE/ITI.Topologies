@@ -1,0 +1,14 @@
+@startuml dir-org-specific-endpoint-self.png
+hide footbox
+
+object "Organization A" as OrganizationA
+OrganizationA : OrgID = 1.2.3
+OrganizationA : HCID = 1.2.3
+
+object "Endpoint for A" as EndpointA
+EndpointA : address = https://orgA.org
+
+OrganizationA -> EndpointA : endpoint
+OrganizationA <- EndpointA : managingOrganization
+
+@enduml

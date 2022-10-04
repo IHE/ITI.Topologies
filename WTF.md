@@ -386,26 +386,58 @@ This allows for healthcare facilities, care services, healthcare workers, and ot
 
 In this section, we provide guidance on how to represent the example communities introduced in section 3 in a central network directory. This guidance will be focused on a central network directory that uses the HL7 FHIR Organization, OrganizationAffiliation, Location, and Endpoint resources to store directory information. The guidance is meant to be compatible with the mCSD integration profile, so that it can live in a directory that has other hierarchical relationships without conflict. 
 
-### Single Organization Community
+### FHIR Resources Used For Communication Information
+
+The first question that is asked when document sharing is "what are the parties to the exchange?" 
+This question implies the use of the Organization Resource to model the entities exchanging data. 
+An Organization is a group of people or organizations that form some collective of action, such as companies, institutions, corporations, departments, community groups, healthcare practice groups, healthcare payers, etc. 
+Organizations often exist in one or more hierarchies, where those hierarchies might represent business entity relationships, jurisdictional relationships, IT relationships, etc. 
+Organizations have a few key attributes that are relevant for Document Sharing:
+
+* A logical Identifier that uniquely identifies the Organization as an entity
+* The Name by which a human user would know of the organization
+* Telecom information that can be used to reach the Organization
+* Information about what larger Organization the Organization might be part of
+* One or more endpoints for electronic communication and data exchange
+
+As stated above, an Organization might belong to a variety of hierarchies for different purposes. 
+While the Organization Resource can only refer to one parent Organization directly, the OrganizationAffiliation Resource can be used to establish additional hierarchies. 
+The partOf element is typically used to represent business relationships (Department X is part of Organization Y which is a subsidiary of Organization Z), so additional hierarchies, such as hierarchies representing connectivity, should be represented using the OrganizationAffiliation Resource. 
+The OrganizationAffiliation Resource establishes a parent-child relationship via its organization (parent) and participatingOrganization (child) elements. 
+It also has a code element that can be used to identify the nature of the relationship between organization and participatingOrganization. 
+mCSD defines a code - DocShare-federate - to imply that a parent organization provides access to documents for its children in a Document Sharing Network. 
+
+The third Resource that is critical to establishing connectivity is the Endpoint resource. 
+An Organization can have one or more Endpoints to represent an access point for electronic communication with that Organization. 
+Endpoints have a connectionType that define the type of communication enabled by that endpoint. 
+For IHE Document Sharing profiles, mCSD defines an extension - Endpoint Specific Type - to help clarify more information that is needed about the types of messages that the Endpoint can process. 
+An Organization is likely to point to multiple Endpoint resources - one for each connectionType/specific type that the organization is able to accommodate. 
+Endpoints have an address that contains the technical address to which communication should be directed (most often an HTTPS URL).
+Endpoints are pointed at by their respective Organizations, but they also have a managingOrganization element that can be used to identify the Organization that manages (provides support) for the endpoint. 
+While the managingOrganization is often in directories and is important for operational support, it generally will not be directly used in Document Sharing since it does not represent a relationship relevant for data access.
+
+Location Resources describe a physical place where services are provided. 
+They are similar to Organization in that they have logical identifiers, names, telecom information, a hierarchy, and electronic data exchange Endpoints. 
+However, since they represent a physical place, rather than the actual entity that might provide services or maintain IT infrastructure, they are typically not used in Document Sharing outside of facilitating discovery of the Organization that a user desires to share with. 
+
+Finally, the Practitioner and PractitionerRole Resources provide information about individual Practitioners that practice at an Organization. They are relevant to DocumentSharing in that they will commonly be referenced in documents and their metadata, but they are also relevant for message delivery use cases in the event a message needs to be delivered to an individual. 
+
+### Example Community Directory Layouts
+
+#### Single Organization Community
 
 In a Single Organization Community, the Community can be represented as a single Organization resource with an Organization identifier and a Home Community ID, and these identifiers might even be the same. Since the Community's Responding Gateway serves a single Organization, Endpoints for each service provided by the Responding Gateway can be tied directly to the Organization resource, using the Organization.endpoint element. 
 
-The managingOrganization of an Endpoint is the Organization that provides support for the endpoint. It might be the same organization that uses the endpoint to provide access to data, a third party that hosts the IT infrastructure for the endpoint, or another third party that simply provides support services.
+An Organization might manage its own Endpoint. This results the the simplest case shown below:
 
-Since hosting is not reflected in the directory, we are indicating it in the diagrams below by the URLs.
+![Organization Specific Endpoint](images/dir-org-specific-endpoint-self.png)
 
-Organization A hosts its own Endpoint:
-<div>
-{%include dir-org-specific-endpoint-self.svg%}
-</div>
-<div style="clear: left;"/>
 **Figure 1:46.8.1-1: Organization-specific Endpoint Hosted by the Organization**
 
-Organization A is directly reachable by an endpoint hosted by its parent Organization B:
-<div>
-{%include dir-org-specific-endpoint-parent.svg%}
-</div>
-<div style="clear: left;"/>
+Suppose instead Organization A is a subsidiary of its parent, B. B provides IT services and support to its subsidiaries, but the subsidiaries are still the custodians of their clinical documents and so B provides distinct endpoints for each subsidiary. In this case, B would be the managing organization and A is part of B, but the Endpoint is pointed at by Organization A to communicate that the Endpoint provides access to A's data:
+
+![Organization Specific Endpoint Hosted by a Parent](images/dir-org-specific-endpoint-parent.png)
+
 **Figure 1:46.8.1-2: Organization-specific Endpoint Hosted by Parent**
 
 Organization C is directly reachable by an endpoint hosted by its affiliated Organization D:
