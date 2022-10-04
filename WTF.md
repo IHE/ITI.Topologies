@@ -440,21 +440,19 @@ Suppose instead Organization A is a subsidiary of its parent, B. B provides IT s
 
 **Figure 1:46.8.1-2: Organization-specific Endpoint Hosted by Parent**
 
-Organization C is directly reachable by an endpoint hosted by its affiliated Organization D:
-<div>
-{%include dir-org-specific-endpoint-affil.svg%}
-</div>
-<div style="clear: left;"/>
+Suppose a similar relationship between organizations C and D, but where D is not a parent organization to C, rather it is a third party affiliate that provides IT services and support. In that case, use of the OrganizationAffiliation resource is more appropriate:
+
+![Organization Specific Endpoint Hosted by an Affiliate](images/dir-org-specific-endpoint-affil.png)
+
 **Figure 1:46.8.1-3: Organization-specific Endpoint Hosted by Affiliation**
 
-Organization E is directly reachable by an endpoint hosted by a hidden (i.e., not in the directory) Intermediary F:
-<div>
-{%include dir-org-specific-endpoint-inter.svg%}
-</div>
-<div style="clear: left;"/>
-**Figure 1:46.8.1-4: Organization-specific Endpoint Hosted by Hidden Intermediary**
+Another similar relationship between E and F might exist, but E handles support for other entities on the network. In that case, E is still the managing organization, and F need not be represented in the directory at all:
 
-##### Endpoint to a Structure
+![Organization Specific Endpoint Hosted By Unrepresented Intermediary](images/dir-org-specific-endpoint-inter.png)
+
+**Figure 1:46.8.1-4: Organization-specific Endpoint Hosted by Unrepresented Intermediary**
+
+#### Endpoint to a Structure
 
 When an Organization with an Endpoint has a complex structure, for example, sub-organizations, clients can often make use of this structure:
 
