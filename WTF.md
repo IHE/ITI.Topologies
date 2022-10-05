@@ -405,7 +405,8 @@ While the Organization Resource can only refer to one parent Organization direct
 The partOf element is typically used to represent business relationships (Department X is part of Organization Y which is a subsidiary of Organization Z), so additional hierarchies, such as hierarchies representing connectivity, should be represented using the OrganizationAffiliation Resource. 
 The OrganizationAffiliation Resource establishes a parent-child relationship via its organization (parent) and participatingOrganization (child) elements. 
 It also has a code element that can be used to identify the nature of the relationship between organization and participatingOrganization. 
-mCSD defines a code - DocShare-federate - to imply that a parent organization provides access to documents for its children in a Document Sharing Network. 
+mCSD defines a code - DocShare-federate - to imply that a parent organization provides access to documents for its children in a Document Sharing Network.
+OrganizationAffiliation also has an endpoint element, though our guidance in this section recommends against its use in order to simplify endpoint search algorithms. 
 
 The third Resource that is critical to establishing connectivity is the Endpoint resource. 
 An Organization can have one or more Endpoints to represent an access point for electronic communication with that Organization. 
@@ -497,7 +498,7 @@ In a multi-layered network, it is likely that different solutions will be used a
 
 ![Endpoint to a multi-layered structure](images/dir-endpoint-to-hybrid-org-structure.png)
 
-**Figure 1:46.8.2-3: Endpoint to Mulit-Layered Organizational Structure**
+**Figure 1:46.8.2-3: Endpoint to Multi-Layered Organizational Structure**
 
 #### Organizations with Multiple Endpoints
 
@@ -507,30 +508,29 @@ A single Organization might have multiple Endpoints for different purposes. For 
 
 **Figure 1:46.8.3-1: Multiple Endpoints For A Single Organization**
 
-##### Endpoint Discovery Usage
+### Endpoint Discovery 
 
-The following example shows the steps used by a Care Services Selective Consumer to navigate a directory to find suitable electronic service Endpoints to some desired Organizations. In this example, a "suitable" Endpoint means it supports an IHE Document Sharing profile, and is based on .connectionType, .extension:specificType, .payloadType, .payloadMimeType, and status (both Endpoint.status as well as the actual status of the electronic service). The example uses the [mCSD-profiled OrganizationAffiliation] StructureDefinition-IHE.mCSD.OrganizationAffiliation.DocShare.html) that indicates federated connectivity for Document Sharing (e.g., affiliated organizations may be addressed as intendedRecipient). The pseudocode below uses a depth-first, first-match search, and does not protect against loops.
+The following example shows the steps used by a Care Services Selective Consumer to navigate a directory to find suitable electronic service Endpoints to a desired Organization. A "suitable" Endpoint is one that can provide the service needed by the consumer. This typically means it has a connectionType and possibly an endpoint specificType that matches the transaction it wishes to initiate, and an Active status. The example uses the mCSD-profiled OrganizationAffiliation that indicates federated connectivity for Document Sharing (e.g., affiliated organizations may be addressed as intendedRecipient). The algorithm below uses depth-first search and guarantees that if an endpoint is available, it will be found. Implementations might wish to enhance the algorithm to search in alternative ways depending on their deployment environment and path preferences. It is also for illustrative purposes only and does not protect against invalid data such as missing elements, hierarchical loops, or other programming hazards. 
 
-Until a suitable Endpoint is found or the search is complete, check the following in this order:
-- Locate the desired Organization resource.
-- Check if it has a suitable Organization.endpoint.
-- Find OrganizationAffiliation resources where the Organization is the .participatingOrganization, and OrganizationAffiliation.code = DocShare-federate.
-- For each OrganizationAffiliation found:
-  - Check if it has a suitable OrganizationAffiliation.endpoint.
-  - Check if it has a suitable OrganizationAffiliation.organization.endpoint.
-  - Continue searching for a suitable Endpoint by traversing the OrganizationAffiliation resources recursively (i.e., where the OrganizationAffiliation.organization of the current resource is the .participatingOrganization of the next resource).
-- If there is an Organization.partOf (i.e., a parent), check if it has a suitable Organization.endpoint.
-  - Continue searching for a suitable Endpoint by traversing Organization.partOf recursively.
+#### Endpoint Discovery Algorithm
+
+- Accept as input a desiredOrg - the Organization for which an endpoint is sought
+- For each Endpoint in Organization.endpoint
+  - If Endpoint meets the desired criteria, the algorithm ends with Endpoint as the result
+- Perform a search for OrganizationAffiliation Resources where OrganizationAffiliation.participatingOrganization is currentOrg and OrganizationAffiliation.code is DocShare-federate
+- For each OrganizationAffiliation Resource found
+  - Execute the Endpoint Discovery Algorithm with OrganizationAffiliation.organization as the desiredOrg
+  - If an Endpoint was returned, the algorithm ends with Endpoint as the result
+- If Organization.partOf is not null, execute the Endpoint Discovery Algorithm with Organization.partOf as the desiredOrg
+- If an Endpoint was returned, the algorithm ends with Endpoint as the result
+- Else, the algorithm ends with no result found (null)
 
 Rather than a first-match search, the Care Services Selective Consumer might search for and decide among multiple electronic paths to the same Organization. For example:
 - It finds a suitable Endpoint resource for the target Organization, but instead uses an Endpoint for an Organization two levels higher to make a broader search for records.
 - It finds suitable Endpoint resources for equivalent mechanisms, XDR \[ITI-41\] and MHD \[ITI-65\], and chooses MHD as the preferred transaction.
 - It finds suitable Endpoint resources to the same Organization via two different HIEs, and prefers one HIE based on lower fees and authorization differences.
 
-### Relationships between mCSD Resources
-This section will cover how different mCSD Resources relate to one another from the perspective of representing network topology
-
-TODO:  Flesh out
+Community or Network governance may also choose to place restrictions on the directory layout to ensure that there will be only a single path to any given Organization in order to simplify deployment and operations. 
 
 ### Inclusion of Message Delivery Addresses
 This section will discuss how to represent message delivery addresses in an mCSD directory
