@@ -384,7 +384,8 @@ This allows for healthcare facilities, care services, healthcare workers, and ot
 
 ## Directory Layout Guidance
 
-In this section, we provide guidance on how to represent the example communities introduced in section 3 in a central network directory. This guidance will be focused on a central network directory that uses the HL7 FHIR Organization, OrganizationAffiliation, Location, and Endpoint resources to store directory information. The guidance is meant to be compatible with the mCSD integration profile, so that it can live in a directory that has other hierarchical relationships without conflict. 
+In this section, we provide guidance on how to represent the example communities introduced in section 3 in a central network directory. 
+This guidance will be focused on a central network directory that uses the HL7 FHIR Organization, OrganizationAffiliation, Location, and Endpoint resources to store directory information. The guidance is meant to be compatible with the mCSD integration profile, so that it can live in a directory that has other hierarchical relationships without conflict. 
 
 ### FHIR Resources Used For Communication Information
 
@@ -421,21 +422,25 @@ Location Resources describe a physical place where services are provided.
 They are similar to Organization in that they have logical identifiers, names, telecom information, a hierarchy, and electronic data exchange Endpoints. 
 However, since they represent a physical place, rather than the actual entity that might provide services or maintain IT infrastructure, they are typically not used in Document Sharing outside of facilitating discovery of the Organization that a user desires to share with. 
 
-Finally, the Practitioner and PractitionerRole Resources provide information about individual Practitioners that practice at an Organization. They are relevant to DocumentSharing in that they will commonly be referenced in documents and their metadata, but they are also relevant for message delivery use cases in the event a message needs to be delivered to an individual. 
+Finally, the Practitioner and PractitionerRole Resources provide information about individual Practitioners that practice at an Organization. 
+They are relevant to DocumentSharing in that they will commonly be referenced in documents and their metadata, but they are also relevant for message delivery use cases in the event a message needs to be delivered to an individual. 
 
 ### Example Community Directory Layouts
 
 #### Single Organization Community
 
-In a Single Organization Community, the Community can be represented as a single Organization resource with an Organization identifier and a Home Community ID, and these identifiers might even be the same. Since the Community's Responding Gateway serves a single Organization, Endpoints for each service provided by the Responding Gateway can be tied directly to the Organization resource, using the Organization.endpoint element. 
+In a Single Organization Community, the Community can be represented as a single Organization resource with an Organization identifier and a Home Community ID, and these identifiers might even be the same. 
+Since the Community's Responding Gateway serves a single Organization, Endpoints for each service provided by the Responding Gateway can be tied directly to the Organization resource, using the Organization.endpoint element. 
 
-An Organization might manage its own Endpoint. This results the the simplest case shown below:
+An Organization might manage its own Endpoint. 
+This results the the simplest case shown below:
 
 ![Organization Specific Endpoint](images/dir-org-specific-endpoint-self.png)
 
 **Figure 1:46.8.1-1: Organization-specific Endpoint Hosted by the Organization**
 
-Suppose instead Organization A is a subsidiary of its parent, B. B provides IT services and support to its subsidiaries, but the subsidiaries are still the custodians of their clinical documents and so B provides distinct endpoints for each subsidiary. In this case, B would be the managing organization and A is part of B, but the Endpoint is pointed at by Organization A to communicate that the Endpoint provides access to A's data:
+Suppose instead Organization A is a subsidiary of its parent, B. B provides IT services and support to its subsidiaries, but the subsidiaries are still the custodians of their clinical documents and so B provides distinct endpoints for each subsidiary. 
+In this case, B would be the managing organization and A is part of B, but the Endpoint is pointed at by Organization A to communicate that the Endpoint provides access to A's data:
 
 ![Organization Specific Endpoint Hosted by a Parent](images/dir-org-specific-endpoint-parent.png)
 
@@ -455,7 +460,8 @@ Another similar relationship between E and F might exist, but E handles support 
 
 #### Endpoint to a Structure
 
-It is possible for an organization with an endpoint, such as Organization A, to have other Organizations that point to it via partOf. This would be appropriate in the case of subsidiaries or departments within Organization A:
+It is possible for an organization with an endpoint, such as Organization A, to have other Organizations that point to it via partOf. 
+This would be appropriate in the case of subsidiaries or departments within Organization A:
 
 ![Endpoint to Parent Organization](images/dir-endpoint-to-org-hierarchy.png)
 
@@ -482,7 +488,8 @@ The following shows the same Organization hierarchy, but with document sharing e
 
 An OrganizationAffiliation resource without the DocShare-federate code would not imply any document sharing connectivity, as OrganizationAffiliation is used for a variety of reasons outside of document sharing. 
 
-Where there is another route to a child organization, a partOf relationship with a parent will not imply that the parent provides document sharing access to the child. This is because typically if the child has its own access the parent does not need to supply it:
+Where there is another route to a child organization, a partOf relationship with a parent will not imply that the parent provides document sharing access to the child. 
+This is because typically if the child has its own access the parent does not need to supply it:
 
 ![Endpoints to Both Parent and Child Organizations](images/dir-endpoint-to-child-hierarchy.png)
 
@@ -494,7 +501,9 @@ If Organization A did provide document sharing access to Organization AA, then a
 
 **Figure 1:46.8.2-1: Endpoints to Both Parent and Child Organizations with OrganizationAffiliation**
 
-In a multi-layered network, it is likely that different solutions will be used at different levels. Here, Organization G has three subsidiaries, Organizations GA, GB, and GC, as well as a document sharing affiliation with Organization F. Organization F's endpoint would provide document sharing access to all four organizations:
+In a multi-layered network, it is likely that different solutions will be used at different levels. 
+Here, Organization G has three subsidiaries, Organizations GA, GB, and GC, as well as a document sharing affiliation with Organization F. 
+Organization F's endpoint would provide document sharing access to all four organizations:
 
 ![Endpoint to a multi-layered structure](images/dir-endpoint-to-hybrid-org-structure.png)
 
@@ -502,7 +511,8 @@ In a multi-layered network, it is likely that different solutions will be used a
 
 #### Organizations with Multiple Endpoints
 
-A single Organization might have multiple Endpoints for different purposes. For example, endpoints might be needed for IHE XCPD, XCA, XCDR, and a FHIR endpoint to accommodate PDQm and MHD transactions. 
+A single Organization might have multiple Endpoints for different purposes. 
+For example, endpoints might be needed for IHE XCPD, XCA, XCDR, and a FHIR endpoint to accommodate PDQm and MHD transactions. 
 
 ![Multiple Endpoints per Organization](images/dir-endpoint-xdr-mhd.png)
 
@@ -510,7 +520,13 @@ A single Organization might have multiple Endpoints for different purposes. For 
 
 ### Endpoint Discovery 
 
-The following example shows the steps used by a Care Services Selective Consumer to navigate a directory to find suitable electronic service Endpoints to a desired Organization. A "suitable" Endpoint is one that can provide the service needed by the consumer. This typically means it has a connectionType and possibly an endpoint specificType that matches the transaction it wishes to initiate, and an Active status. The example uses the mCSD-profiled OrganizationAffiliation that indicates federated connectivity for Document Sharing (e.g., affiliated organizations may be addressed as intendedRecipient). The algorithm below uses depth-first search and guarantees that if an endpoint is available, it will be found. Implementations might wish to enhance the algorithm to search in alternative ways depending on their deployment environment and path preferences. It is also for illustrative purposes only and does not protect against invalid data such as missing elements, hierarchical loops, or other programming hazards. 
+The following example shows the steps used by a Care Services Selective Consumer to navigate a directory to find suitable electronic service Endpoints to a desired Organization. 
+A "suitable" Endpoint is one that can provide the service needed by the consumer. 
+This typically means it has a connectionType and possibly an endpoint specificType that matches the transaction it wishes to initiate, and an Active status. 
+The example uses the mCSD-profiled OrganizationAffiliation that indicates federated connectivity for Document Sharing (e.g., affiliated organizations may be addressed as intendedRecipient). 
+The algorithm below uses depth-first search and guarantees that if an endpoint is available, it will be found. 
+Implementations might wish to enhance the algorithm to search in alternative ways depending on their deployment environment and path preferences. 
+It is also for illustrative purposes only and does not protect against invalid data such as missing elements, hierarchical loops, or other programming hazards. 
 
 #### Endpoint Discovery Algorithm
 
@@ -525,6 +541,7 @@ The following example shows the steps used by a Care Services Selective Consumer
 - If an Endpoint was returned, the algorithm ends with Endpoint as the result
 - Else, the algorithm ends with no result found (null)
 
+#### Endpoint Discovery Considerations
 Rather than a first-match search, the Care Services Selective Consumer might search for and decide among multiple electronic paths to the same Organization. For example:
 - It finds a suitable Endpoint resource for the target Organization, but instead uses an Endpoint for an Organization two levels higher to make a broader search for records.
 - It finds suitable Endpoint resources for equivalent mechanisms, XDR \[ITI-41\] and MHD \[ITI-65\], and chooses MHD as the preferred transaction.
@@ -533,9 +550,34 @@ Rather than a first-match search, the Care Services Selective Consumer might sea
 Community or Network governance may also choose to place restrictions on the directory layout to ensure that there will be only a single path to any given Organization in order to simplify deployment and operations. 
 
 ### Inclusion of Message Delivery Addresses
-This section will discuss how to represent message delivery addresses in an mCSD directory
 
-TODO:  Flesh out
+A common need in document sharing push workflows is to deliver a message to a specific intended recipient. 
+That recipient might be an Organization, a Practitioner, or some other Person or Group. 
+Since the intended recipient of a message is often far more specific than the set of entities served by an endpoint, delivering a message to an endpoint is insufficient for message delivery - the recipient also needs to be addressed so that the message can be routed to the intended recipient. 
+
+The IHE document sharing profiles capable of handling push messaging - XDR, XCDR, and MHD - contain a field for intendedRecipient that can be used for such an address. The appropriate value with which to populate intendedRecipient could be determined from the target recipient's entry in the mCSD directory. 
+Note:  For Practitioners, the PractitionerRole Resource would be the target resource since a Practitioner might have roles at several organizations, and it is important to deliver the message to the Practitioner at the Organization where the relevant patient care takes place.
+There are two elements, common across the FHIR resources that users would typically wish to address, that might be used for such a value:
+- PractitionerRole, Location, and Organization Resources have endpoint elements. Endpoint.address can be any URI, so a URI could be constructed for each addressable resource, populated in intendedRecipient, and used by responding gateways for message routing. 
+- The above Resources, as well as the Person Resource, have a .telecom element. If these elements are populated with sufficiently unique values (for example, non-shared email addresses), then they could be used to populate intendedRecipient and used by responding gateways for message routing. 
+
+Additional profiling of the above Resources might specify a more standardized way of communicating intendedRecipient addresses in the future. 
+In the absence of that profiling, determining how to populate intendedRecipient will be up to community and network policy. 
+Networks that wish to enable the Message Delivery use case should ensure that whatever values they select can be used by responding gateways to the actual intended recipient. 
+
+In an environment where suitable intendedRecipient addresses can be determined, a Document Source (or delegated Initiating Gateway) would accomplish Message Delivery by doing the following:
+- First, use the Endpoint Discovery Algorithm to find the most localized and suitable Endpoint for Message Delivery to the intended recipient's Organization. 
+- Then, compose a message with intendedRecipient populated according to community or network policy, and transmit that message to the discovered Endpoint. 
+
+### Associating Documents With Directory Entries
+
+A common need in document sharing is to attribute a received document to a healthcare organization or provider. 
+This can be done discretely with the aid of a centralized directory. 
+Both the authorInstitution and authorPerson document sharing metadata elements can contain a discrete identifier for the document's author. 
+The corresponding mCSD directory entries will also have a .identifier element that discretely identifies them. 
+Therefore, the authorInstitution and authorPerson document sharing metadata elements should be populated with identifiers from the corresponding directory entries to enable correlation. 
+
+Note that Organizational identifiers like Home Community ID or Repository Unique ID are often not unique to a particular Organization and so should not be relied upon to attribute documents to a particular Organization. 
 
 ## Examples
 In this section we will take the example topologies from above and show how they would be represented in an mCSD directory
