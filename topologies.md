@@ -407,7 +407,9 @@ The partOf element is typically used to represent business relationships (Depart
 The OrganizationAffiliation Resource establishes a parent-child relationship via its organization (parent) and participatingOrganization (child) elements. 
 It also has a code element that can be used to identify the nature of the relationship between organization and participatingOrganization. 
 mCSD defines a code - DocShare-federate - to imply that a parent organization provides access to documents for its children in a Document Sharing Network.
-OrganizationAffiliation also has an endpoint element, though our guidance in this section recommends against its use in order to simplify endpoint search algorithms. 
+OrganizationAffiliation also has an endpoint element.
+This can be used instead of Organization.Endpoint when it needs to be clear that while the Endpoint is child Organization specific, it is configured by the parent organization. 
+This understanding is necessary when there are multiple affiliated parent Organizations that provide child specific endpoints to a particular child Organization, or when the parent organization is the one managing trust relationships for the Endpoint despite the Endpoint serving a single child organization. 
 
 The third Resource that is critical to establishing connectivity is the Endpoint resource. 
 An Organization can have one or more Endpoints to represent an access point for electronic communication with that Organization. 
@@ -439,8 +441,8 @@ This results the the simplest case shown below:
 
 **Figure 1:46.8.1-1: Organization-specific Endpoint Hosted by the Organization**
 
-Suppose instead Organization A is a subsidiary of its parent, B. B provides IT services and support to its subsidiaries, but the subsidiaries are still the custodians of their clinical documents and so B provides distinct endpoints for each subsidiary. 
-In this case, B would be the managing organization and A is part of B, but the Endpoint is pointed at by Organization A to communicate that the Endpoint provides access to A's data:
+Suppose instead Organization A is a subsidiary of its parent, B. B provides IT services and support to its subsidiaries, but the subsidiaries have complete control over their endpoints including the data they return and the trust relationships with those that might want access to the endpoint. 
+In this case, B would be the managing organization and A is part of B, but the Endpoint is pointed at by Organization A to communicate that the Endpoint is logically "owned by" A:
 
 ![Organization Specific Endpoint Hosted by a Parent](images/dir-org-specific-endpoint-parent.png)
 
@@ -457,6 +459,15 @@ Another similar relationship between E and F might exist, but E handles support 
 ![Organization Specific Endpoint Hosted By Unrepresented Intermediary](images/dir-org-specific-endpoint-inter.png)
 
 **Figure 1:46.8.1-4: Organization-specific Endpoint Hosted by Unrepresented Intermediary**
+
+Consider another pair of organizations, G and H. H provides document sharing infrastructure services to G by providing G with an endpoint specific to its organization, but H manages the endpoint entirely, including managing trust for outside entities. 
+That is to say, outside entities can exchange data with G if they have a trust relationship with H. 
+
+In this case, it is more appropriate to point to the Endpoint for G from the OrganizationAffiliation Resource that connects G and H, to indicate that while the Endpoint provides data for G, it really belongs to H from a trust perspective. 
+
+![Organization Specific Endpoint Controlled by Affiliate](images/dir-org-specific-endpoint-from-affil.png)
+
+**Figure : Organization-specific Endpoint Controlled by Affiliation**
 
 #### Endpoint to a Structure
 
