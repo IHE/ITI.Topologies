@@ -4,11 +4,11 @@
 
 **[IHE IT Infrastructure (ITI)](https://profiles.ihe.net/ITI) White Paper**
 
-**Topological Federation of Document Sharing**
+**Document Sharing Across Network Topologies**
 
 **Revision 0.1 - Draft**
 
-Date: TODO:  Update
+Date: October 7, 2022
 
 Author: ITI Technical Committee
 
