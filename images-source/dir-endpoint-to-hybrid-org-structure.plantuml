@@ -1,0 +1,28 @@
+@startuml dir-endpoint-to-hybrid-org-structure
+hide footbox
+
+object "Organization F" as OrganizationF
+OrganizationF : OrgID = 1.2.7
+OrganizationF : HCID = 1.2.7
+object "Organization G" as OrganizationG
+OrganizationG : OrgID = 1.2.8
+object "Endpoint" as EndpointF
+EndpointF : address = https://orgF.org
+object "Organization GA" as OrganizationGA
+OrganizationGA : OrgID = 1.2.8.1
+object "Organization GB" as OrganizationGB
+OrganizationGB : OrgID = 1.2.8.2
+object "Organization GC" as OrganizationGC
+OrganizationGC : OrgID = 1.2.8.3
+object ":OrganizationAffiliation" as OrgAff
+OrgAff : code = DocShare-federate
+OrgAff -> OrganizationG : participatingOrganization
+OrganizationF <-- OrgAff : organization
+
+EndpointF <-- OrganizationF : endpoint
+
+OrganizationG <-- OrganizationGA : partOf
+OrganizationG <-- OrganizationGB : partOf
+OrganizationG <-- OrganizationGC : partOf
+
+@enduml

@@ -1,0 +1,24 @@
+@startuml dir-endpoint-to-child-hierarchy
+hide footbox
+
+object "Organization A" as OrganizationA
+OrganizationA : OrgID = 1.2.3
+OrganizationA : HCID = 1.2.3
+object "Organization AA" as OrganizationAA
+OrganizationAA : OrgID = 1.2.3.1
+object "Endpoint" as EndpointA
+EndpointA : address = https://orgA.org
+object "Endpoint" as EndpointAA
+EndpointAA : address = https://orgAA.org
+
+OrganizationA <-- OrganizationAA : partOf
+EndpointA <-- OrganizationA : endpoint
+OrganizationA <- EndpointA : managingOrganization
+
+EndpointAA <-l- OrganizationAA : endpoint
+OrganizationAA <- EndpointAA : managingOrganization
+
+note "Endpoint for Organization A provides document sharing access to A but not AA" as N1
+N1 .. EndpointA
+
+@enduml

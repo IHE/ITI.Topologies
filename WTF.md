@@ -454,56 +454,58 @@ Another similar relationship between E and F might exist, but E handles support 
 
 #### Endpoint to a Structure
 
-When an Organization with an Endpoint has a complex structure, for example, sub-organizations, clients can often make use of this structure:
+It is possible for an organization with an endpoint, such as Organization A, to have other Organizations that point to it via partOf. This would be appropriate in the case of subsidiaries or departments within Organization A:
 
-<div>
-{%include dir-endpoint-to-org-hierarchy.svg%}
-</div>
-<div style="clear: left;"/>
+![Endpoint to Parent Organization](images/dir-endpoint-to-org-hierarchy.png)
 
-**Figure 1:46.8.2-1: Endpoint to Organizational Hierarchy**
+**Figure 1:46.8.2-1: Endpoint to Parent Organization**
 
 Typical directories will take an organizational hierarchy to imply accessibility to parts of the structure, for example:
 - For FHIR REST endpoints, the URL is simply the Service Base URL as specified in [FHIR R4 3.1.0.1.2](http://hl7.org/fhir/R4/http.html#general). Clients can expect to find resources related to Organizations A, B and C.
-- For XCA endpoints, a client querying Organization A for documents (e.g., using \[ITI-38\]) may receive documents from Organizations A, B and C. If these organizations have identifiers of type Home Community ID in the directory, clients can expect to see these identifiers in the returned document metadata.
+- For XCA endpoints, a client querying Organization A for documents (e.g., using \[ITI-38\]) may receive documents from Organizations A, B and C. 
 - For XDR endpoints, a client sending a Provide and Register Document Set-b (\[ITI-41\]) request to Organization A can optionally specify Organizations B and/or C in intendedRecipient.
 - For MHD endpoints, a client sending a Provide Document Bundle (\[ITI-65\]) request to Organization A can optionally specify Organizations B and/or C in intendedRecipient.
 
-Specific details of addressing to federated recipients are out of the scope of this IG.
-
 Examples of this kind of federated structure are shown in [ITI TF-1: Appendix E.9](https://profiles.ihe.net/ITI/TF/Volume1/ch-E.html#E.9.3), for XCA Responding Gateways.
 
-By contrast, OrganizationAffiliations by themselves do not necessarily imply this kind of electronic accessibility. For this reason, this IG defines the code "DocShare-federate", which explicitly declares that the participatingOrganization is accessible as a federated organization via the OrganizationAffiliation.endpoint.
+When child organizations have a partOf relationship with a parent, there is ambiguity around whether requesting data from, or delivering messages to, the parent organization will return data from, or route the message to, the child organizations. If the child organizations would otherwise be unreachable, it can be assumed that the parent provides access to the children. 
+Alternatively, mCSD supplies an OrganizationAffiliation.code - DocShare-federate - that can be used on an OrganizationAffiliation Resource to explicitly declare that a parent provides document sharing access to a child organization. 
+As is, it must be assumed that children are accessible for all document sharing technologies supported by the parent; there is no way to declare that the parent endpoints will work for document query and retrieve but not message delivery, for example. 
+mCSD might declare a more granular set of OrganizationAffiliation codes in the future to help facilitate this level of nuance. 
 
-The following diagram shows the same accessibility, but using OrganizationAffiliation.
+The following shows the same Organization hierarchy, but with document sharing explicitly declared:
 
-<div>
-{%include dir-endpoint-to-org-affiliates.svg%}
-</div>
-<div style="clear: left;"/>
+![Endpoint to Parent Organization with OrgAffiliation](images/dir-endpoint-to-org-affiliates.png)
 
-**Figure 1:46.8.2-2: Endpoint to Organizational Affiliates**
+**Figure 1:46.8.2-1: Endpoint to Parent Organization with OrganizationAffiliation**
 
-In addition, these mechanisms may be combined. This may be useful, for example, when adding an existing organizational structure to an HIE.
+An OrganizationAffiliation resource without the DocShare-federate code would not imply any document sharing connectivity, as OrganizationAffiliation is used for a variety of reasons outside of document sharing. 
 
-<div>
-{%include dir-endpoint-to-hybrid-org-structure.svg%}
-</div>
-<div style="clear: left;"/>
+Where there is another route to a child organization, a partOf relationship with a parent will not imply that the parent provides document sharing access to the child. This is because typically if the child has its own access the parent does not need to supply it:
 
-**Figure 1:46.8.2-3: Endpoint to Hybrid Organizational Structure**
+![Endpoints to Both Parent and Child Organizations](images/dir-endpoint-to-child-hierarchy.png)
 
-##### Grouping Actors
+**Figure 1:46.8.2-1: Endpoints to Both Parent and Child Organizations**
 
-Grouped actors may be represented as well, although not explicitly. In the following example, Participant A is reachable by either an MHD endpoint or XDR endpoints. The directory
-does not reflect which endpoint is the adapter or the adaptee.
+If Organization A did provide document sharing access to Organization AA, then an explicit OrganizationAffiliation should be declared:
 
-<div>
-{%include dir-endpoint-xdr-mhd.svg%}
-</div>
-<div style="clear: left;"/>
+![Endpoints to Both Parent and Child Organizations with OrgAffiliation](images/dir-endpoint-to-child-affiliate.png)
 
-**Figure 1:46.8.3-1: Endpoints to Grouped Actors**
+**Figure 1:46.8.2-1: Endpoints to Both Parent and Child Organizations with OrganizationAffiliation**
+
+In a multi-layered network, it is likely that different solutions will be used at different levels. Here, Organization G has three subsidiaries, Organizations GA, GB, and GC, as well as a document sharing affiliation with Organization F. Organization F's endpoint would provide document sharing access to all four organizations:
+
+![Endpoint to a multi-layered structure](images/dir-endpoint-to-hybrid-org-structure.png)
+
+**Figure 1:46.8.2-3: Endpoint to Mulit-Layered Organizational Structure**
+
+#### Organizations with Multiple Endpoints
+
+A single Organization might have multiple Endpoints for different purposes. For example, endpoints might be needed for IHE XCPD, XCA, XCDR, and a FHIR endpoint to accommodate PDQm and MHD transactions. 
+
+![Multiple Endpoints per Organization](images/dir-endpoint-xdr-mhd.png)
+
+**Figure 1:46.8.3-1: Multiple Endpoints For A Single Organization**
 
 ##### Endpoint Discovery Usage
 

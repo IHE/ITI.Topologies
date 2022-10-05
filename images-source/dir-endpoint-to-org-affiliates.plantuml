@@ -1,0 +1,29 @@
+@startuml dir-endpoint-to-org-affiliates
+hide footbox
+
+object "Organization A" as OrganizationA
+OrganizationA : OrgID = 1.2.3
+OrganizationA : HCID = 1.2.3
+object "Organization AA" as OrganizationAA
+OrganizationAA : OrgID = 1.2.3.1
+object "Endpoint" as EndpointA
+EndpointA : address = https://orgA.org
+object "Organization AB" as OrganizationAB
+OrganizationAB : OrgID = 1.2.3.2
+object ":OrganizationAffiliation" as OrgAff
+OrgAff : code = DocShare-federate
+OrgAff --> OrganizationAA : participatingOrganization
+OrganizationA <-- OrgAff : organization
+object ":OrganizationAffiliation" as OrgAff2
+OrgAff2 : code = DocShare-federate
+OrgAff2 --> OrganizationAB : participatingOrganization
+OrganizationA <-- OrgAff2 : organization
+
+EndpointA <-- OrganizationA : endpoint
+
+OrganizationA <- OrganizationAA : partOf
+OrganizationA <- OrganizationAB : partOf
+
+OrganizationA <- EndpointA : managingOrganization
+
+@enduml

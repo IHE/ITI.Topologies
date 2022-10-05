@@ -1,0 +1,36 @@
+@startuml dir-endpoint-xdr-mhd
+hide footbox
+left to right direction
+
+object ":Organization A" as OrganizationA
+OrganizationA : OrgID = 1.2.3
+OrganizationA : HCID = 1.2.3
+object ":Endpoint" as Responder55
+Responder55 : address = https://orgA.org/resp/xcpd
+Responder55 : connectionType = ihe-xcpd
+Responder55 : extension:specificType = XCPD-RespGateway-PatientDiscovery
+object ":Endpoint" as Responder38
+Responder38 : address = https://orgA.org/resp/xca/query
+Responder38 : connectionType = ihe-xca
+Responder38 : extension:specificType = XCA-RespGateway-Queuey
+object ":Endpoint" as Responder39
+Responder39 : address = https://orgA.org/resp/xca/retrieve
+Responder39 : connectionType = ihe-xca
+Responder39 : extension:specificType = XCA-RespGateway-Retrieve
+object ":Endponit" as Responder41
+Responder41 : address = https://orgA.org/resp/xcdr
+Responder41 : connectionType = ihe-xcdr
+Responder41 : extension:specificType = XDR-Recipient-ProvideReg
+object ":Endpoint" as ResponderFhir
+ResponderFhir : address = https://orgA.org/FHIR/
+ResponderFhir : connectionType = hl7-fhir-rest
+
+OrganizationA *--> Responder55
+OrganizationA *--> Responder38
+OrganizationA *--> Responder39
+OrganizationA *--> Responder41
+OrganizationA *--> ResponderFhir
+note "CapabilityStatement identifies supported profiles and implementation guides" as N1
+N1 .. ResponderFhir
+
+@enduml

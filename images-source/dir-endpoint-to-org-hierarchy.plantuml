@@ -1,0 +1,19 @@
+@startuml dir-endpoint-to-org-hierarchy
+hide footbox
+
+object "Organization A" as OrganizationA
+OrganizationA : OrgID = 1.2.3
+OrganizationA : HCID = 1.2.3
+object "Organization AA" as OrganizationAA
+OrganizationAA : OrgID = 1.2.3.1
+object "Endpoint" as EndpointA
+EndpointA : address = https://orgA.org
+object "Organization AB" as OrganizationAB
+OrganizationAB : OrgID = 1.2.3.2
+
+OrganizationA <-- OrganizationAA : partOf
+EndpointA <-- OrganizationA : endpoint
+OrganizationA <- EndpointA : managingOrganization
+OrganizationA <-- OrganizationAB : partOf
+
+@enduml
