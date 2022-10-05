@@ -4,4 +4,4 @@ This IHE white paper expands on the existing HIE white paper by exploring strate
 
 # Link to Working Copy
 
-[Topologies](Topologies.md)
+[Topologies](topologies.md)
