@@ -614,7 +614,22 @@ TODO:  Flesh out
 
 ## Document Access 
 
-TODO
+Let us consider the Document Access use case from section 2, and how the objects could be represented in a directory and utilized based on different topologies.
+
+The example includes four organizations: New Hope Medical Partners, University Health, Valley Access Healthcare, and Urgent Health, as well as a regional HIE, which we’ll call Valley Region HIE and represent as a fifth organization. Here are just the organizations and their affiliations. For now, we’ll leave any relationship between New Hope and the others unspecified.
+
+![Document Access: Organizations Only](images/access-orgs-only.png)
+
+For the first case, let’s have New Hope be in a different community, and have Valley HIE provide a single cross-community interface to its organizations: a Responding Gateway exposing XCPD and XCA endpoints. From New Hope’s perspective, Valley HIE could be a Multi-Organization Community or a Single Facade Community. The overall network is a Multiple Community Network we’ll call Big Health Exchange. We’ll also show New Hope’s EHR with its Initiating Gateway with XCPD and XCA endpoints.
+
+![Document Access: Multiple Community Network in Comprehensive Directory](images/access-multi-community.png)
+
+The EHR at New Hope needs to find these organizations and determine if they are reachable via its membership in Big Health Exchange. In the following diagram we show it making this determination by finding the organizations, seeing that they are connected to Valley HIE which is a member of Big Health Exchange, and finally checking that they roll up (by virtue of the XCPD-include and XCA-include codes) to Valley HIE’s results.
+
+![Document Access: Utilizing Multiple Community Network](images/access-multi-community-seq.png)
+
+Now let’s consider some variations:
+- If the directory is only for members of Big Health Exchange, then rather than being comprehensive, it could be purpose-built and omit the organization for Big Health Exchange and its affiliations. It could be inferred that any endpoints found in the directory are reachable through Big Health Exchange.
 
 ## Message Delivery
 
