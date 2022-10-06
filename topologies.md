@@ -546,6 +546,8 @@ It is also for illustrative purposes only and does not protect against invalid d
   - If Endpoint meets the desired criteria, the algorithm ends with Endpoint as the result
 - Perform a search for OrganizationAffiliation Resources where OrganizationAffiliation.participatingOrganization is currentOrg and OrganizationAffiliation.code is DocShare-federate
 - For each OrganizationAffiliation Resource found
+  - For each Endpoint in OrganizationAffiliation.endpoint
+    - If Endpoint meets the desired criteria, the algorithm ends with Endpoint as the result
   - Execute the Endpoint Discovery Algorithm with OrganizationAffiliation.organization as the desiredOrg
   - If an Endpoint was returned, the algorithm ends with Endpoint as the result
 - If Organization.partOf is not null, execute the Endpoint Discovery Algorithm with Organization.partOf as the desiredOrg
