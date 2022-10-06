@@ -1,0 +1,32 @@
+@startuml
+actor "Dr. Suwati" as actor1
+participant "New Hope EHR" as ehr
+participant "Big Health\nExchange Directory" as dir
+participant "HIE XCPD\nEndpoint" as xcpd
+participant "HIE XCA\nEndpoint" as xca
+
+
+actor1 -> ehr: Kick off search\ngiven known locations\nof treatment\n"Valley Access Healthcare",\n"OU Health"
+ehr -> dir: Search Orgs for "Valley Access Healthcare",\n"OU Health" by name, alias
+dir --> ehr: : Org 1.2.3.2, Org 1.2.3.3
+
+ehr -> dir: Search those Orgs for XCPD, XCA endpoints
+dir --> ehr: : <none>
+
+ehr -> dir: Search those Orgs for affiliations\nwith codes "XCPD-include", "XCA-include"\n and XCPD, XCA endpoints
+dir --> ehr: : OrgAff1, OrgAff2
+
+ehr -> dir: Search Valley HIE for affiliation\nwith Big Health Exchange
+dir --> ehr: : <found>
+
+ehr -> dir: Get endpoints from OrgAff1, OrgAff2
+dir --> ehr: : XCPD, XCA endpoints
+
+ehr -> xcpd : Match "Vanna Patterson"
+xcpd --> ehr: : Match(es)
+
+ehr -> xca : Get documents
+xca --> ehr: : documents, including from Urgent Health
+ehr --> actor1: : documents
+
+@enduml
