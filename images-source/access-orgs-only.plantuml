@@ -1,0 +1,43 @@
+@startuml
+hide footbox
+
+object ":Organization" as Partners
+Partners : name = "New Hope Medical Partners"
+
+object ":Organization" as hie
+hie : name = "Valley Region HIE"
+hie : OrgID = 1.2.3.0
+hie : HCID = 1.2.3
+
+object ":Organization" as Valley
+Valley : name = "Valley Access Healthcare"
+Valley : OrgID = 1.2.3.2
+
+object ":Organization" as OU
+OU : name = "University Health"
+OU : alias = "OU Health System",\n"OU Health"
+OU : OrgID = 1.2.3.3
+
+object ":Organization" as Urgent
+Urgent : name = "Urgent Health"
+Urgent : OrgID = 4.5.6.7
+
+object "orgAff1:OrganizationAffiliation" as OrgAff1
+OrgAff1 : code = “HIE/HIO”
+
+OrgAff1 --> Valley : participatingOrganization
+hie <-- OrgAff1 : organization
+
+object "orgAff2:OrganizationAffiliation" as OrgAff2
+OrgAff2 : code = “HIE/HIO”
+
+OrgAff2 --> OU : participatingOrganization
+hie <-- OrgAff2 : organization
+
+object "orgAff3:OrganizationAffiliation" as OrgAff3
+OrgAff3 : code = “HIE/HIO”
+
+OrgAff3 --> Urgent : participatingOrganization
+hie <-- OrgAff3 : organization
+
+@enduml
