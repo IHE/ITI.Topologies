@@ -417,7 +417,7 @@ While the Organization Resource can only refer to one parent Organization direct
 The partOf element is typically used to represent business relationships (Department X is part of Organization Y which is a subsidiary of Organization Z), however, some directories might choose to use partOf to also represent document sharing access. 
 The OrganizationAffiliation Resource establishes a parent-child relationship via its organization (parent) and participatingOrganization (child) elements. 
 It also has a code element that can be used to identify the nature of the relationship between organization and participatingOrganization. 
-mCSD defines a code - DocShare-federate - to imply that a parent organization provides access to documents for its children in a Document Sharing Network.
+mCSD defines a code - DocShare-federate - to imply that a parent organization provides access to documents for its children in a Document Sharing Network, and additional codes might be defined by mCSD in the future or by directory policy. 
 OrganizationAffiliation also has an endpoint element.
 This can be used instead of Organization.Endpoint when it needs to be clear that while the Endpoint is child Organization specific, it is configured by the parent organization. 
 This understanding is necessary when there are multiple affiliated parent Organizations that provide child specific endpoints to a particular child Organization, or when the parent organization is the one managing trust relationships for the Endpoint despite the Endpoint serving a single child organization. 
@@ -445,7 +445,7 @@ Document Sharing relationships might be expressed in the directory via Organizat
 Organization.partOf is the simplest way to represent a relationship between two Organizations.
 When child organizations have a partOf relationship with a parent, there is ambiguity around whether requesting data from, or delivering messages to, the parent organization will return data from, or route the message to, the child organizations. 
 Alternatively, mCSD supplies an OrganizationAffiliation.code - DocShare-federate - that can be used on an OrganizationAffiliation Resource to explicitly declare that a parent provides document sharing access to a child organization. 
-As is, it must be assumed that children are accessible for all document sharing technologies supported by the parent; there is no way to declare that the parent endpoints will work for document query and retrieve but not message delivery, for example. 
+The DocShare-federate code implies that children are accessible for all document sharing technologies supported by the parent; there is no way to declare that the parent endpoints will work for document query and retrieve but not message delivery, for example. 
 mCSD might declare a more granular set of OrganizationAffiliation codes in the future to help facilitate this level of nuance.
 
 Because the use of partOf is not explicit in whether it signifies that a parent Organization provides document sharing access to its children, directory policy will need to clarify the meaning of partOf with respect to Document Sharing. 
@@ -578,7 +578,7 @@ It is also for illustrative purposes only and does not protect against invalid d
 - Accept as input a desiredOrg - the Organization for which an endpoint is sought
 - For each Endpoint in Organization.endpoint
   - If Endpoint meets the desired criteria, the algorithm ends with Endpoint as the result
-- Perform a search for OrganizationAffiliation Resources where OrganizationAffiliation.participatingOrganization is currentOrg and OrganizationAffiliation.code is DocShare-federate
+- Perform a search for OrganizationAffiliation Resources where OrganizationAffiliation.participatingOrganization is currentOrg and OrganizationAffiliation.code indicates the needed document sharing access
 - For each OrganizationAffiliation Resource found
   - For each Endpoint in OrganizationAffiliation.endpoint
     - If Endpoint meets the desired criteria, the algorithm ends with Endpoint as the result
