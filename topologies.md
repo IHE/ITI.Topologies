@@ -140,7 +140,7 @@ Note that in the case where a community contains a single organization, a home c
 
 ### Document Sharing Network
 
-A **Document Sharing Network** is defined as a collection of one or more Document Sharing Communities and/or Document Sharing Networks that agree to a common, higher level governance structure, participate in document sharing with one another, and share network central resources among one another. 
+A **Document Sharing Network** is defined as a collection of one or more Document Sharing Communities and/or Document Sharing Networks that agree to a common, higher level governance structure, participate in document sharing with one another, and share network central resources, such as a central network directory, among one another. 
 
 Document Sharing Networks might provide their participant communities with a variety of services. 
 The most common are centralized directories, certificate authorities, and centralized network gateways. 
@@ -153,6 +153,16 @@ The Responding Gateway is the access point for actors belonging to other network
 
 Network Gateways expose the same interfaces and are interacted with in the same way as community gateways. The difference is that a Network Gateway might provide access to several communities. 
 Therefore, where network gateways are used, participants can interact with the network gateway in the same way as a community gateway, with the caveat that the network gateway might process information for several Home Community IDs. 
+
+### Central Network Directory
+
+Systems in a network require a method for discovering one another. 
+For large networks, manual configuration is not feasible, so discovery needs to be automated. 
+Discovery can be facilitated by the addition of a central network directory into a network. 
+
+A central network directory is a care services directory that is central to the network and thus does not have bias toward one segment of the network or another. 
+
+In a multi-layered document sharing network, central directories for different layers of the network are likely to synchronize with one another in order to provide layers of the network visibility into the Organizations present outside of their immediate network. 
 
 ### Multi-Layered Document Sharing Network
 
@@ -180,6 +190,7 @@ Federation can occur at any layer of a multi-layered document sharing network, t
 A **Care Services Directory** is a common, authoritative registry of the healthcare organizations, locations, practitioners, etc. and their contact information (both electronic and otherwise). 
 A document sharing network, at minimum, needs a directory that contains the set of organizations that are members of the network and the communication endpoints for document sharing. 
 More advanced networks will also want to have information about the network topology in the directory, as well as information about the healthcare locations, practitioners, jurisdictions, services, and organizational business relationships. 
+Such a directory is likely to serve as a central network directory for a network.
 
 IHE offers the [Mobile Care Services Directory (mCSD)](https://profiles.ihe.net/ITI/mCSD/index.html) Profile to specify how such a directory should operate, and the [mCSD White Paper](https://profiles.ihe.net/ITI/papers/mCSD/index.html) offers additional explanation on how the mCSD Profile can be implemented to solve the business needs of a healthcare information exchange. 
 
@@ -403,7 +414,7 @@ Organizations have a few key attributes that are relevant for Document Sharing:
 
 As stated above, an Organization might belong to a variety of hierarchies for different purposes. 
 While the Organization Resource can only refer to one parent Organization directly, the OrganizationAffiliation Resource can be used to establish additional hierarchies. 
-The partOf element is typically used to represent business relationships (Department X is part of Organization Y which is a subsidiary of Organization Z), so additional hierarchies, such as hierarchies representing connectivity, should be represented using the OrganizationAffiliation Resource. 
+The partOf element is typically used to represent business relationships (Department X is part of Organization Y which is a subsidiary of Organization Z), however, some directories might choose to use partOf to also represent document sharing access. 
 The OrganizationAffiliation Resource establishes a parent-child relationship via its organization (parent) and participatingOrganization (child) elements. 
 It also has a code element that can be used to identify the nature of the relationship between organization and participatingOrganization. 
 mCSD defines a code - DocShare-federate - to imply that a parent organization provides access to documents for its children in a Document Sharing Network.
@@ -426,6 +437,27 @@ However, since they represent a physical place, rather than the actual entity th
 
 Finally, the Practitioner and PractitionerRole Resources provide information about individual Practitioners that practice at an Organization. 
 They are relevant to DocumentSharing in that they will commonly be referenced in documents and their metadata, but they are also relevant for message delivery use cases in the event a message needs to be delivered to an individual. 
+
+### Indicating Document Sharing Connectivity
+
+Document Sharing relationships might be expressed in the directory via Organization.partOf or by use of the OrganizationAffiliation Resource.
+
+Organization.partOf is the simplest way to represent a relationship between two Organizations.
+When child organizations have a partOf relationship with a parent, there is ambiguity around whether requesting data from, or delivering messages to, the parent organization will return data from, or route the message to, the child organizations. 
+Alternatively, mCSD supplies an OrganizationAffiliation.code - DocShare-federate - that can be used on an OrganizationAffiliation Resource to explicitly declare that a parent provides document sharing access to a child organization. 
+As is, it must be assumed that children are accessible for all document sharing technologies supported by the parent; there is no way to declare that the parent endpoints will work for document query and retrieve but not message delivery, for example. 
+mCSD might declare a more granular set of OrganizationAffiliation codes in the future to help facilitate this level of nuance.
+
+Because the use of partOf is not explicit in whether it signifies that a parent Organization provides document sharing access to its children, directory policy will need to clarify the meaning of partOf with respect to Document Sharing. 
+Possible clarifications would include:
+- Declaring that partOf shall be used to signify a Document Sharing relationship rather than or in addition to business relationships.
+In this case, OrganizationAffiliation might not be used, but this case is also the most restrictive in preventing the directory from acquiring new, more comprehensive data sets in the future. 
+- Declaring that partOf may indicate that the parent provides Document Sharing Access, but only if the child Organization in question has no Endpoints of its own and no OrganizationAffiliation resources with it as a participatingOrganization and a code indicating document sharing access. 
+- Declaring that partOf has no relationship to document sharing and any organizations that provide document sharing access to children must be linked to the children with an OrganizationAffiliation with an appropriate code. 
+This is the most explicit policy, but one that might be operationally cumbersome to maintain. 
+
+In all three cases, the Endpoint Discovery Algorithm in section below will identify a suitable endpoint if one exists. 
+However, it might be ambiguous whether a particular child organization can have data retrieved through its parent when partOf is used and both the child and the parent have endpoints, or when children are in the directory for informational purposes and do not actually have document sharing available. 
 
 ### Example Community Directory Layouts
 
@@ -478,35 +510,37 @@ This would be appropriate in the case of subsidiaries or departments within Orga
 
 **Figure 1:46.8.2-1: Endpoint to Parent Organization**
 
-Typical directories will take an organizational hierarchy to imply accessibility to parts of the structure, for example:
-- For FHIR REST endpoints, the URL is simply the Service Base URL as specified in [FHIR R4 3.1.0.1.2](http://hl7.org/fhir/R4/http.html#general). Clients can expect to find resources related to Organizations A, B and C.
+Directory policy will determine whether organizational hierarchy via partOf implies accessibility to child entries, for example:
+- For FHIR REST endpoints, the URL is simply the Service Base URL as specified in [FHIR R4 3.1.0.1.2](http://hl7.org/fhir/R4/http.html#general). 
+Clients can expect to find resources related to Organizations A, B and C.
 - For XCA endpoints, a client querying Organization A for documents (e.g., using \[ITI-38\]) may receive documents from Organizations A, B and C. 
 - For XDR endpoints, a client sending a Provide and Register Document Set-b (\[ITI-41\]) request to Organization A can optionally specify Organizations B and/or C in intendedRecipient.
 - For MHD endpoints, a client sending a Provide Document Bundle (\[ITI-65\]) request to Organization A can optionally specify Organizations B and/or C in intendedRecipient.
 
 Examples of this kind of federated structure are shown in [ITI TF-1: Appendix E.9](https://profiles.ihe.net/ITI/TF/Volume1/ch-E.html#E.9.3), for XCA Responding Gateways.
 
-When child organizations have a partOf relationship with a parent, there is ambiguity around whether requesting data from, or delivering messages to, the parent organization will return data from, or route the message to, the child organizations. If the child organizations would otherwise be unreachable, it can be assumed that the parent provides access to the children. 
-Alternatively, mCSD supplies an OrganizationAffiliation.code - DocShare-federate - that can be used on an OrganizationAffiliation Resource to explicitly declare that a parent provides document sharing access to a child organization. 
-As is, it must be assumed that children are accessible for all document sharing technologies supported by the parent; there is no way to declare that the parent endpoints will work for document query and retrieve but not message delivery, for example. 
-mCSD might declare a more granular set of OrganizationAffiliation codes in the future to help facilitate this level of nuance. 
-
-The following shows the same Organization hierarchy, but with document sharing explicitly declared:
+Because the cardinality of Organization.partOf is 1..1, directories that wish to represent more than one hierarchy, or a non-business hierarchy, might choose to use OrganizationAffiliation to expose those hierarchies instead. 
+The following shows the same Organization hierarchy, but using OrganizationAffiliation instead of partOf to declare the relationship:
 
 ![Endpoint to Parent Organization with OrgAffiliation](images/dir-endpoint-to-org-affiliates.png)
 
 **Figure 1:46.8.2-1: Endpoint to Parent Organization with OrganizationAffiliation**
 
-An OrganizationAffiliation resource without the DocShare-federate code would not imply any document sharing connectivity, as OrganizationAffiliation is used for a variety of reasons outside of document sharing. 
+An OrganizationAffiliation resource without an applicable code would not imply any document sharing connectivity, as OrganizationAffiliation is used for a variety of reasons outside of document sharing. 
 
-Where there is another route to a child organization, a partOf relationship with a parent will not imply that the parent provides document sharing access to the child. 
-This is because typically if the child has its own access the parent does not need to supply it:
+Directories that will have Organizations with partOf relationships where both Organizations will have endpoints will likely not want to use partOf to imply connectivity. 
+Such networks might be architected in a way that causes the parent organization's Endpoint to not be capable of returning data for the child organization.
+Of course, it could also be the case that the parent's Endpoint does return data for the child, but the child's Endpoint is simply more targeted in its scope. 
+
+Because of this, directory policy might dictate that an OrganizationAffiliation Resource should be used to express federated document sharing. 
+
+In such a directory, the below relationship would not imply document sharing federation:
 
 ![Endpoints to Both Parent and Child Organizations](images/dir-endpoint-to-child-hierarchy.png)
 
 **Figure 1:46.8.2-1: Endpoints to Both Parent and Child Organizations**
 
-If Organization A did provide document sharing access to Organization AA, then an explicit OrganizationAffiliation should be declared:
+If Organization A did provide document sharing access to Organization AA, then an explicit OrganizationAffiliation with a directory defined code would be declared:
 
 ![Endpoints to Both Parent and Child Organizations with OrgAffiliation](images/dir-endpoint-to-child-affiliate.png)
 
