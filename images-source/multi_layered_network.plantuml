@@ -4,8 +4,13 @@ skinparam linetype ortho
 rectangle topLevelNetwork as "Top Level Network" {
     rectangle lowerNetworkB as "Lower Network B" {
         package community3 as "HCID = 1.2.8" {
-            node ig3 as "Initiating Gateway"
-            node rg3 as "Responding Gateway"
+            node ig3 as "Initiating Gateway" {
+                component "Document Consumer" as exConsumer1
+            }
+            node rg3 as "Responding Gateway" {
+                component "Data Source" as exSource1
+                component "Document Generation" as exGen1
+            }
         }
     }
     rectangle lowerNetworkA as "Lower Network A" {
@@ -24,19 +29,24 @@ rectangle topLevelNetwork as "Top Level Network" {
         node ds as "Document Source"
         } 
         package community2 as "HCID = 1.2.7" {
-            node ig2 as "Initiating Gateway"
-            node rg2 as "Responding Gateway"
+            node ig2 as "Initiating Gateway" {
+                component "Document Consumer" as exConsumer2
+            }
+            node rg2 as "Responding Gateway" {
+                component "Data Source" as exSource2
+                component "Document Generation" as exGen2
+            }
         }
     }
 }
 ig3 -l-> nrg
 nig -r-> rg3
-ig1 -u-> nig
+ig1 --> nig
 ig2 -r-> nig
 nrg -d-> rg1
 nrg -l-> rg2
-ig1 -l-> rg2
-ig2 -r-> rg1
+ig1 -u-> rg2
+ig2 ----> rg1
 dc -u-> ig1
 rg1 -d-> registry
 rg1 -d-> repo
