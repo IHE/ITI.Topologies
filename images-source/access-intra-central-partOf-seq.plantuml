@@ -1,0 +1,29 @@
+@startuml
+hide footbox
+
+actor "Dr. Suwati" as actor1
+participant "New Hope EHR" as ehr
+participant "Valley Region\nHIE Directory" as dir
+participant "Central PDQ\n: Endpoint" as xcpd
+participant "Central XDS\n: Endpoint" as xca
+
+
+actor1 -> ehr: Kick off search\ngiven known locations\nof treatment\n"Valley Access Healthcare",\n"OU Health"
+ehr -> dir: Search Orgs for "Valley Access Healthcare",\n"OU Health" by name, alias
+dir --> ehr: : Org 1.2.3.2, Org 1.2.3.3
+note over ehr : Can I get to them?\nI know I'm in Valley Region HIE.
+
+ehr -> dir: Check if orgs have membership\nin Valley HIE by partOf
+dir --> ehr: : they do
+
+ehr -> dir: Check Valley HIE for PDQ, XDS endpoints
+dir --> ehr: : PDQ, XDS endpoints
+
+ehr -> xcpd : Match "Vanna Patterson"
+xcpd --> ehr: : Match(es)
+
+ehr -> xca : Get documents
+xca --> ehr: : Documents, including from Urgent Health
+ehr --> actor1: : Documents
+
+@enduml

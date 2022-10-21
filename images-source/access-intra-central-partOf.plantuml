@@ -1,0 +1,42 @@
+@startuml
+hide footbox
+allowmixing
+
+object ":Organization" as Partners
+Partners : name = "New Hope\nMedical Partners"
+
+object "Seaside HIE" as hie2
+object ": Endpoint(s)" as sEndpoints
+sEndpoints : connectionType = \n  PDQ-Supplier-Query,\n  XDS-Registry-Query,\n  XDS-Repository-Retrieve
+hie2 --> sEndpoints
+
+object "Valley Region HIE" as hie
+
+object ":Organization" as Valley
+Valley : name = "Valley Access\nHealthcare"
+Valley : OrgID = 1.2.3.2
+
+object ":Organization" as OU
+OU : name = "University Health"
+OU : alias = "OU Health System",\n"OU Health"
+OU : OrgID = 1.2.3.3
+
+object ":Organization" as Urgent
+Urgent : name = "Urgent Health"
+Urgent : OrgID = 4.5.6.7
+
+object "Central PDQ : Endpoint" as vEndpoints
+vEndpoints : connectionType = PDQ-Supplier-Query
+
+object "Central XDS : Endpoint" as ouEndpoints
+ouEndpoints : connectionType = \n  XDS-Registry-Query,\n  XDS-Repository-Retrieve
+
+hie <-- Valley : <<partOf>>
+hie <-- OU : <<partOf>>
+hie <-- Urgent : <<partOf>>
+Partners -> hie : <<partOf>>
+
+hie -> vEndpoints
+hie -> ouEndpoints
+
+@enduml
