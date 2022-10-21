@@ -604,6 +604,23 @@ Rather than a first-match search, the Care Services Selective Consumer might sea
 
 Community or Network governance may also choose to place restrictions on the directory layout to ensure that there will be only a single path to any given Organization in order to simplify deployment and operations. 
 
+### Directory Perspective
+
+An important consideration when layering multiple networks is how different entities in the network will perceive the network. Care needs to be taken to ensure that network directories at each level accurately reflect the set of endpoints reachable by those members. For example, consider the multi-layered network diagram:
+
+![Multi-Layered Diagram](images/multi_layered_network.png)
+
+**Figure 1.3-1: Multi-Layered Network Layout**
+
+Here:
+
+* The community with HCID 1.2.8 is a member of the Top Level Network
+* The Lower Network A network is also a member of the Top Level Network
+* The community with HCID 1.2.7 is a member of Lower Network A
+* The community with HCID 1.2.6 is a member of Lower Network A
+
+The directory for Lower Network A will have endpoints for communities 1.2.7 and 1.2.6, and for the network gateways. The directory for the Top Level Network would need to have communities 1.2.7 and 1.2.6 in it, but it should not hvae their endpoints. This is because their endpoints are only accessible to members of Lower Network A; members of Top Level Network need to access them via the Lower Network A gateways. If the endpoints for 1.2.7 were published in the Top Level Network directory, then the endpoint discovery algorithm from Community 1.2.8's perspective might identify those endpoints, but they would not work for 1.2.8. To resolve this problem, each network directory should have only the endpoints accessible to network members in them. 
+
 ### Inclusion of Message Delivery Addresses
 
 A common need in document sharing push workflows is to deliver a message to a specific intended recipient. 
