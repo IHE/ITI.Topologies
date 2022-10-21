@@ -1,0 +1,31 @@
+@startuml dir-org-specific-endpoint-multiple-routes
+hide footbox
+
+object "Organization G" as OrganizationG
+OrganizationG : OrgID = 1.2.8
+OrganizationG : HCID = 1.2.8
+object "Affiliated Organization H" as OrganizationH
+OrganizationH : OrgID = 1.3.4
+object "OrganizationAffiliation" as OrgAff
+OrgAff : code = DocShare-federate
+object "Endpoint for G through H" as EndpointH
+EndpointH : address = https://orgH.org/orgG
+
+object "Affiliated Organization K" as OrganizationK
+OrganizationK : OrgID = 2.4.1
+object "OrganizationAffiliation" as OrgAff2
+OrgAff2 : code = DocShare-federate
+object "Endpoint for G through K" as EndpointK
+EndpointK : address = https://orgK.org/orgG
+
+OrgAff --> OrganizationG : participatingOrganization
+OrganizationH <-- OrgAff : organization
+OrgAff -> EndpointH : endpoint
+OrganizationH <- EndpointH : managingOrganization
+
+OrgAff2 --> OrganizationG : participatingOrganization
+OrganizationK <-- OrgAff2 : organization
+OrgAff2 -> EndpointK : endpoint
+OrganizationK <- EndpointK : managingOrganization
+
+@enduml

@@ -501,6 +501,14 @@ In this case, it is more appropriate to point to the Endpoint for G from the Org
 
 **Figure : Organization-specific Endpoint Controlled by Affiliation**
 
+#### Multiple Paths to an Organization
+
+An organization might be a member of, and reachable by, multiple networks. If each network exposes an Organization specific endpoint to the Organization, then they must list those endpoints on the OrganizationAffiliation Resource, since listing them on the Organization would create ambiguity as to which parent network each endpoint would be used for. 
+
+![Organization With Multiple Affiliations](images/dir-org-specific-endpoint-multiple-routes.png)
+
+**Figure : Organization-specific Endpoints From Multiple Affiliations**
+
 #### Endpoint to a Structure
 
 It is possible for an organization with an endpoint, such as Organization A, to have other Organizations that point to it via partOf. 
