@@ -619,7 +619,7 @@ Here:
 * The community with HCID 1.2.7 is a member of Lower Network A
 * The community with HCID 1.2.6 is a member of Lower Network A
 
-The directory for Lower Network A will have endpoints for communities 1.2.7 and 1.2.6, and for the network gateways. The directory for the Top Level Network would need to have communities 1.2.7 and 1.2.6 in it, but it should not have their endpoints. This is because their endpoints are only accessible to members of Lower Network A; members of Top Level Network need to access them via the Lower Network A gateways. If the endpoints for 1.2.7 were published in the Top Level Network directory, then the endpoint discovery algorithm from Community 1.2.8's perspective might identify those endpoints, but they would not work for 1.2.8. To resolve this problem, each network directory should have only the endpoints accessible to network members in them. 
+The directory for Lower Network A will have endpoints for communities 1.2.7 and 1.2.6, and for the network gateways. The directory for the Top Level Network would need to have communities 1.2.7 and 1.2.6 in it, but it should not hvae their endpoints. This is because their endpoints are only accessible to members of Lower Network A; members of Top Level Network need to access them via the Lower Network A gateways. If the endpoints for 1.2.7 were published in the Top Level Network directory, then the endpoint discovery algorithm from Community 1.2.8's perspective might identify those endpoints, but they would not work for 1.2.8. To resolve this problem, each network directory should have only the endpoints accessible to network members in them. 
 
 ### Inclusion of Message Delivery Addresses
 
@@ -675,20 +675,27 @@ TODO:  Flesh out
 
 Let us consider the Document Access use case from section 2, and how the objects could be represented in a directory and utilized based on different topologies.
 
-The example includes four organizations: New Hope Medical Partners, University Health, Valley Access Healthcare, and Urgent Health, as well as a regional HIE, which we’ll call Valley Region HIE and represent as a fifth organization. Here are just the organizations and their affiliations. For now, we’ll leave any relationship between New Hope and the others unspecified.
+The example includes four organizations: New Hope Medical Partners, University Health, Valley Access Healthcare, and Urgent Health, as well as a regional HIE, which we’ll call Valley Region HIE. Here are just the organizations and their relationships. For now, we’ll leave any relationship between New Hope and the others unspecified.
 
-![Document Access: Organizations Only](images/access-orgs-only.png)
+![Document Access: Organizations Only](images/access-orgs-abstract.png)
 
-For the first case, let’s have New Hope be in a different community, and have Valley HIE provide a single cross-community interface to its organizations: a Responding Gateway exposing XCPD and XCA endpoints. From New Hope’s perspective, Valley HIE could be a Multi-Organization Community or a Single Facade Community. The overall network is a Multiple Community Network we’ll call Big Health Exchange. We’ll also show New Hope’s EHR with its Initiating Gateway with XCPD and XCA endpoints.
+### Intra-community, Central Services Access
 
-![Document Access: Multiple Community Network in Comprehensive Directory](images/access-multi-community.png)
+In this example, New Hope also belongs to Valley Region HIE, which provides a central service infrastructure that holds all clinical information for all organizations. This deployment is so simple that a purpose-built directory could just list the Organizations and Endpoints as a flat list:
 
-The EHR at New Hope needs to find these organizations and determine if they are reachable via its membership in Big Health Exchange. In the following diagram we show it making this determination by finding the organizations, seeing that they are connected to Valley HIE which is a member of Big Health Exchange, and finally checking that they roll up (by virtue of the XCPD-include and XCA-include codes) to Valley HIE’s results.
+![Document Access: Intra-Community With Central Services in Flat List](images/access-intra-central-purpose.png)
 
-![Document Access: Utilizing Multiple Community Network](images/access-multi-community-seq.png)
+Here’s Dr. Suwati using her EHR to do the search:
 
-Now let’s consider some variations:
-- If the directory is only for members of Big Health Exchange, then rather than being comprehensive, it could be purpose-built and omit the organization for Big Health Exchange and its affiliations. It could be inferred that any endpoints found in the directory are reachable through Big Health Exchange.
+![Document Access: Intra-Community With Central Services in Flat List: Doing the search](images/access-intra-central-purpose-seq.png)
+
+In a slightly more comprehensive directory, there may be other communities with their own Endpoints, so we need a way for members of Valley Region HIE to find their services, and also to know that these services provide access to information from the other organizations in the HIE. We could accomplish this with partOf relationships linking the organizations to the HIE:
+
+![Document Access: Intra-Community With Central Services and partOf Relationships](images/access-intra-central-partOf.png)
+
+And the search
+![Document Access: Intra-Community With Central Services and partOf Relationships: Doing the search](images/access-intra-central-partOf-seq.png)
+
 
 ## Message Delivery
 
