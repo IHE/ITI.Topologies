@@ -9,8 +9,12 @@ object "Seaside HIE" as hie2
 object ": Endpoint(s)" as sEndpoints
 sEndpoints : connectionType = \n  PDQ-Supplier-Query,\n  XDS-Registry-Query,\n  XDS-Repository-Retrieve
 hie2 --> sEndpoints
+note right of hie2 : Internal\ndetails\nomitted
 
 object "Valley Region HIE" as hie
+hie : name = "Valley Region HIE"
+hie : OrgID = 1.2.3.0
+hie : HCID = 1.2.3
 
 object ":Organization" as Valley
 Valley : name = "Valley Access\nHealthcare"
@@ -26,15 +30,15 @@ Urgent : name = "Urgent Health"
 Urgent : OrgID = 4.5.6.7
 
 object "Central PDQ : Endpoint" as vEndpoints
-vEndpoints : connectionType = PDQ-Supplier-Query
+vEndpoints : connectionType = \n  PDQ-Supplier-Query
 
 object "Central XDS : Endpoint" as ouEndpoints
 ouEndpoints : connectionType = \n  XDS-Registry-Query,\n  XDS-Repository-Retrieve
 
-hie <-- Valley : <<partOf>>
-hie <-- OU : <<partOf>>
-hie <-- Urgent : <<partOf>>
-Partners -> hie : <<partOf>>
+hie <-- Valley : partOf
+hie <-- OU : partOf
+hie <-- Urgent : partOf
+Partners -> hie : partOf
 
 hie -> vEndpoints
 hie -> ouEndpoints
