@@ -689,11 +689,11 @@ Here’s Dr. Suwati using her EHR to do the search:
 
 ![Document Access: Intra-Community With Central Services in Flat List: Doing the search](images/access-intra-central-purpose-seq.png)
 
-In a slightly more comprehensive directory, there may be other communities with their own Endpoints, so we need a way for members of Valley Region HIE to find their services, and also to know that these services provide access to information from the other organizations in the HIE. We could accomplish this with partOf relationships linking the organizations to the HIE:
+In a slightly more comprehensive directory, there may be other communities with their own Endpoints, so first we need to add Valley HIE as its own Organization, along with another HIE. We need a way for members of Valley Region HIE to find their services, and also to know that these services provide access to information from the other organizations in the HIE. We could accomplish this with partOf relationships linking the organizations to the HIE:
 
 ![Document Access: Intra-Community With Central Services and partOf Relationships](images/access-intra-central-partOf.png)
 
-And the search
+And the search:
 ![Document Access: Intra-Community With Central Services and partOf Relationships: Doing the search](images/access-intra-central-partOf-seq.png)
 
 
