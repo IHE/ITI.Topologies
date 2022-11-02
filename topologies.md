@@ -76,7 +76,7 @@ Readers are expected to be familiar with the concepts and ideas presented in the
 ## 1.1 Scope
 
 The scope of this white paper is to expand upon the ITI HIE White Paper by providing additional guidance on how existing document sharing communities can be interconnected to form a unified federated exchange ecosystem with wide and comprehensive reach. 
-This white paper will assume that since existing networks are being connected, document sharing must be federated across the networks, but each network might use either a federated or centralized architecture. 
+This white paper will assume that since existing networks are being connected, document sharing must be federated across the networks, but each network might use either a federated or centralized architecture internally. 
 This white paper will not address any topics regarding the creation of a document sharing community or affinity domain. 
 Readers interested in those topics are advised to look to the following existing IHE resources:
 
@@ -84,7 +84,7 @@ Readers interested in those topics are advised to look to the following existing
 - [Template for XDS Affinity Domain Deployment Mapping](https://www.ihe.net/Technical_Framework/upload/IHE_ITI_White_Paper_XDS_Affinity_Domain_Template_TI_2008-12-02.pdf)
 - [Metadata Handbook](https://profiles.ihe.net/ITI/papers/metadata/index.html) 
 
-While document sharing will be federated across networks, this white paper recommends the use of a centralized directory, likely operated by an entity not part of any of the networks, that aggregates technical and organizational information about all participants in all connected networks. 
+While document sharing will be federated across networks, this white paper recommends the use of a centralized directory, likely operated by an entity not part of any of the networks, that aggregates the organizational and business information about all entities in all networks in the directory as well as the technical details needed to facilitate document sharing among them all.
 Examples will be based on the [mCSD](https://profiles.ihe.net/ITI/mCSD/index.html) Profile, which offers the functionality needed by such a directory, and also offers a transaction that can be used to synchronize the central directory with directories operated by each network.  
 
 Networks should expose to each other standard interfaces that abstract away their underlying topologies to the greatest extent possible.
@@ -162,7 +162,7 @@ Discovery can be facilitated by the addition of a central network directory into
 
 A central network directory is a care services directory that is central to the network and thus does not have bias toward one segment of the network or another. 
 
-In a multi-layered document sharing network, central directories for different layers of the network are likely to synchronize with one another in order to provide layers of the network visibility into the Organizations present outside of their immediate network. 
+In a multi-layered document sharing network, central directories for different layers of the network are likely to synchronize partially or entirely with one another in order to provide other layers of the network visibility into the Organizations present outside of their immediate network. 
 
 ### Multi-Layered Document Sharing Network
 
@@ -216,7 +216,7 @@ Document Query and Retrieve is enabled by the [XCA](https://profiles.ihe.net/ITI
 
 ### Message Delivery
 
-**Message Delivery** refers to a document sharing model where an information source wants to communicate healthcare information to a particular, intended recipient. 
+**Message Delivery** refers to a document sharing model where an information source wants to communicate healthcare information to a particular intended recipient. 
 In this model, documents are prepared by the source and then need to be communicated and routed to a recipient that consumes them directly. 
 
 This model can be thought of as a direct replacement for email, fax, postal mail, etc. and is often referred to as a "push" model.
@@ -227,7 +227,7 @@ Message Delivery is enabled by the [XDR](https://profiles.ihe.net/ITI/TF/Volume1
 
 When a community or network is being constructed in a completely greenfield space, ie, one that does not have any existing technology to reconcile with, a single information exchange standard can be chosen such that all systems seamlessly and natively interoperate with each other.
 However, when existing networks become interconnected, and as old systems are replaced with new systems, there will eventually be a need to be able to translate between different communication standards. 
-This might mean translating between different IHE integration profiles, such as XCA and the FHIR based MHD profiles, between proprietary data exchange formats and standard formats, or between formats offered by different standards bodies, such as HL7 FHIR IPA and IHE MHD+CDA documents. 
+This might mean translating between different IHE integration profiles, such as XCA and the FHIR based MHD profiles, between proprietary data exchange formats and standard formats, or between formats offered by different standards bodies, such as HL7 FHIR IPS and IHE MHD+CDA documents. 
 
 One of IHE's general principles is to describe interactions between systems and to avoid specifying implementations within systems. 
 This design principle lends itself well to translation, since it means that as long as the interface exposed by the translating system fully conforms to the relevant IHE integration profile, other systems implementing the other ends of those profiles will be able to interoperate without even realizing that translation is taking place. 
@@ -237,7 +237,7 @@ Therefore, IHE has already done the work of mapping the MHD elements to their XD
 
 Translation will generally be added to networks in the gateways. 
 The gateways will expose one set of interfaces to the systems inside of the network, and a separate set of interfaces to systems outside of the network. 
-They might even expose multiple functionally sets of interfaces inside or outside of the network, in order to offer a choice to the systems they must communicate with around which communication protocols can be used. 
+They might even expose multiple sets of interfaces inside or outside of the network, in order to offer a choice to the systems they must communicate with around which communication protocols can be used. 
 
 Example: Community A exposes two endpoints on its Responding Gateway: XCA and MHD. 
 The community is implemented as an XDS Affinity Domain internally, so the MHD interface must translate between XDS and MHD messages. 
@@ -246,7 +246,7 @@ Systems outside of the community can use either endpoint, depending on their com
 Example: Community B exposes an XCA endpoint to the rest of the network it is a part of, according to network governance. Internally, Community B contains a mix of systems that use XDS.b and MHD. 
 The XCA Responding Gateway of Community B is grouped with XDS.b and MHD Document Consumers, so that it can accept requests from outside of the community and federate them among the internal systems that contain data being searched for. 
 Once it receives responses from all systems, it must translate those responses into an XCA response to meet the network expectations. 
-It will do so in a way that is transparent, such that actors outside of the community are not aware of the mixed architecture of the community. 
+It will do so in a way that is transparent, such that actors outside of the community are not aware of the mixed architecture within the community. 
 
 ### Facade Community
 
@@ -437,6 +437,11 @@ However, since they represent a physical place, rather than the actual entity th
 
 Finally, the Practitioner and PractitionerRole Resources provide information about individual Practitioners that practice at an Organization. 
 They are relevant to DocumentSharing in that they will commonly be referenced in documents and their metadata, but they are also relevant for message delivery use cases in the event a message needs to be delivered to an individual. 
+
+Directory policy will dictate the relationships between these Resources in the directory. 
+A key decision that needs to be made is the primary hierarchy of the directory, that is, what Organization.partOf represents. 
+If the directory is comprehensive, it will need to represent multiple hierarchies, and so all but one will need to be represented using OrganizationAffiliation Resources rather than Organization.partOf relationships. 
+The value set of OrganizationAffiliation.code will also be critically determined by the directory policy, since consumers of the directory will need to know how to interpret each hierarchy. 
 
 ### Indicating Document Sharing Connectivity
 
