@@ -21,9 +21,6 @@ OrganizationA <-- OrgAff2 : organization
 
 EndpointA <-- OrganizationA : endpoint
 
-OrganizationA <- OrganizationAA : partOf
-OrganizationA <- OrganizationAB : partOf
-
 OrganizationA <- EndpointA : managingOrganization
 
 @enduml

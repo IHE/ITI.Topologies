@@ -18,7 +18,12 @@ OrganizationA <- EndpointA : managingOrganization
 EndpointAA <-l- OrganizationAA : endpoint
 OrganizationAA <- EndpointAA : managingOrganization
 
-note "Endpoint for Organization A provides document sharing access to A but not AA" as N1
+object ":OrganizationAffiliation" as OrgAff
+OrgAff : code = member
+OrgAff --> OrganizationAA : participatingOrganization
+OrganizationA <-- OrgAff : organization
+
+note "Endpoint for Organization A provides document sharing access to AA as well as A" as N1
 N1 .. EndpointA
 
 @enduml

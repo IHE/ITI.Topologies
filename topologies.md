@@ -154,6 +154,14 @@ The Responding Gateway is the access point for actors belonging to other network
 Network Gateways expose the same interfaces and are interacted with in the same way as community gateways. The difference is that a Network Gateway might provide access to several communities. 
 Therefore, where network gateways are used, participants can interact with the network gateway in the same way as a community gateway, with the caveat that the network gateway might process information for several Home Community IDs. 
 
+### Transparent Proxy
+
+A **Transparent Proxy** is similar to a network gateway in that it brokers access across network boundaries. However, it is different in that a Transparent Proxy has no internal business logic - it exists solely to broker trust across the network boundary, and possibly provide translation services. 
+
+For example, suppose network 1 exists and is running smoothly, with trust between nodes being managed by a Certificate Authority internal to the network. However, that network then wants to join a higher level network, network 2, so its participants get access to the participants of the higher level, and vice versa. In order to ease the burden of federating trust across the multiple networks, network 1 might introduce a transparent proxy into its infrastructure. That proxy would trust, and be trusted by, the members of network 1, and also the other members of the higher level network 2. The transparent proxy would simply forward requests and responses in both directions across the network boundary, accessing network 1 on behalf of network 2, and network 2 on behalf of network 1. 
+
+A transparent proxy need not be represented in a directory, because systems on the network will not necessarily be aware of its existence. From their perspective, they are talking directly to the system behind the proxy, thus why the proxy is "transparent". 
+
 ### Central Network Directory
 
 Systems in a network require a method for discovering one another. 
@@ -439,13 +447,16 @@ Finally, the Practitioner and PractitionerRole Resources provide information abo
 They are relevant to DocumentSharing in that they will commonly be referenced in documents and their metadata, but they are also relevant for message delivery use cases in the event a message needs to be delivered to an individual. 
 
 Directory policy will dictate the relationships between these Resources in the directory. 
-A key decision that needs to be made is the primary hierarchy of the directory, that is, what Organization.partOf represents. 
+A key decision that needs to be made is the primary hierarchy of the directory, i.e. what Organization.partOf represents. 
 If the directory is comprehensive, it will need to represent multiple hierarchies, and so all but one will need to be represented using OrganizationAffiliation Resources rather than Organization.partOf relationships. 
 The value set of OrganizationAffiliation.code will also be critically determined by the directory policy, since consumers of the directory will need to know how to interpret each hierarchy. 
+When deciding how Organization, Endpoint, and OrganizationAffiliation Resources should be layed out in the directory, the trust policy of the network and the perspective of actors in the directory should be considered. 
+Nodes in the network will need to be able to determine which endpoints are reachable by them from both an IP networking and a trust perspective. 
+Careful planning of the directory structure can facilitate the programmatic discovery of electronically reachable Organizations. 
 
 ### Indicating Document Sharing Connectivity
 
-Document Sharing relationships might be expressed in the directory via Organization.partOf or by use of the OrganizationAffiliation Resource.
+As stated previously, document Sharing relationships might be expressed in the directory via Organization.partOf or by use of the OrganizationAffiliation Resource.
 
 Organization.partOf is the simplest way to represent a relationship between two Organizations.
 When child organizations have a partOf relationship with a parent, there is ambiguity around whether requesting data from, or delivering messages to, the parent organization will return data from, or route the message to, the child organizations. 
@@ -454,15 +465,25 @@ The DocShare-federate code implies that children are accessible for all document
 mCSD might declare a more granular set of OrganizationAffiliation codes in the future to help facilitate this level of nuance.
 
 Because the use of partOf is not explicit in whether it signifies that a parent Organization provides document sharing access to its children, directory policy will need to clarify the meaning of partOf with respect to Document Sharing. 
-Possible clarifications would include:
+Directory policy that declares organizational hierarchy via partOf implies accessibility to child entries, meaning:
+- For FHIR REST endpoints, the URL is simply the Service Base URL as specified in [FHIR R4 3.1.0.1.2](http://hl7.org/fhir/R4/http.html#general). 
+Clients can expect to find resources related to Organizations A, B and C.
+- For XCA endpoints, a client querying Organization A for documents (e.g., using \[ITI-38\]) may receive documents from Organizations A, B and C. 
+- For XDR endpoints, a client sending a Provide and Register Document Set-b (\[ITI-41\]) request to Organization A can optionally specify Organizations B and/or C in intendedRecipient.
+- For MHD endpoints, a client sending a Provide Document Bundle (\[ITI-65\]) request to Organization A can optionally specify Organizations B and/or C in intendedRecipient.
+
+Examples of this kind of federated structure are shown in [ITI TF-1: Appendix E.9](https://profiles.ihe.net/ITI/TF/Volume1/ch-E.html#E.9.3) for XCA Responding Gateways.
+
+Possible declarations of partOf relationships could include:
 - Declaring that partOf shall be used to signify a Document Sharing relationship rather than or in addition to business relationships.
-In this case, OrganizationAffiliation might not be used, but this case is also the most restrictive in preventing the directory from acquiring new, more comprehensive data sets in the future. 
+In this case, OrganizationAffiliation might not be used, but this case is also the most restrictive and least capable of conveying hierarchical nuance. 
 - Declaring that partOf may indicate that the parent provides Document Sharing Access, but only if the child Organization in question has no Endpoints of its own and no OrganizationAffiliation resources with it as a participatingOrganization and a code indicating document sharing access. 
 - Declaring that partOf has no relationship to document sharing and any organizations that provide document sharing access to children must be linked to the children with an OrganizationAffiliation with an appropriate code. 
 This is the most explicit policy, but one that might be operationally cumbersome to maintain. 
 
-In all three cases, the Endpoint Discovery Algorithm in section below will identify a suitable endpoint if one exists. 
-However, it might be ambiguous whether a particular child organization can have data retrieved through its parent when partOf is used and both the child and the parent have endpoints, or when children are in the directory for informational purposes and do not actually have document sharing available. 
+In all three cases, the Endpoint Discovery Algorithm later in this section will identify an endpoint if one exists. 
+However, the endpoint discovery algorithm will require further configuration to align the notion of a "suitable" endpoint with directory policy. 
+For example, if the directory policy declares that Organization.partOf shall not be used to convey document sharing relationships, then the Endpoint Discovery Algorithm should be configured to not traverse those relationships. 
 
 ### Example Community Directory Layouts
 
@@ -478,20 +499,19 @@ This results the the simplest case shown below:
 
 **Figure 1:46.8.1-1: Organization-specific Endpoint Hosted by the Organization**
 
-Suppose instead Organization A is a subsidiary of its parent, B. B provides IT services and support to its subsidiaries, but the subsidiaries have complete control over their endpoints including the data they return and the trust relationships with those that might want access to the endpoint. 
-In this case, B would be the managing organization and A is part of B, but the Endpoint is pointed at by Organization A to communicate that the Endpoint is logically "owned by" A:
+Suppose instead Organization A is a subsidiary of its parent, B. B provides IT services and support to its subsidiaries, but each subsidiary has a unique document sharing endpoint that behaves identically to if it had hosted its own endpoint. The Endpoint is pointed at by Organization A to communicate that the Endpoint is logically "owned by" A, while it points to B as the managingOrganization to indicate that B is providing technical support for the endpoint:
 
 ![Organization Specific Endpoint Hosted by a Parent](images/dir-org-specific-endpoint-parent.png)
 
 **Figure 1:46.8.1-2: Organization-specific Endpoint Hosted by Parent**
 
-Suppose a similar relationship between organizations C and D, but where D is not a parent organization to C, rather it is a third party affiliate that provides IT services and support. In that case, use of the OrganizationAffiliation resource is more appropriate:
+Suppose a similar relationship between organizations C and D, but where D is not a parent organization to C, rather it is a third party affiliate that provides IT services and support. In that case, the OrganizationAffiliation Resource might be used to convey the relationship rather than Organization.partOf:
 
 ![Organization Specific Endpoint Hosted by an Affiliate](images/dir-org-specific-endpoint-affil.png)
 
 **Figure 1:46.8.1-3: Organization-specific Endpoint Hosted by Affiliation**
 
-Another similar relationship between E and F might exist, but E handles support for other entities on the network. In that case, E is still the managing organization, and F need not be represented in the directory at all:
+Another similar relationship between E and F might exist, but E handles network support for its own endpoint. In that case, E is still the managing organization, and F need not be represented in the directory at all:
 
 ![Organization Specific Endpoint Hosted By Unrepresented Intermediary](images/dir-org-specific-endpoint-inter.png)
 
@@ -499,8 +519,13 @@ Another similar relationship between E and F might exist, but E handles support 
 
 Consider another pair of organizations, G and H. H provides document sharing infrastructure services to G by providing G with an endpoint specific to its organization, but H manages the endpoint entirely, including managing trust for outside entities. 
 That is to say, outside entities can exchange data with G if they have a trust relationship with H. 
+In this situation, it can be said that H is acting as a transparent proxy for G. 
 
-In this case, it is more appropriate to point to the Endpoint for G from the OrganizationAffiliation Resource that connects G and H, to indicate that while the Endpoint provides data for G, it really belongs to H from a trust perspective. 
+Pointing to G's Endpoint from an OrganizationAffiliation linking G to H is likely to be a good choice to represent this situation. 
+If the endpoint were to be pointed to by H, it is not clear that data for H would not be returned by that endpoint, and H might have multiple affiliated organizations for which it needs to provide endpoints. 
+Pointing at G's endpoint from G's Organization resource could work if the directory enforces that only a single route to G exist. 
+However, if G needs multiple endpoints to support different affiliated organizations that provide access to it, then it would be challenging to differentiate the different endpoints attached to G. 
+In this example, OrganizationAffiliation allows the Endpoint to be declared specific to G while still making it clear that it is affiliated with H. 
 
 ![Organization Specific Endpoint Controlled by Affiliate](images/dir-org-specific-endpoint-from-affil.png)
 
@@ -517,51 +542,38 @@ An organization might be a member of, and reachable by, multiple networks. If ea
 #### Endpoint to a Structure
 
 It is possible for an organization with an endpoint, such as Organization A, to have other Organizations that point to it via partOf. 
-This would be appropriate in the case of subsidiaries or departments within Organization A:
+This would be commonly used in the case of subsidiaries or departments within Organization A:
 
 ![Endpoint to Parent Organization](images/dir-endpoint-to-org-hierarchy.png)
 
 **Figure 1:46.8.2-1: Endpoint to Parent Organization**
 
-Directory policy will determine whether organizational hierarchy via partOf implies accessibility to child entries, for example:
-- For FHIR REST endpoints, the URL is simply the Service Base URL as specified in [FHIR R4 3.1.0.1.2](http://hl7.org/fhir/R4/http.html#general). 
-Clients can expect to find resources related to Organizations A, B and C.
-- For XCA endpoints, a client querying Organization A for documents (e.g., using \[ITI-38\]) may receive documents from Organizations A, B and C. 
-- For XDR endpoints, a client sending a Provide and Register Document Set-b (\[ITI-41\]) request to Organization A can optionally specify Organizations B and/or C in intendedRecipient.
-- For MHD endpoints, a client sending a Provide Document Bundle (\[ITI-65\]) request to Organization A can optionally specify Organizations B and/or C in intendedRecipient.
-
-Examples of this kind of federated structure are shown in [ITI TF-1: Appendix E.9](https://profiles.ihe.net/ITI/TF/Volume1/ch-E.html#E.9.3), for XCA Responding Gateways.
-
-Because the cardinality of Organization.partOf is 1..1, directories that wish to represent more than one hierarchy, or a non-business hierarchy, might choose to use OrganizationAffiliation to expose those hierarchies instead. 
 The following shows the same Organization hierarchy, but using OrganizationAffiliation instead of partOf to declare the relationship:
 
 ![Endpoint to Parent Organization with OrgAffiliation](images/dir-endpoint-to-org-affiliates.png)
 
 **Figure 1:46.8.2-1: Endpoint to Parent Organization with OrganizationAffiliation**
 
-An OrganizationAffiliation resource without an applicable code would not imply any document sharing connectivity, as OrganizationAffiliation is used for a variety of reasons outside of document sharing. 
+Directories that will have Organizations with partOf relationships where both Organizations have endpoints should have a way to distinguish whether the parent endpoint provides access to data from the child. 
+Since OrganizationAffiliation might be used to represent several kinds of hierarchies, directory policy will dictate when OrganizationAffiliation implies document sharing access. 
+A common policy would be to specify a value set for OrganizationAffiliation.code and a value within that set that implies document sharing access. 
 
-Directories that will have Organizations with partOf relationships where both Organizations will have endpoints will likely not want to use partOf to imply connectivity. 
-Such networks might be architected in a way that causes the parent organization's Endpoint to not be capable of returning data for the child organization.
-Of course, it could also be the case that the parent's Endpoint does return data for the child, but the child's Endpoint is simply more targeted in its scope. 
-
-Because of this, directory policy might dictate that an OrganizationAffiliation Resource should be used to express federated document sharing. 
-
-In such a directory, the below relationship would not imply document sharing federation:
+Suppose a directory policy stated that parent Organizations provide access to child organizations only when linked by an OrganizationAffiliation Resource where OrganizationAffiliation.code=DocShare-federate. In such a directory, the below relationship would not imply document sharing federation:
 
 ![Endpoints to Both Parent and Child Organizations](images/dir-endpoint-to-child-hierarchy.png)
 
 **Figure 1:46.8.2-1: Endpoints to Both Parent and Child Organizations**
 
-If Organization A did provide document sharing access to Organization AA, then an explicit OrganizationAffiliation with a directory defined code would be declared:
+If Organization A did provide document sharing access to Organization AA, then an explicit OrganizationAffiliation with code=DocShare-federate would be declared:
 
 ![Endpoints to Both Parent and Child Organizations with OrgAffiliation](images/dir-endpoint-to-child-affiliate.png)
 
 **Figure 1:46.8.2-1: Endpoints to Both Parent and Child Organizations with OrganizationAffiliation**
 
 In a multi-layered network, it is likely that different solutions will be used at different levels. 
-Here, Organization G has three subsidiaries, Organizations GA, GB, and GC, as well as a document sharing affiliation with Organization F. 
-Organization F's endpoint would provide document sharing access to all four organizations:
+Here, Organization J has three subsidiaries, Organizations JA, JB, and JC, as well as a document sharing affiliation with Organization I. 
+Suppose the directory policy stated that document sharing access could be assumed when there was an OrganizationAffiliation relationship with OrganizationAffiliation.code=DocShare-federate or when Organization.partOf was the only path to a parent organization. 
+Then, if Organization I's endpoint would provide document sharing access to all four organizations, it would be represented as so in the directory:
 
 ![Endpoint to a multi-layered structure](images/dir-endpoint-to-hybrid-org-structure.png)
 
@@ -581,9 +593,10 @@ For example, endpoints might be needed for IHE XCPD, XCA, XCDR, and a FHIR endpo
 The following example shows the steps used by a Care Services Selective Consumer to navigate a directory to find suitable electronic service Endpoints to a desired Organization. 
 A "suitable" Endpoint is one that can provide the service needed by the consumer. 
 This typically means it has a connectionType and possibly an endpoint specificType that matches the transaction it wishes to initiate, and an Active status. 
-The example uses the mCSD-profiled OrganizationAffiliation that indicates federated connectivity for Document Sharing (e.g., affiliated organizations may be addressed as intendedRecipient). 
+The example uses Organization.partOf and the mCSD-profiled OrganizationAffiliation with codes indicating federated connectivity for Document Sharing (e.g., affiliated organizations may be addressed as intendedRecipient). 
 The algorithm below uses depth-first search and guarantees that if an endpoint is available, it will be found. 
 Implementations might wish to enhance the algorithm to search in alternative ways depending on their deployment environment and path preferences. 
+Implementations are likely to have to adjust the below algorithm to account for directory policy, for example, policies that forbid the use of Organization.partOf to indicate document sharing access. 
 It is also for illustrative purposes only and does not protect against invalid data such as missing elements, hierarchical loops, or other programming hazards. 
 
 #### Endpoint Discovery Algorithm
@@ -624,11 +637,21 @@ Here:
 * The community with HCID 1.2.7 is a member of Lower Network A
 * The community with HCID 1.2.6 is a member of Lower Network A
 
-The directory for Lower Network A will have endpoints for communities 1.2.7 and 1.2.6, and for the network gateways. 
-The directory for the Top Level Network would need to have communities 1.2.7 and 1.2.6 in it, but it should not have their endpoints. 
-This is because their endpoints are only accessible to members of Lower Network A; members of Top Level Network need to access them via the Lower Network A gateways. 
-If the endpoints for 1.2.7 were published in the Top Level Network directory, then the endpoint discovery algorithm from Community 1.2.8's perspective might identify those endpoints, but they would not work for 1.2.8. 
-To resolve this problem, each network directory should have only the endpoints accessible to network members in them. 
+We will start at the top level and work our way down:
+
+The Top Level Network has two direct members, A and B. These two members can communicate directly with each other by using the directory and trust policies provided by the Top Level Network. 
+However, each network cannot directly access the lower organizations in the network - they must use the network gateways for that access. 
+This would be represented in the Top Level Network directory as follows:
+
+![Top Level Diagram](images/mln-top-level-dir.png)
+
+**Figure 1.3-1: Top Level Directory Layout**
+
+In Lower Network A, Communities 1.2.6 and 1.2.7 can communicate directly with one another, but to reach Community 1.2.8, they would communicate via the Lower Network A gateways. This implies a slightly different directory representation:
+
+![Lower Level Diagram](images/mln-level-a-directory.png)
+
+**Figure 1.3-1: Lower Level Directory Layout**
 
 ### Inclusion of Message Delivery Addresses
 

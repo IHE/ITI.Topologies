@@ -1,0 +1,36 @@
+@startuml mln-top-level-dir
+hide footbox
+
+object "Organization" as LNA
+LNA : Name = "Lower Network A"
+LNA : OrgID = 1.3
+object "Organization" as HC7
+HC7 : Name = "Community 1.2.7"
+HC7 : HCID = 1.2.7
+HC7 : OrgID = 1.2.7
+object "Organization" as HC6
+HC6 : Name = "Community 1.2.6"
+HC6 : HCID = 1.2.6
+HC6 : OrgID = 1.2.6
+object "Endpoint" as EndpointA
+EndpointA : address = https://lower_network_A.org
+object ":OrganizationAffiliation" as OrgAff7
+OrgAff7 : code = DocShare-federate
+OrgAff7 -> HC7 : participatingOrganization
+LNA <-- OrgAff7 : organization
+object ":OrganizationAffiliation" as OrgAff6
+OrgAff6 : code = DocShare-federate
+OrgAff6 -> HC6 : participatingOrganization
+LNA <-- OrgAff6 : organization
+EndpointA <-- LNA : endpoint
+
+object "Organization" as HC8
+HC8 : Name = "Community 1.2.8"
+HC8 : HCID =  1.2.8
+HC8 : OrgID = 1.2.8
+object "Endpoint" as EndpointB
+EndpointB : address = https://community_B.org
+
+HC8 -u-> EndpointB : endpoint
+
+@enduml
