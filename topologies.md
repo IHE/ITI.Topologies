@@ -560,7 +560,7 @@ A common policy would be to specify a value set for OrganizationAffiliation.code
 
 Suppose a directory policy stated that parent Organizations provide access to child organizations only when linked by an OrganizationAffiliation Resource where OrganizationAffiliation.code=DocShare-federate. In such a directory, the below relationship would not imply document sharing federation:
 
-![Endpoints to Both Parent and Child Organizations](images/dir-endpoint-to-child-hierarchy.png)
+![Endpoints to Both Parent and Child Organizations](images/dir-endpoint-to-child-hierarchy.svg)
 
 **Figure 1:46.8.2-1: Endpoints to Both Parent and Child Organizations**
 
