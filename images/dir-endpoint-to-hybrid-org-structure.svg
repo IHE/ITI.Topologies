@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="454px" preserveAspectRatio="none" style="width:631px;height:454px;background:#FFFFFF;" version="1.1" viewBox="0 0 631 454" width="631px" zoomAndPan="magnify"><defs/><g><g id="elem_OrganizationI"><rect fill="#F1F1F1" height="64.8281" style="stroke:#181818;stroke-width:0.5;" width="101" x="46.5" y="132"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="87" x="53.5" y="148.5332">Organization I</text><line style="stroke:#181818;stroke-width:0.5;" x1="47.5" x2="146.5" y1="153.6094" y2="153.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85" x="52.5" y="172.1426">OrgID = 1.2.7</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="80" x="52.5" y="189.752">HCID = 1.2.7</text></g><g id="elem_OrganizationJ"><rect fill="#F1F1F1" height="47.2188" style="stroke:#181818;stroke-width:0.5;" width="104" x="367" y="275"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="90" x="374" y="291.5332">Organization J</text><line style="stroke:#181818;stroke-width:0.5;" x1="368" x2="470" y1="296.6094" y2="296.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85" x="373" y="315.1426">OrgID = 1.2.8</text></g><g id="elem_EndpointI"><rect fill="#F1F1F1" height="47.2188" style="stroke:#181818;stroke-width:0.5;" width="171" x="11.5" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="56" x="69" y="23.5332">Endpoint</text><line style="stroke:#181818;stroke-width:0.5;" x1="12.5" x2="181.5" y1="28.6094" y2="28.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="159" x="17.5" y="47.1426">address = https://orgI.org</text></g><g id="elem_OrganizationJA"><rect fill="#F1F1F1" height="47.2188" style="stroke:#181818;stroke-width:0.5;" width="113" x="214.5" y="400"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="99" x="221.5" y="416.5332">Organization JA</text><line style="stroke:#181818;stroke-width:0.5;" x1="215.5" x2="326.5" y1="421.6094" y2="421.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="97" x="220.5" y="440.1426">OrgID = 1.2.8.1</text></g><g id="elem_OrganizationJB"><rect fill="#F1F1F1" height="47.2188" style="stroke:#181818;stroke-width:0.5;" width="113" x="362.5" y="400"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="99" x="369.5" y="416.5332">Organization JB</text><line style="stroke:#181818;stroke-width:0.5;" x1="363.5" x2="474.5" y1="421.6094" y2="421.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="97" x="368.5" y="440.1426">OrgID = 1.2.8.2</text></g><g id="elem_OrganizationJC"><rect fill="#F1F1F1" height="47.2188" style="stroke:#181818;stroke-width:0.5;" width="114" x="511" y="400"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="100" x="518" y="416.5332">Organization JC</text><line style="stroke:#181818;stroke-width:0.5;" x1="512" x2="624" y1="421.6094" y2="421.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="97" x="517" y="440.1426">OrgID = 1.2.8.3</text></g><g id="elem_OrgAff"><rect fill="#F1F1F1" height="47.2188" style="stroke:#181818;stroke-width:0.5;" width="180" x="7" y="275"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141" x="26.5" y="291.5332">:OrganizationAffiliation</text><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="186" y1="296.6094" y2="296.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="168" x="13" y="315.1426">code = DocShare-federate</text></g><!--MD5=[cba427cdeaf8e63af1d66cc7d6f06711]
+link OrgAff to OrganizationJ--><g id="link_OrgAff_OrganizationJ"><path codeLine="18" d="M187.12,298.5 C242.95,298.5 312.99,298.5 361.4,298.5 " fill="none" id="OrgAff-to-OrganizationJ" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="366.6,298.5,357.6,294.5,361.6,298.5,357.6,302.5,366.6,298.5" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="143" x="205.5" y="291.9951">participatingOrganization</text></g><!--MD5=[20cc5d55fd9e35863055c401d1fd20a7]
+reverse link OrganizationI to OrgAff--><g id="link_OrganizationI_OrgAff"><path codeLine="19" d="M97,202.29 C97,225.56 97,254.9 97,274.82 " fill="none" id="OrganizationI-backto-OrgAff" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="97,197.12,93,206.12,97,202.12,101,206.12,97,197.12" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="70" x="98" y="241.4951">organization</text></g><!--MD5=[a110cce66c58e896f18463cef1c7465d]
+reverse link EndpointI to OrganizationI--><g id="link_EndpointI_OrganizationI"><path codeLine="21" d="M97,59.39 C97,80.55 97,109.67 97,131.73 " fill="none" id="EndpointI-backto-OrganizationI" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="97,54.19,93,63.19,97,59.19,101,63.19,97,54.19" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="49" x="98" y="98.4951">endpoint</text></g><!--MD5=[9e07fb1b35a7574df3ed452e089895dc]
+reverse link OrganizationJ to OrganizationJA--><g id="link_OrganizationJ_OrganizationJA"><path codeLine="23" d="M387.7,325.52 C361.17,347.56 323.52,378.85 298.22,399.87 " fill="none" id="OrganizationJ-backto-OrganizationJA" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="391.85,322.06,382.3743,324.7453,388.0077,325.2595,387.4935,330.893,391.85,322.06" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="35" x="355" y="366.4951">partOf</text></g><!--MD5=[308675ecf46e1f79c89d77e2d3cd1770]
+reverse link OrganizationJ to OrganizationJB--><g id="link_OrganizationJ_OrganizationJB"><path codeLine="24" d="M419,327.15 C419,349.01 419,379.16 419,399.67 " fill="none" id="OrganizationJ-backto-OrganizationJB" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="419,322.06,415,331.06,419,327.06,423,331.06,419,322.06" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="35" x="420" y="366.4951">partOf</text></g><!--MD5=[31e8651634a1ef62897736a98565db18]
+reverse link OrganizationJ to OrganizationJC--><g id="link_OrganizationJ_OrganizationJC"><path codeLine="25" d="M450.19,325.24 C476.91,347.3 515.02,378.77 540.59,399.87 " fill="none" id="OrganizationJ-backto-OrganizationJC" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="446.33,322.06,450.722,330.8754,450.1851,325.244,455.8164,324.7072,446.33,322.06" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="35" x="503" y="366.4951">partOf</text></g><!--MD5=[0b41030ed6cc95f21716007f947420d8]
+@startuml dir-endpoint-to-hybrid-org-structure
+hide footbox
+
+object "Organization I" as OrganizationI
+OrganizationI : OrgID = 1.2.7
+OrganizationI : HCID = 1.2.7
+object "Organization J" as OrganizationJ
+OrganizationJ : OrgID = 1.2.8
+object "Endpoint" as EndpointI
+EndpointI : address = https://orgI.org
+object "Organization JA" as OrganizationJA
+OrganizationJA : OrgID = 1.2.8.1
+object "Organization JB" as OrganizationJB
+OrganizationJB : OrgID = 1.2.8.2
+object "Organization JC" as OrganizationJC
+OrganizationJC : OrgID = 1.2.8.3
+object ":OrganizationAffiliation" as OrgAff
+OrgAff : code = DocShare-federate
+OrgAff -> OrganizationJ : participatingOrganization
+OrganizationI <- - OrgAff : organization
+
+EndpointI <- - OrganizationI : endpoint
+
+OrganizationJ <- - OrganizationJA : partOf
+OrganizationJ <- - OrganizationJB : partOf
+OrganizationJ <- - OrganizationJC : partOf
+
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 12:01:30 CDT 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: Cp1252
+Language: en
+Country: US
+--></g></svg>

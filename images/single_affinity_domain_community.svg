@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="459px" preserveAspectRatio="none" style="width:516px;height:459px;background:#FFFFFF;" version="1.1" viewBox="0 0 516 459" width="516px" zoomAndPan="magnify"><defs/><g><rect fill="none" height="27.6094" id="_title" style="stroke:none;stroke-width:1.0;" width="243" x="129.5" y="5"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="233" x="134.5" y="24.5332">Single Affinity Domain Community</text><!--MD5=[d29ba9a0f2edbc88a4a47adb820d6234]
+cluster community--><g id="cluster_community"><path d="M8.5,44.6094 L184.5,44.6094 A3.75,3.75 0 0 1 187,47.1094 L194,68.2188 L506.5,68.2188 A2.5,2.5 0 0 1 509,70.7188 L509,450.1094 A2.5,2.5 0 0 1 506.5,452.6094 L8.5,452.6094 A2.5,2.5 0 0 1 6,450.1094 L6,47.1094 A2.5,2.5 0 0 1 8.5,44.6094 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="6" x2="194" y1="68.2188" y2="68.2188"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="175" x="10" y="61.1426">Home Community ID 1.2.3</text></g><!--MD5=[9d466c5a3c3149398d60225914e05625]
+cluster org--><g id="cluster_org"><rect fill="none" height="340" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;" width="455" x="30" y="88.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="122" x="196.5" y="105.1426">Organization ABC</text></g><!--MD5=[aff0e67a1692f4b0d96c087fa0872bfd]
+entity registry--><g id="elem_registry"><polygon fill="#F1F1F1" points="83,266.6094,93,256.6094,243,256.6094,243,294.2188,233,304.2188,83,304.2188,83,266.6094" style="stroke:#181818;stroke-width:0.5;"/><line style="stroke:#181818;stroke-width:0.5;" x1="233" x2="243" y1="266.6094" y2="256.6094"/><line style="stroke:#181818;stroke-width:0.5;" x1="83" x2="233" y1="266.6094" y2="266.6094"/><line style="stroke:#181818;stroke-width:0.5;" x1="233" x2="233" y1="266.6094" y2="304.2188"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="120" x="98" y="291.1426">Document Registry</text></g><!--MD5=[ae38f3df50bbf8acf027574e6a8bac37]
+entity repo--><g id="elem_repo"><polygon fill="#F1F1F1" points="267,374.6094,277,364.6094,443,364.6094,443,402.2188,433,412.2188,267,412.2188,267,374.6094" style="stroke:#181818;stroke-width:0.5;"/><line style="stroke:#181818;stroke-width:0.5;" x1="433" x2="443" y1="374.6094" y2="364.6094"/><line style="stroke:#181818;stroke-width:0.5;" x1="267" x2="433" y1="374.6094" y2="374.6094"/><line style="stroke:#181818;stroke-width:0.5;" x1="433" x2="433" y1="374.6094" y2="412.2188"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="136" x="282" y="399.1426">Document Repository</text></g><!--MD5=[226fc8af728df80cb2ddb40b34b22fc1]
+entity dc--><g id="elem_dc"><polygon fill="#F1F1F1" points="58.5,374.6094,68.5,364.6094,231.5,364.6094,231.5,402.2188,221.5,412.2188,58.5,412.2188,58.5,374.6094" style="stroke:#181818;stroke-width:0.5;"/><line style="stroke:#181818;stroke-width:0.5;" x1="221.5" x2="231.5" y1="374.6094" y2="364.6094"/><line style="stroke:#181818;stroke-width:0.5;" x1="58.5" x2="221.5" y1="374.6094" y2="374.6094"/><line style="stroke:#181818;stroke-width:0.5;" x1="221.5" x2="221.5" y1="374.6094" y2="412.2188"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="133" x="73.5" y="399.1426">Document Consumer</text></g><!--MD5=[727c1040af9be188ab17d19c49f9ac10]
+entity ds--><g id="elem_ds"><polygon fill="#F1F1F1" points="278.5,266.6094,288.5,256.6094,431.5,256.6094,431.5,294.2188,421.5,304.2188,278.5,304.2188,278.5,266.6094" style="stroke:#181818;stroke-width:0.5;"/><line style="stroke:#181818;stroke-width:0.5;" x1="421.5" x2="431.5" y1="266.6094" y2="256.6094"/><line style="stroke:#181818;stroke-width:0.5;" x1="278.5" x2="421.5" y1="266.6094" y2="266.6094"/><line style="stroke:#181818;stroke-width:0.5;" x1="421.5" x2="421.5" y1="266.6094" y2="304.2188"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="113" x="293.5" y="291.1426">Document Source</text></g><!--MD5=[106817543ff2524e0c0b504dfe500eda]
+entity ig1--><g id="elem_ig1"><polygon fill="#F1F1F1" points="70.5,158.6094,80.5,148.6094,221.5,148.6094,221.5,186.2188,211.5,196.2188,70.5,196.2188,70.5,158.6094" style="stroke:#181818;stroke-width:0.5;"/><line style="stroke:#181818;stroke-width:0.5;" x1="211.5" x2="221.5" y1="158.6094" y2="148.6094"/><line style="stroke:#181818;stroke-width:0.5;" x1="70.5" x2="211.5" y1="158.6094" y2="158.6094"/><line style="stroke:#181818;stroke-width:0.5;" x1="211.5" x2="211.5" y1="158.6094" y2="196.2188"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="111" x="85.5" y="183.1426">Initiating Gateway</text></g><!--MD5=[dc8c67f594f12ac0f48b0b1eaae9147c]
+entity rg1--><g id="elem_rg1"><polygon fill="#F1F1F1" points="256.5,158.6094,266.5,148.6094,431.5,148.6094,431.5,186.2188,421.5,196.2188,256.5,196.2188,256.5,158.6094" style="stroke:#181818;stroke-width:0.5;"/><line style="stroke:#181818;stroke-width:0.5;" x1="421.5" x2="431.5" y1="158.6094" y2="148.6094"/><line style="stroke:#181818;stroke-width:0.5;" x1="256.5" x2="421.5" y1="158.6094" y2="158.6094"/><line style="stroke:#181818;stroke-width:0.5;" x1="421.5" x2="421.5" y1="158.6094" y2="196.2188"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="135" x="271.5" y="183.1426">Responding Gateway</text></g><!--MD5=[b4f583095ee81b2b1a79b8e86f58051b]
+reverse link ig1 to dc--><g id="link_ig1_dc"><path d="M76.75,201.9694 C76.75,201.9694 76.75,364.3394 76.75,364.3394 " fill="none" id="ig1-backto-dc" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="76.75,196.9694,72.75,205.9694,76.75,201.9694,80.75,205.9694,76.75,196.9694" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[f8132cb944edb5f2408492ca07acd05f]
+link rg1 to registry--><g id="link_rg1_registry"><path d="M261.75,196.8494 C261.75,228.6894 261.75,280.6094 261.75,280.6094 C261.75,280.6094 248.18,280.6094 248.18,280.6094 " fill="none" id="rg1-to-registry" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="243.18,280.6094,252.18,284.6094,248.18,280.6094,252.18,276.6094,243.18,280.6094" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[2f13b346efbe7903966df5d99e7c7476]
+link rg1 to repo--><g id="link_rg1_repo"><path d="M272.75,196.9694 C272.75,196.9694 272.75,359.3394 272.75,359.3394 " fill="none" id="rg1-to-repo" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="272.75,364.3394,276.75,355.3394,272.75,359.3394,268.75,355.3394,272.75,364.3394" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[a5b84f42525b763b09caf64441594300]
+reverse link registry to dc--><g id="link_registry_dc"><path d="M157.25,309.8494 C157.25,309.8494 157.25,364.4494 157.25,364.4494 " fill="none" id="registry-backto-dc" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="157.25,304.8494,153.25,313.8494,157.25,309.8494,161.25,313.8494,157.25,304.8494" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[115c94ba92d5698c63be31e48e9db014]
+link dc to repo--><g id="link_dc_repo"><path d="M231.63,396.6094 C231.63,396.6094 261.88,396.6094 261.88,396.6094 " fill="none" id="dc-to-repo" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="266.88,396.6094,257.88,392.6094,261.88,396.6094,257.88,400.6094,266.88,396.6094" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[157db34fbbdb25692eb74c27ac0e3044]
+link ds to repo--><g id="link_ds_repo"><path d="M355,304.8494 C355,304.8494 355,359.4494 355,359.4494 " fill="none" id="ds-to-repo" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="355,364.4494,359,355.4494,355,359.4494,351,355.4494,355,364.4494" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[1b74898a7fb51bdb180ab5344c29dece]
+reverse link registry to repo--><g id="link_registry_repo"><path d="M237.25,309.8194 C237.25,309.8194 237.25,380.6094 237.25,380.6094 C237.25,380.6094 249.93,380.6094 266.96,380.6094 " fill="none" id="registry-backto-repo" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="237.25,304.8194,233.25,313.8194,237.25,309.8194,241.25,313.8194,237.25,304.8194" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[9d6813b4b0f393ae346d4a090c2551ab]
+@startuml single_affinity_domain_community
+title "Single Affinity Domain Community"
+skinparam linetype ortho
+package "Home Community ID 1.2.3" as community {
+    rectangle "Organization ABC" as org {
+        together {
+            node ig1 as "Initiating Gateway"
+            node rg1 as "Responding Gateway"
+        }
+        node registry as "Document Registry"
+        node repo as "Document Repository"
+        node dc as "Document Consumer"
+        node ds as "Document Source"
+    }
+}
+dc -u-> ig1
+rg1 -d-> registry
+rg1 -d-> repo
+dc -u-> registry
+dc -r-> repo
+ds - -> repo
+repo -u-> registry
+
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 12:01:30 CDT 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: Cp1252
+Language: en
+Country: US
+--></g></svg>

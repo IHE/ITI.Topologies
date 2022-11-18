@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="381px" preserveAspectRatio="none" style="width:1129px;height:381px;background:#FFFFFF;" version="1.1" viewBox="0 0 1129 381" width="1129px" zoomAndPan="magnify"><defs/><g><g id="elem_LNA"><rect fill="#F1F1F1" height="64.8281" style="stroke:#181818;stroke-width:0.5;" width="179" x="352.5" y="140.5"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="80" x="402" y="157.0332">Organization</text><line style="stroke:#181818;stroke-width:0.5;" x1="353.5" x2="530.5" y1="162.1094" y2="162.1094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="167" x="358.5" y="180.6426">Name = "Lower Network A"</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="73" x="358.5" y="198.252">OrgID = 1.3</text></g><g id="elem_HC7"><rect fill="#F1F1F1" height="82.4375" style="stroke:#181818;stroke-width:0.5;" width="180" x="367" y="292"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="80" x="417" y="308.5332">Organization</text><line style="stroke:#181818;stroke-width:0.5;" x1="368" x2="546" y1="313.6094" y2="313.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="168" x="373" y="332.1426">Name = "Community 1.2.7"</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="80" x="373" y="349.752">HCID = 1.2.7</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85" x="373" y="367.3613">OrgID = 1.2.7</text></g><g id="elem_HC6"><rect fill="#F1F1F1" height="82.4375" style="stroke:#181818;stroke-width:0.5;" width="180" x="942" y="292"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="80" x="992" y="308.5332">Organization</text><line style="stroke:#181818;stroke-width:0.5;" x1="943" x2="1121" y1="313.6094" y2="313.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="168" x="948" y="332.1426">Name = "Community 1.2.6"</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="80" x="948" y="349.752">HCID = 1.2.6</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85" x="948" y="367.3613">OrgID = 1.2.6</text></g><g id="elem_EndpointA"><rect fill="#F1F1F1" height="47.2188" style="stroke:#181818;stroke-width:0.5;" width="254" x="315" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="56" x="414" y="23.5332">Endpoint</text><line style="stroke:#181818;stroke-width:0.5;" x1="316" x2="568" y1="28.6094" y2="28.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="242" x="321" y="47.1426">address = https://lower_network_A.org</text></g><g id="elem_OrgAff7"><rect fill="#F1F1F1" height="47.2188" style="stroke:#181818;stroke-width:0.5;" width="180" x="7" y="309.5"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141" x="26.5" y="326.0332">:OrganizationAffiliation</text><line style="stroke:#181818;stroke-width:0.5;" x1="8" x2="186" y1="331.1094" y2="331.1094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="168" x="13" y="349.6426">code = DocShare-federate</text></g><g id="elem_OrgAff6"><rect fill="#F1F1F1" height="47.2188" style="stroke:#181818;stroke-width:0.5;" width="180" x="582" y="309.5"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="141" x="601.5" y="326.0332">:OrganizationAffiliation</text><line style="stroke:#181818;stroke-width:0.5;" x1="583" x2="761" y1="331.1094" y2="331.1094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="168" x="588" y="349.6426">code = DocShare-federate</text></g><g id="elem_HC8"><rect fill="#F1F1F1" height="82.4375" style="stroke:#181818;stroke-width:0.5;" width="180" x="74" y="132"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="80" x="124" y="148.5332">Organization</text><line style="stroke:#181818;stroke-width:0.5;" x1="75" x2="253" y1="153.6094" y2="153.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="168" x="80" y="172.1426">Name = "Community 1.2.8"</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="84" x="80" y="189.752">HCID =  1.2.8</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="85" x="80" y="207.3613">OrgID = 1.2.8</text></g><g id="elem_EndpointB"><rect fill="#F1F1F1" height="47.2188" style="stroke:#181818;stroke-width:0.5;" width="231" x="48.5" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="56" x="136" y="23.5332">Endpoint</text><line style="stroke:#181818;stroke-width:0.5;" x1="49.5" x2="278.5" y1="28.6094" y2="28.6094"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="219" x="54.5" y="47.1426">address = https://community_B.org</text></g><!--MD5=[f292e1150e6566d791b43d8546142ffa]
+link OrgAff7 to HC7--><g id="link_OrgAff7_HC7"><path codeLine="18" d="M187.38,333 C240.55,333 307.72,333 361.71,333 " fill="none" id="OrgAff7-to-HC7" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="366.9,333,357.9,329,361.9,333,357.9,337,366.9,333" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="143" x="205.5" y="326.4951">participatingOrganization</text></g><!--MD5=[fa07425c271430d76f390e055e64107e]
+reverse link LNA to OrgAff7--><g id="link_LNA_OrgAff7"><path codeLine="19" d="M368.24,207.78 C301.29,238.44 204.4,282.82 146.36,309.39 " fill="none" id="LNA-backto-OrgAff7" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="373.01,205.59,363.1617,205.6983,368.4636,207.6708,366.491,212.9726,373.01,205.59" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="70" x="281" y="258.4951">organization</text></g><!--MD5=[4286c40cf5f0d47139e2a727b59dc23f]
+link OrgAff6 to HC6--><g id="link_OrgAff6_HC6"><path codeLine="22" d="M762.38,333 C815.55,333 882.72,333 936.71,333 " fill="none" id="OrgAff6-to-HC6" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="941.9,333,932.9,329,936.9,333,932.9,337,941.9,333" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="143" x="780.5" y="326.4951">participatingOrganization</text></g><!--MD5=[df47bb3bf2e39f8fec23791155978f6f]
+reverse link LNA to OrgAff6--><g id="link_LNA_OrgAff6"><path codeLine="23" d="M492.25,208.52 C536.84,239.15 600.71,283.03 639.09,309.39 " fill="none" id="LNA-backto-OrgAff6" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="487.99,205.59,493.1538,213.9766,492.1148,208.416,497.6754,207.3769,487.99,205.59" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="70" x="564" y="258.4951">organization</text></g><!--MD5=[2a5dc53b223d627b9b2958f1888ad6cb]
+reverse link EndpointA to LNA--><g id="link_EndpointA_LNA"><path codeLine="24" d="M442,59.19 C442,82.53 442,115.92 442,140.32 " fill="none" id="EndpointA-backto-LNA" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="442,54.07,438,63.07,442,59.07,446,63.07,442,54.07" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="49" x="443" y="98.4951">endpoint</text></g><!--MD5=[35ec95e9b5d74414211b410cfdcf16e0]
+reverse link EndpointB to HC8--><g id="link_EndpointB_HC8"><path codeLine="33" d="M164,59.17 C164,79.92 164,108.64 164,131.91 " fill="none" id="EndpointB-backto-HC8" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="164,54.07,160,63.07,164,59.07,168,63.07,164,54.07" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="49" x="165" y="98.4951">endpoint</text></g><!--MD5=[7473104d9e72b0f3e53d6fbc24d9c68c]
+@startuml mln-top-level-dir
+hide footbox
+
+object "Organization" as LNA
+LNA : Name = "Lower Network A"
+LNA : OrgID = 1.3
+object "Organization" as HC7
+HC7 : Name = "Community 1.2.7"
+HC7 : HCID = 1.2.7
+HC7 : OrgID = 1.2.7
+object "Organization" as HC6
+HC6 : Name = "Community 1.2.6"
+HC6 : HCID = 1.2.6
+HC6 : OrgID = 1.2.6
+object "Endpoint" as EndpointA
+EndpointA : address = https://lower_network_A.org
+object ":OrganizationAffiliation" as OrgAff7
+OrgAff7 : code = DocShare-federate
+OrgAff7 -> HC7 : participatingOrganization
+LNA <- - OrgAff7 : organization
+object ":OrganizationAffiliation" as OrgAff6
+OrgAff6 : code = DocShare-federate
+OrgAff6 -> HC6 : participatingOrganization
+LNA <- - OrgAff6 : organization
+EndpointA <- - LNA : endpoint
+
+object "Organization" as HC8
+HC8 : Name = "Community 1.2.8"
+HC8 : HCID =  1.2.8
+HC8 : OrgID = 1.2.8
+object "Endpoint" as EndpointB
+EndpointB : address = https://community_B.org
+
+HC8 -u-> EndpointB : endpoint
+
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 12:01:30 CDT 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: Cp1252
+Language: en
+Country: US
+--></g></svg>
