@@ -23,7 +23,7 @@ OrgAff : code = member
 OrgAff --> OrganizationAA : participatingOrganization
 OrganizationA <-- OrgAff : organization
 
-note "Endpoint for Organization A provides document sharing access to AA as well as A" as N1
+note "Endpoint for Organization A provides document sharing access only to A and not AA" as N1
 N1 .. EndpointA
 
 @enduml
