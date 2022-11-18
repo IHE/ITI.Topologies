@@ -770,7 +770,7 @@ We’ll start with our earlier simpler example, where the organizations in our u
 
 ![Document Access: Intra-Community With Central Services in Multiple Community Directory](images/access-intra-central-partOf.svg)
 
-Here’s Dr. Suwati using her EHR to do the search. Here we are slightly modifying the use case by showing her searching based on the known locations of treatment, and due to the fact that Urgent Health happens to be in Valley HIE which uses central services, the documents from Urgent Health are included.
+In the search, we are showing the EHR searching for Endpoints where data flows from the known locations of treatment, and due to the fact that Urgent Health happens to be in Valley HIE which uses central services, the documents from Urgent Health are included:
 
 ![Document Access: Intra-Community With Central Services in Multiple Community Directory: Doing the search](images/access-intra-central-partOf-seq.svg)
 
