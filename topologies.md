@@ -707,27 +707,105 @@ TODO:  Flesh out
 
 Let us consider the Document Access use case from section 2, and how the objects could be represented in a directory and utilized based on different topologies.
 
+### Abstract View of the Organizations
+
 The example includes four organizations: New Hope Medical Partners, University Health, Valley Access Healthcare, and Urgent Health, as well as a regional HIE, which we’ll call Valley Region HIE. Here are just the organizations and their relationships. For now, we’ll leave any relationship between New Hope and the others unspecified.
 
 ![Document Access: Organizations Only](images/access-orgs-abstract.svg)
 
-### Intra-community, Central Services Access
+### One Community, Intra-community Access, Central Services
 
-In this example, New Hope also belongs to Valley Region HIE, which provides a central service infrastructure that holds all clinical information for all organizations. This deployment is so simple that a purpose-built directory could just list the Organizations and Endpoints as a flat list:
+In our first example, we will simplify the Document Access use case by placing all the organizations within one community, where that community has a set of central services endpoints. New Hope also belongs to Valley Region HIE, which provides a central service infrastructure that holds all clinical information for all organizations. This deployment is so simple that a purpose-built directory could just list the Organizations and Endpoints as a flat list:
 
 ![Document Access: Intra-Community With Central Services in Flat List](images/access-intra-central-purpose.svg)
 
-Here’s Dr. Suwati using her EHR to do the search:
+Here’s Dr. Suwati using her EHR to do the search. Here we are slightly modifying the use case by showing her searching based on the known locations of treatment, and due to the fact that Urgent Health happens to be in Valley HIE which uses central services, the documents from Urgent Health are included.
 
 ![Document Access: Intra-Community With Central Services in Flat List: Doing the search](images/access-intra-central-purpose-seq.svg)
 
-In a slightly more comprehensive directory, there may be other communities with their own Endpoints, so first we need to add Valley HIE as its own Organization, along with another HIE. We need a way for members of Valley Region HIE to find their services, and also to know that these services provide access to information from the other organizations in the HIE. We could accomplish this with partOf relationships linking the organizations to the HIE:
+### One Community, Intra-community Access, Per-Organization Access
 
-![Document Access: Intra-Community With Central Services and partOf Relationships](images/access-intra-central-partOf.svg)
+In this example, we are still focusing on one community, but now Valley HIE supplies the directory as its only central infrastructure. Each organization provides its own PDQ and XDS endpoints. A purpose-built directory could just reflect Organizations and Endpoints. To simplify this and later diagrams, we are showing all Endpoint resources for an Organization as a single item.
+
+![Document Access: Intra-Community With Per-Organization Access via Directly Owned Endpoints](images/access-intra-per-org-purpose.svg)
+
+Here’s Dr. Suwati using her EHR to do the search. Because the Organizations each have their own Endpoints, for the EHR to get documents from Urgent Health, it will need to expand its search to more than the known locations of treatment. In this case she will just search all Organizations in the HIE.
+
+![Document Access: Intra-Community With Per-Organization Access via Directly Owned Endpoints: Doing the search](images/access-intra-per-org-purpose-seq.svg)
+
+### One Network, Cross-community Access
+
+In this example, we are showing the use case as cross-community access, as it is in section 2. Valley HIE will now be a multi-community network, and each organization provides its own endpoints, which support cross-community profiles XCPD and XCA.
+
+If we have a purpose-built directory just for the members of Valley HIE, it could look like this:
+
+![Document Access: Cross-Community With Per-Community Access via Directly Owned Endpoints](images/access-cross-purpose.svg)
+
+The first thing to notice is that this is no more complex than the previous example; we’re just up one level, and using cross-community profiles. A purpose-built directory supporting a single perspective can be very simple, and in fact, this is the typical directory structure in multiple nationwide exchanges.
+
+We’ve given each community a Home Community ID. Our examples show that while the OrgID and HCID can be related, there isn’t any required relationship. We also show that Urgent doesn’t support asynchronous transactions.
+
+Dr. Suwati’s search:
+
+![Document Access: Cross-Community With Per-Community Access via Directly Owned Endpoints: Doing the search](images/access-cross-purpose-seq.svg)
+
+### Adding Transparent Intermediaries
+
+Some networks route traffic through intermediaries that may be referred to as “transparent” or “proxying”. Here’s a network topology showing that for our use case:
+
+![Document Access: Multi-Community HIE With Per-Community Access via Proxies: Topology](images/access-proxied-network.svg)
+
+If we have a purpose-built directory just for the members of Valley HIE, the proxies simply replace the real endpoints:
+
+![Document Access: Multi-Community HIE With Per-Community Access via Proxies: Purpose-Built Directory](images/access-cross-proxied-purpose.svg)
+
+### Supporting Proxied and Direct Perspectives
+TODO
+
+### Multiple Communities, Intra-community Access, Central Services, Organization Data Flow via partOf
+
+Now we’d like to explore multiple communities where there is organizational structure within communities.
+
+We’ll start with our earlier simpler example, where the organizations in our use case are all in the same community with central services, but we’ll add another, unrelated community, Seaside HIE. In the directory we need to add Valley HIE as its own Organization, along with Seaside HIE, which is not accessible by Valley HIE. Valley HIE gets a Home Community ID (HCID) so it can be identified by other communities. We need a way for members of Valley Region HIE to find their services, and also to know that data flows through these services from the other organizations in the HIE. We could accomplish this with partOf relationships linking the organizations to the HIE:
+
+![Document Access: Intra-Community With Central Services in Multiple Community Directory](images/access-intra-central-partOf.svg)
+
+Here’s Dr. Suwati using her EHR to do the search. Here we are slightly modifying the use case by showing her searching based on the known locations of treatment, and due to the fact that Urgent Health happens to be in Valley HIE which uses central services, the documents from Urgent Health are included.
+
+![Document Access: Intra-Community With Central Services in Multiple Community Directory: Doing the search](images/access-intra-central-partOf-seq.svg)
+
+### Multiple Communities, Intra-community Access, Central Services, Organization Data Flow via OrganizationAffiliation
+
+But there are some cases that would cause this structure to break down, e.g.:
+- We want to reserve partOf to reflect the organizations’ real business relationships, which are unrelated to HIE membership.
+- We want to show organizations that are in the HIE but not accessible at this time (i.e data does not flow).
+
+We can solve these in a comprehensive directory by using OrganizationAffiliation to model the HIE membership instead, and adding the mCSD defined code DocShare-federate to reflect that the affiliation supports federated document sharing. In other words, Endpoints belonging to the OrganizationAffiliation.organization will share documents from the OrganizationAffiliation.participatingOrganization federated organizations.
+
+In our example we can see that:
+- All organizations affiliated with Valley HIE except Valley Benefits share clinical documents.
+- The local facility “Urgent Health Valley” is part of a nationwide chain, but this business relationship does not convey any document sharing meaning. Valley HIE will not share clinical documents from Urgent Health USA.
+
+![Document Access: Intra-Community With Central Services in Multiple Community Directory](images/access-intra-central-orgAff.svg)
 
 And the search:
-![Document Access: Intra-Community With Central Services and partOf Relationships: Doing the search](images/access-intra-central-partOf-seq.svg)
 
+![Document Access: Intra-Community With Central Services in Multiple Community Directory: Doing the search](images/access-intra-central-orgAff-seq.svg)
+
+### Document Access: Putting it all together
+
+In our comprehensive Document Access example, the full directory supports multiple perspectives, based on access:
+- Member of Big Health Exchange
+- Member of Valley Region HIE
+- Member of Valley Region HIE wishing to call out to Big Health Exchange
+
+Note that our example does not rely on selective visibility based on the directory consumer’s perspective; all consumers can see all directory details. However, deployments may choose to perform this filtering.
+
+We’ve elided some details to make the diagram as simple as possible:
+- We omit New Hope’s Responding Gateway and internal details, since they aren’t involved in this Document Access example.
+- We omit push-style endpoint connection types, since they aren’t involved in this Document Access example.
+
+![Document Access: Comprehensive Multi-Perspective Example](images/access-multi-level-community.svg)
 
 ## Message Delivery
 
