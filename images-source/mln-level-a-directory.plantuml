@@ -17,11 +17,11 @@ HC6 : HCID = 1.2.6
 HC6 : OrgID = 1.2.6
 
 object ":OrganizationAffiliation" as OrgAff7
-OrgAff7 : code = DocShare-federate
+OrgAff7 : code = HIE/HIO
 OrgAff7 -d-> HC7 : participatingOrganization
 LNA <-- OrgAff7 : organization
 object ":OrganizationAffiliation" as OrgAff6
-OrgAff6 : code = DocShare-federate
+OrgAff6 : code = HIE/HIO
 OrgAff6 -d-> HC6 : participatingOrganization
 LNA <-- OrgAff6 : organization
 
