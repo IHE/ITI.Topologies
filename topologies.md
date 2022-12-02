@@ -273,6 +273,8 @@ The advantages of such an architecture is that it offers a simplified mechanism 
 
 ## Document Access
 
+### User Story
+
 In the Document Access use case, a user with a legitimate need to access healthcare information, such as a member of a patient's treatment team, wants to discover all available healthcare information for a patient and review information that they find most pertinent. 
 Consider the following scenario:
 
@@ -290,7 +292,8 @@ While recounting her medical journey, Vanna described most of the care she recei
 
 Dr. Suwati requests her EHR to find all available medical records for Vanna using Vanna's patient demographics. 
 The EHR searches other communities for patients with Vanna's demographics and, once matching patients are found, queries for the documents that make up Vanna's chart. 
-Dr. Suwati also finds that additional records were found at Urgent Health. 
+Fortunately, Dr. Suwati was able to find Vanna's medical records at Valley Access Healthcare and University Health. 
+However, she also finds that additional records were found at Urgent Health. 
 Those documents mentioned that Vanna had had a severe reaction to some medication she had been prescribed, such that Vanna should not be prescribed that medication again.
 Vanna hadn't mentioned that she was seen at Urgent Health, so Dr. Suwati is grateful that the records were located automatically. 
 In order to help organize the documents, Dr. Suwati requests her EHR to sort the documents by date and group by source healthcare organization. 
@@ -299,8 +302,34 @@ Dr. Suwati is not concerned with University Health's recent rebranding, she want
 To meet Dr. Suwati's needs, the EHR needs to be able to programmatically broadcast a set of patient discovery requests to other communities, evaluate the responses and follow-up with queries for medical documents, and then correlate the medical documents by discrete Organization.
 In order to respond quickly enough for Dr. Suwati's busy schedule, all of this needs to happen efficiently, and without actually retrieving or parsing the contents of all of the documents that were found.  
 
+### Interoperability Challenge
+
+For the purpose of this illustration, let's assume that the following infrastructure in place:
+
+* New Hope Medical Partners is a participant of a network called "Big Health Exchange"
+* Valley Access Healthcare, University Health, and Urgent Health are participants in a network called "Valley Region HIE"
+* Both Big Health Exchange and Valley Region HIE are further members of a nationwide document sharing network to facilitate document sharing between members of both exchanges. 
+* All three networks are built using IHE document sharing integration profiles, particularly XCPD and XCA. 
+
+Dr. Suwati's goal is to request records from Valley Access Healthcare and University health. In order for her to instruct her EMR to request records for those organizations, the EMR needs to know not only that they exist, but how to communicate with them. 
+
+> #### Problem 1
+> How can an EMR discover the existence of outside organizations it does not have a direct trust relationship with? How can a route to request information from that organization be discovered?
+
+Assuming a solution to Problem 1 is available, then the EMR will have identified a community from which the patient's record can be requested, and a set of communication endpoints that can be used to reach that community. In order to communicate the patient for which records are requested, the patient's identity within that community must first be determined. The XCPD integration profile is used to accomplish that goal. 
+
+For the purpose of this illustration, assume that Valley Region HIE is structured as a single community with a single patient identity domain, and Valley Region HIE's XCPD Initiating Gateway is reachable via Big Health Exchange's Responding Gateway, which will broadcast patient discovery requests to all communities it can reach. So, Dr. Suwati can determine Vanna's identity in Valley Region HIE by simply sending an XCPD request to Big Health Exchange's Responding Gateway. 
+
+Once the appropriate responding community and patient identifier for that community is determined, healthcare documents can be requested via the XCA integration profile. The XCPD response will have included a patient identity and Home Community ID pair for Vanna's Valley Region HIE record. So, the XCA integration profile can be used to request the healthcare documents available for Vanna from Valley Region HIE. 
+
+Once the data is retrieved, one problem remains, though - in order to enable filtering and sorting functionality to improve Dr. Suwati's efficiency, the EMR should be able to discretely associate each available document with the healthcare provider organization that authored it. 
+
+> #### Problem 2
+> How can Dr. Suwati's EMR discretely correlate the received documents by authoring organization? How can they be associated with the list of organizations in the organization directory that Dr. Suwati has access to?
+
 ## Message Delivery
 
+### User Story
 In the Message Delivery use case, a user has a message that they want to convey to a particular recipient in another, potentially far away, community. 
 The destination recipient might be an individual, a department at a healthcare organization, or other such addressable entity. 
 The user might have a particular recipient in mind for which they need to discover connectivity, or they might need to be able to discover available recipients. 
@@ -317,6 +346,20 @@ Dr. Suwati requests her EHR to send the referral, the letter, and a summary of c
 
 University health is located in another document sharing community, but there is a communication path between New Hope Medical Partners and University Health. 
 The EHR needs to be able to send a message that will be received by the community to which University Health is a member and confirm that the message was delivered to Dr. Santos at University Health. 
+
+### Interoperability Challenge
+
+The IHE XDR integration profile enables the sending of an unsolicited message from a source to a destination, and the IHE XCDR integration profile supplement allows for routing via Home Community ID. So, if Dr. Suwati's EMR can construct a message and send it to an XCDR initiating gateway that has access to University Health, then the XCDR initiating gateway can route the message to that organization. However, before that can happen, the EMR must be able to determine that Dr. Santos is a physician that cares for patients at University Health, and that University Health is reachable via the network. This problem is very similar to Problem 1 above. 
+
+>#### Problem 3
+> How can an EMR discover the message transmission route to send a message to a provider at an outside organization which which it does not have a direct trust relationship?
+
+If Problem 3 were to be solved, then the EMR would know that by sending an XDR message with the Transmits Home Community ID option to the Big Health Exchange initiating gateway, it can ensure that the message is routed to the Valley Region HIE. But that is not sufficient for Dr. Santos to receive it, the message needs to be further routed to his incoming mail box at University Health. This is the final problem this white paper seeks to address:
+
+>#### Problem 4
+> How can a pushed message be addressed to an individual or organization within a community?
+
+As will be illustrated below, the use of a centralized directory to represent the network topology is one solution to greatly facilitate the solution to these problems. 
 
 # 3 Example Network Topologies
 
