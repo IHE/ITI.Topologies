@@ -860,3 +860,183 @@ TODO
 
 ## Scratchpad
 TODO:  This section SHALL be removed prior to public comment
+
+There are some gaps between the behavior implied in this whitepaper and what is specified in normative IHE ITI requirements. Since this whitepaper can only explain and refer to requirements, not add them, we have added this section to sketch out these future requirements for discussion.
+
+There are two broad categories of missing requirements: the first is to add federated addressing and routing to transactions that lack them and would be used in cross-community topologies, for example, targeted XCPD. The second is to add requirements that link the topology advertised in a directory and the behavior this implies.
+
+### Common Philosophy and Design Approaches
+- For now, keeping a general code of “DocShare-federate” to indicate all possible data flow and targeting capabilities, but adding detailed codes as well, per [issue 4](https://github.com/IHE/ITI.Topologies/issues/4)
+- We are sketching all requirements as named options for now.
+
+### mCSD
+
+#### Design Notes
+- We know we need requirements for “comprehensive” directories. We can discuss whether we also need to derive requirements for “purpose-built” directories, or just leave them out of scope.
+- Ideally, these requirements would be modular enough that they could be brought in to a directory IG not built on mCSD.
+
+#### Explicit Data/Routing Path Option
+This option allows a directory to explicitly define data and routing paths between federated resources (e.g. Organizations with Endpoints). It links what is advertised in the directory with federation capabilities of the referenced transaction actors. 
+
+Note that this linkage is informational, not a communication mechanism – while the directory is expected to be kept in sync with the actors it describes, directory maintenance is typically manual, so the directory and actors are not grouped, and no mechanism for automatically synchronizing them is specified. The approach used is to require the directory to reflect the actors’ capabilities, not for the actors to do what the directory says.
+
+In the section, the phrase “an Organization has an Endpoint” means either or both of these cases is true:
+- The Organization.endpoint is populated
+- The Organization is the .participatingOrganization of an OrganizationAffiliation and OrganizationAffiliation.endpoint is populated
+
+Note that to make all data paths explicit requires disallowing implicit data paths for directories making use of this option:
+- Implied by Organization.partOf
+- Implied by OrganizationAffiliation, but without the explicit path codes
+
+##### MHD ITI-65
+Note: Trying to figure out exactly how to repreent these requirements
+- Option 1: If CSSS represents a certain way in directory, client MAY assume behavior - used throughout so far
+
+If an mCSD Care Services Selective Supplier that supports the Explicit Data/Routing Path Option exposes an Organization A, Organization B, and Endpoint C, where A has C, C supports MHD, and either:
+- It exposes an OrganizationAffiliation where:
+-- .organization = A
+-- .participatingOrganization = B
+-- .code includes “DocShare-federate” or “MHD-intendedRecipient”
+- It exposes a path of OrganizationAffiliations defining intermediary Organizations between A and B where:
+-- One end has OrganizationAffiliation.organization = A
+-- One end has OrganizationAffiliation.participatingOrganization = B
+-- Each OrganizationAffiliation in the path has .code including “DocShare-federate” or “MHD-intendedRecipient”
+
+then an MHD Document Source grouped with an mCSD Care Services Selective Consumer that supports the Explicit Data/Routing Path Option MAY send an ITI-65 request to C with B’s business identifier as an intendedRecipient, and SHOULD NOT otherwise.
+
+- Option 2: CSSS SHALL indicate behavior by representing as X - not used yet; here for comparison
+
+An mCSD Care Services Selective Supplier that supports the Explicit Data/Routing Path Option SHALL indicate that an Organization A with an MHD Endpoint will route an ITI-65 request to an Organization B if it receives Organization B’s business identifier as an intendedRecipient by:...
+
+##### XDR ITI-41
+If an mCSD Care Services Selective Supplier that supports the Explicit Data/Routing Path Option exposes an Organization A, Organization B, and Endpoint C, where A has C, C supports XDR, and either:
+- It exposes an OrganizationAffiliation where:
+-- .organization = A
+-- .participatingOrganization = B
+-- .code includes “DocShare-federate” or “XDR-intendedRecipient”
+- It exposes a path of OrganizationAffiliations defining intermediary Organizations between A and B where:
+-- One end has OrganizationAffiliation.organization = A
+-- One end has OrganizationAffiliation.participatingOrganization = B
+-- Each OrganizationAffiliation in the path has .code including “DocShare-federate” or “XDR-intendedRecipient”
+
+then an XDR Document Source grouped with an mCSD Care Services Selective Consumer that supports the Explicit Data/Routing Path Option MAY send an ITI-41 request to C with B’s business identifier as an intendedRecipient, and SHOULD NOT otherwise.
+
+##### XCDR ITI-80
+If an mCSD Care Services Selective Supplier that supports the Explicit Data/Routing Path Option exposes an Organization A, Organization B, and Endpoint C, where A has C, C supports XCDR, and either:
+- It exposes an OrganizationAffiliation where:
+-- .organization = A
+-- .participatingOrganization = B
+-- .code includes “DocShare-federate” or “XCDR-HCID”
+- It exposes a path of OrganizationAffiliations defining intermediary Organizations between A and B where:
+-- One end has OrganizationAffiliation.organization = A
+-- One end has OrganizationAffiliation.participatingOrganization = B
+-- Each OrganizationAffiliation in the path has .code including “DocShare-federate” or “XCDR-HCID”
+
+then an XCDR Initiating Gateway grouped with an mCSD Care Services Selective Consumer that supports the Explicit Data/Routing Path Option MAY send an ITI-80 request to C with B’s business identifier profiled as HCID as the homeCommunityId, and SHOULD NOT otherwise.
+
+##### XCPD ITI-55
+If an mCSD Care Services Selective Supplier that supports the Explicit Data/Routing Path Option exposes an Organization A, Organization B, and Endpoint C, where A has C, C supports XCPD, and either:
+- It exposes an OrganizationAffiliation where:
+-- .organization = A
+-- .participatingOrganization = B
+-- .code includes “DocShare-federate” or “XCPD-include”
+- It exposes a path of OrganizationAffiliations defining intermediary Organizations between A and B where:
+-- One end has OrganizationAffiliation.organization = A
+-- One end has OrganizationAffiliation.participatingOrganization = B
+-- Each OrganizationAffiliation in the path has .code including “DocShare-federate” or “XCPD-include”
+
+then when an XCPD Initiating Gateway grouped with an mCSD Care Services Selective Consumer that supports the Explicit Data/Routing Path Option sends an ITI-55 request to C, it SHOULD expect and handle an ITI-55 response that includes matches from B’s community.
+
+If an mCSD Care Services Selective Supplier that supports the Explicit Data/Routing Path Option exposes an Organization A, Organization B, and Endpoint C, where A has C, C supports XCPD, and either:
+- It exposes an OrganizationAffiliation where:
+-- .organization = A
+-- .participatingOrganization = B
+-- .code includes “DocShare-federate” or “XCPD-include-opaque”
+- It exposes a path of OrganizationAffiliations defining intermediary Organizations between A and B where:
+-- One end has OrganizationAffiliation.organization = A
+-- One end has OrganizationAffiliation.participatingOrganization = B
+-- Each OrganizationAffiliation in the path has .code including “DocShare-federate” or “XCPD-include-opaque”
+
+then when an XCPD Initiating Gateway grouped with an mCSD Care Services Selective Consumer that supports the Explicit Data/Routing Path Option sends an ITI-55 request to C, it SHOULD expect that ITI-55 responses may include information from B’s community, but consolidated, not identifiable as such.
+
+If an mCSD Care Services Selective Supplier that supports the Explicit Data/Routing Path Option exposes an Organization A, Organization B, and Endpoint C, where A has C, C supports XCPD, and either:
+- It exposes an OrganizationAffiliation where:
+-- .organization = A
+-- .participatingOrganization = B
+-- .code includes “DocShare-federate” or “XCPD-target”
+- It exposes a path of OrganizationAffiliations defining intermediary Organizations between A and B where:
+-- One end has OrganizationAffiliation.organization = A
+-- One end has OrganizationAffiliation.participatingOrganization = B
+-- Each OrganizationAffiliation in the path has .code including “DocShare-federate” or “XCPD-target”
+
+then an XCPD Initiating Gateway grouped with an mCSD Care Services Selective Consumer that supports the Explicit Data/Routing Path Option MAY send an ITI-55 request to C with B’s business identifier profiled as HCID as the target homeCommunityId (see note 1), and SHOULD NOT otherwise.
+
+Note 1: This would require IHE add a Targeted XCPD mechanism.
+
+TBD the remaining federatable profiles
+
+#### Explicit Endpoint Accessibility Option
+This option allows a directory to support multiple perspectives, by explicitly defining which Endpoint resources are available to be used by particular clients of the directory. Note that this is informational, not a security mechanism; ultimately Endpoints and the resources they serve are protected through security mechanisms such as TLS, PKI, SAML, and OAuth.
+
+Without this option, a community will need to externally specify policy or configuration if it needs to communicate constraints on the use of Endpoint resources in its directory.
+
+Within this section,
+- The term "A client system" refers to any initiating/sending system, whether it utilizes an IHE client actor such as XDR Document Source or an externally-defined client protocol, grouped with an mCSD Care Services Selective Consumer that supports the Explicit Data/Routing Path Option.
+- The term "A client system within an Organization" refers to a client system acting on behalf of an Organization represented in the directory. The Organization may, but is not required to, have .endpoint(s) representing this client system.
+
+A client system within an Organization MAY attempt to utilize a global Endpoint resource, defined as the following:
+- An Endpoint not referred to by any Organization or OrganizationAffiliation resource in the directory.
+
+A client system within an Organization MAY attempt to utilize an unrestricted peer Endpoint resource, defined as the following:
+- An Endpoint belonging to any other Organization via Organization.endpoint.
+
+A client system within an Organization MAY attempt to utilize an Endpoint resource belonging to its HIE/HIO, defined as the following:
+- The client’s Organization A is related to its HIE/HIO Organization B by an OrganizationAffiliation resource with a code of “HIE/HIO”, where A is the .participatingOrganization and B is the .organization.
+- The Endpoint belongs to Organization B via Organization.endpoint.
+
+A client system within an Organization MAY attempt to utilize an Endpoint resource exposed by another member of its HIE/HIO, defined as the following:
+- The client’s Organization A is related to its HIE/HIO Organization B by an OrganizationAffiliation resource with a code of “HIE/HIO”, where A is the .participatingOrganization and B is the .organization.
+- The other member’s Organization C is related to the same HIE/HIO Organization B by an OrganizationAffiliation D resource with a code of “HIE/HIO”, where C is the .participatingOrganization and B is the .organization.
+- The Endpoint belongs to OrganizationAffiliation D via OrganizationAffiliation.endpoint.
+
+A client system within an Organization MAY attempt to utilize an Endpoint resource exposed by a partner Organization, defined as the following:
+- The client’s Organization A is related to its partner Organization B by an OrganizationAffiliation C resource with a code of “client” (see note 2), where A is the .participatingOrganization and B is the .organization.
+- The Endpoint belongs to OrganizationAffiliation C via OrganizationAffiliation.endpoint.
+
+A client system SHOULD NOT attempt to utilize any Endpoint resources beyond those identified in the above requirements.
+
+Note 2: IHE would need to define an additional code for use in OrganizationAffiliation.code as follows:
+- client: An organization that utilizes electronic clinical data exchange directly, i.e. not through an HIE/HIO.
+
+### XCPD
+
+#### Explicit Data/Routing Path Option
+This option allows an XCPD Responding Gateway to describe in a FHIR directory its internal topology and the data flows across it that it supports.
+
+This may be accomplished with an mCSD Care Services Selective Supplier that supports the Explicit Data/Routing Path Option, or an unspecified FHIR directory that provides equivalent behavior.
+
+When an XCPD Responding Gateway supports the Explicit Data/Routing Path Option, if it has an associated Organization A in the directory where either:
+- The Organization.endpoint is the XCPD Responding Gateway actor
+- The Organization is the .participatingOrganization of an OrganizationAffiliation and the OrganizationAffiliation.endpoint is the XCPD Responding Gateway actor
+
+and Organization A has a path to Organization B via OrganizationAffiliations as described in mCSD section TBD, where each OrganizationAffiliation in the path has .code including “DocShare-federate” or “XCPD-include”
+
+then the XCPD Responding Gateway MAY include patient matches when available from Organization B’s community, and SHOULD NOT otherwise.
+
+When an XCPD Responding Gateway supports the Explicit Data/Routing Path Option, if it has an associated Organization A in the directory where either:
+- The Organization.endpoint is the XCPD Responding Gateway actor
+- The Organization is the .participatingOrganization of an OrganizationAffiliation and the OrganizationAffiliation.endpoint is the XCPD Responding Gateway actor
+
+and Organization A has a path to Organization B via OrganizationAffiliations as described in mCSD section TBD, where each OrganizationAffiliation in the path has .code including “DocShare-federate” or “XCPD-include-opaque”
+
+then the XCPD Responding Gateway MAY include information when available from Organization B’s community, but consolidated, not identifiable as such, and SHOULD NOT otherwise.
+
+When an XCPD Responding Gateway supports the Explicit Data/Routing Path Option, if it has an associated Organization A in the directory where either:
+- The Organization.endpoint is the XCPD Responding Gateway actor
+- The Organization is the .participatingOrganization of an OrganizationAffiliation and the OrganizationAffiliation.endpoint is the XCPD Responding Gateway actor
+
+and Organization A has a path to Organization B via OrganizationAffiliations as described in mCSD section TBD, where each OrganizationAffiliation in the path has .code including “DocShare-federate” or “XCPD-target”
+
+then the XCPD Responding Gateway SHALL be able to route or otherwise limit an ITI-55 request to Organization B’s community, and SHOULD NOT otherwise.
+
+TBD need to design details of Targeted XCPD capability.
