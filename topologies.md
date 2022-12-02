@@ -894,13 +894,13 @@ Note: Trying to figure out exactly how to repreent these requirements
 
 If an mCSD Care Services Selective Supplier that supports the Explicit Data/Routing Path Option exposes an Organization A, Organization B, and Endpoint C, where A has C, C supports MHD, and either:
 - It exposes an OrganizationAffiliation where:
--- .organization = A
--- .participatingOrganization = B
--- .code includes “DocShare-federate” or “MHD-intendedRecipient”
+  - .organization = A
+  - .participatingOrganization = B
+  - .code includes “DocShare-federate” or “MHD-intendedRecipient”
 - It exposes a path of OrganizationAffiliations defining intermediary Organizations between A and B where:
--- One end has OrganizationAffiliation.organization = A
--- One end has OrganizationAffiliation.participatingOrganization = B
--- Each OrganizationAffiliation in the path has .code including “DocShare-federate” or “MHD-intendedRecipient”
+  - One end has OrganizationAffiliation.organization = A
+  - One end has OrganizationAffiliation.participatingOrganization = B
+  - Each OrganizationAffiliation in the path has .code including “DocShare-federate” or “MHD-intendedRecipient”
 
 then an MHD Document Source grouped with an mCSD Care Services Selective Consumer that supports the Explicit Data/Routing Path Option MAY send an ITI-65 request to C with B’s business identifier as an intendedRecipient, and SHOULD NOT otherwise.
 
@@ -911,63 +911,63 @@ An mCSD Care Services Selective Supplier that supports the Explicit Data/Routing
 ##### XDR ITI-41
 If an mCSD Care Services Selective Supplier that supports the Explicit Data/Routing Path Option exposes an Organization A, Organization B, and Endpoint C, where A has C, C supports XDR, and either:
 - It exposes an OrganizationAffiliation where:
--- .organization = A
--- .participatingOrganization = B
--- .code includes “DocShare-federate” or “XDR-intendedRecipient”
+  - .organization = A
+  - .participatingOrganization = B
+  - .code includes “DocShare-federate” or “XDR-intendedRecipient”
 - It exposes a path of OrganizationAffiliations defining intermediary Organizations between A and B where:
--- One end has OrganizationAffiliation.organization = A
--- One end has OrganizationAffiliation.participatingOrganization = B
--- Each OrganizationAffiliation in the path has .code including “DocShare-federate” or “XDR-intendedRecipient”
+  - One end has OrganizationAffiliation.organization = A
+  - One end has OrganizationAffiliation.participatingOrganization = B
+  - Each OrganizationAffiliation in the path has .code including “DocShare-federate” or “XDR-intendedRecipient”
 
 then an XDR Document Source grouped with an mCSD Care Services Selective Consumer that supports the Explicit Data/Routing Path Option MAY send an ITI-41 request to C with B’s business identifier as an intendedRecipient, and SHOULD NOT otherwise.
 
 ##### XCDR ITI-80
 If an mCSD Care Services Selective Supplier that supports the Explicit Data/Routing Path Option exposes an Organization A, Organization B, and Endpoint C, where A has C, C supports XCDR, and either:
 - It exposes an OrganizationAffiliation where:
--- .organization = A
--- .participatingOrganization = B
--- .code includes “DocShare-federate” or “XCDR-HCID”
+  - .organization = A
+  - .participatingOrganization = B
+  - .code includes “DocShare-federate” or “XCDR-HCID”
 - It exposes a path of OrganizationAffiliations defining intermediary Organizations between A and B where:
--- One end has OrganizationAffiliation.organization = A
--- One end has OrganizationAffiliation.participatingOrganization = B
--- Each OrganizationAffiliation in the path has .code including “DocShare-federate” or “XCDR-HCID”
+  - One end has OrganizationAffiliation.organization = A
+  - One end has OrganizationAffiliation.participatingOrganization = B
+  - Each OrganizationAffiliation in the path has .code including “DocShare-federate” or “XCDR-HCID”
 
 then an XCDR Initiating Gateway grouped with an mCSD Care Services Selective Consumer that supports the Explicit Data/Routing Path Option MAY send an ITI-80 request to C with B’s business identifier profiled as HCID as the homeCommunityId, and SHOULD NOT otherwise.
 
 ##### XCPD ITI-55
 If an mCSD Care Services Selective Supplier that supports the Explicit Data/Routing Path Option exposes an Organization A, Organization B, and Endpoint C, where A has C, C supports XCPD, and either:
 - It exposes an OrganizationAffiliation where:
--- .organization = A
--- .participatingOrganization = B
--- .code includes “DocShare-federate” or “XCPD-include”
+  - .organization = A
+  - .participatingOrganization = B
+  - .code includes “DocShare-federate” or “XCPD-include”
 - It exposes a path of OrganizationAffiliations defining intermediary Organizations between A and B where:
--- One end has OrganizationAffiliation.organization = A
--- One end has OrganizationAffiliation.participatingOrganization = B
--- Each OrganizationAffiliation in the path has .code including “DocShare-federate” or “XCPD-include”
+  - One end has OrganizationAffiliation.organization = A
+  - One end has OrganizationAffiliation.participatingOrganization = B
+  - Each OrganizationAffiliation in the path has .code including “DocShare-federate” or “XCPD-include”
 
 then when an XCPD Initiating Gateway grouped with an mCSD Care Services Selective Consumer that supports the Explicit Data/Routing Path Option sends an ITI-55 request to C, it SHOULD expect and handle an ITI-55 response that includes matches from B’s community.
 
 If an mCSD Care Services Selective Supplier that supports the Explicit Data/Routing Path Option exposes an Organization A, Organization B, and Endpoint C, where A has C, C supports XCPD, and either:
 - It exposes an OrganizationAffiliation where:
--- .organization = A
--- .participatingOrganization = B
--- .code includes “DocShare-federate” or “XCPD-include-opaque”
+  - .organization = A
+  - .participatingOrganization = B
+  - .code includes “DocShare-federate” or “XCPD-include-opaque”
 - It exposes a path of OrganizationAffiliations defining intermediary Organizations between A and B where:
--- One end has OrganizationAffiliation.organization = A
--- One end has OrganizationAffiliation.participatingOrganization = B
--- Each OrganizationAffiliation in the path has .code including “DocShare-federate” or “XCPD-include-opaque”
+  - One end has OrganizationAffiliation.organization = A
+  - One end has OrganizationAffiliation.participatingOrganization = B
+  - Each OrganizationAffiliation in the path has .code including “DocShare-federate” or “XCPD-include-opaque”
 
 then when an XCPD Initiating Gateway grouped with an mCSD Care Services Selective Consumer that supports the Explicit Data/Routing Path Option sends an ITI-55 request to C, it SHOULD expect that ITI-55 responses may include information from B’s community, but consolidated, not identifiable as such.
 
 If an mCSD Care Services Selective Supplier that supports the Explicit Data/Routing Path Option exposes an Organization A, Organization B, and Endpoint C, where A has C, C supports XCPD, and either:
 - It exposes an OrganizationAffiliation where:
--- .organization = A
--- .participatingOrganization = B
--- .code includes “DocShare-federate” or “XCPD-target”
+  - .organization = A
+  - .participatingOrganization = B
+  - .code includes “DocShare-federate” or “XCPD-target”
 - It exposes a path of OrganizationAffiliations defining intermediary Organizations between A and B where:
--- One end has OrganizationAffiliation.organization = A
--- One end has OrganizationAffiliation.participatingOrganization = B
--- Each OrganizationAffiliation in the path has .code including “DocShare-federate” or “XCPD-target”
+  - One end has OrganizationAffiliation.organization = A
+  - One end has OrganizationAffiliation.participatingOrganization = B
+  - Each OrganizationAffiliation in the path has .code including “DocShare-federate” or “XCPD-target”
 
 then an XCPD Initiating Gateway grouped with an mCSD Care Services Selective Consumer that supports the Explicit Data/Routing Path Option MAY send an ITI-55 request to C with B’s business identifier profiled as HCID as the target homeCommunityId (see note 1), and SHOULD NOT otherwise.
 
