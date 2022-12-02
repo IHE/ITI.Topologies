@@ -222,14 +222,14 @@ This is most often the case for end user stories that involve reviewing the medi
 
 Document Query and Retrieve is enabled by the [XCA](https://profiles.ihe.net/ITI/TF/Volume1/ch-18.html) Profile in a network setting, but can also be enabled by the [MHD](https://profiles.ihe.net/ITI/MHD/index.html) Profile. 
 
-### Message Delivery
+### Push Model
 
-**Message Delivery** refers to a document sharing model where an information source wants to communicate healthcare information to a particular intended recipient. 
+**Push Model** or simply "push" refers to a document sharing model where an information source wants to communicate healthcare information to a particular intended recipient. 
 In this model, documents are prepared by the source and then need to be communicated and routed to a recipient that consumes them directly. 
 
 This model can be thought of as a direct replacement for email, fax, postal mail, etc. and is often referred to as a "push" model.
 
-Message Delivery is enabled by the [XDR](https://profiles.ihe.net/ITI/TF/Volume1/ch-15.html), [MHD](https://profiles.ihe.net/ITI/TF/Volume1/ch-33.html), and [XCDR](https://profiles.ihe.net/ITI/TF/Volume1/ch-40.html) Profiles. 
+Push is enabled by the [XDR](https://profiles.ihe.net/ITI/TF/Volume1/ch-15.html), [MHD](https://profiles.ihe.net/ITI/TF/Volume1/ch-33.html), and [XCDR](https://profiles.ihe.net/ITI/TF/Volume1/ch-40.html) Profiles. 
 
 ### Translation Capabilities
 
@@ -327,10 +327,10 @@ Once the data is retrieved, one problem remains, though - in order to enable fil
 > #### Problem 2
 > How can Dr. Suwati's EMR discretely correlate the received documents by authoring organization? How can they be associated with the list of organizations in the organization directory that Dr. Suwati has access to?
 
-## Message Delivery
+## Push
 
 ### User Story
-In the Message Delivery use case, a user has a message that they want to convey to a particular recipient in another, potentially far away, community. 
+In the Push use case, a user has a message that they want to convey to a particular recipient in another, potentially far away, community. 
 The destination recipient might be an individual, a department at a healthcare organization, or other such addressable entity. 
 The user might have a particular recipient in mind for which they need to discover connectivity, or they might need to be able to discover available recipients. 
 Consider the following scenario:
@@ -487,7 +487,7 @@ They are similar to Organization in that they have logical identifiers, names, t
 However, since they represent a physical place, rather than the actual entity that might provide services or maintain IT infrastructure, they are typically not used in Document Sharing outside of facilitating discovery of the Organization that a user desires to share with. 
 
 Finally, the Practitioner and PractitionerRole Resources provide information about individual Practitioners that practice at an Organization. 
-They are relevant to DocumentSharing in that they will commonly be referenced in documents and their metadata, but they are also relevant for message delivery use cases in the event a message needs to be delivered to an individual. 
+They are relevant to DocumentSharing in that they will commonly be referenced in documents and their metadata, but they are also relevant for push use cases in the event a message needs to be delivered to an individual. 
 
 Directory policy will dictate the relationships between these Resources in the directory. 
 A key decision that needs to be made is the primary hierarchy of the directory, i.e. what Organization.partOf represents. 
@@ -504,7 +504,7 @@ As stated previously, document Sharing relationships might be expressed in the d
 Organization.partOf is the simplest way to represent a relationship between two Organizations.
 When child organizations have a partOf relationship with a parent, there is ambiguity around whether requesting data from, or delivering messages to, the parent organization will return data from, or route the message to, the child organizations. 
 Alternatively, mCSD supplies an OrganizationAffiliation.code - DocShare-federate - that can be used on an OrganizationAffiliation Resource to explicitly declare that a parent provides document sharing access to a child organization. 
-The DocShare-federate code implies that children are accessible for all document sharing technologies supported by the parent; there is no way to declare that the parent endpoints will work for document query and retrieve but not message delivery, for example. 
+The DocShare-federate code implies that children are accessible for all document sharing technologies supported by the parent; there is no way to declare that the parent endpoints will work for pull but not push, for example. 
 mCSD might declare a more granular set of OrganizationAffiliation codes in the future to help facilitate this level of nuance.
 
 Because the use of partOf is not explicit in whether it signifies that a parent Organization provides document sharing access to its children, directory policy will need to clarify the meaning of partOf with respect to Document Sharing. 
@@ -696,11 +696,11 @@ In Lower Network A, Communities 1.2.6 and 1.2.7 can communicate directly with on
 
 **Figure 1.3-1: Lower Level Directory Layout**
 
-### Inclusion of Message Delivery Addresses
+### Inclusion of Push Recipient Addresses
 
 A common need in document sharing push workflows is to deliver a message to a specific intended recipient. 
 That recipient might be an Organization, a Practitioner, or some other Person or Group. 
-Since the intended recipient of a message is often far more specific than the set of entities served by an endpoint, delivering a message to an endpoint is insufficient for message delivery - the recipient also needs to be addressed so that the message can be routed to the intended recipient. 
+Since the intended recipient of a message is often far more specific than the set of entities served by an endpoint, delivering a message to an endpoint is insufficient for push workflows - the recipient also needs to be addressed so that the message can be routed to the intended recipient. 
 
 The IHE document sharing profiles capable of handling push messaging - XDR, XCDR, and MHD - contain a field for intendedRecipient that can be used for such an address. The appropriate value with which to populate intendedRecipient could be determined from the target recipient's entry in the mCSD directory. 
 Note:  For Practitioners, the PractitionerRole Resource would be the target resource since a Practitioner might have roles at several organizations, and it is important to deliver the message to the Practitioner at the Organization where the relevant patient care takes place.
@@ -710,10 +710,10 @@ There are two elements, common across the FHIR resources that users would typica
 
 Additional profiling of the above Resources might specify a more standardized way of communicating intendedRecipient addresses in the future. 
 In the absence of that profiling, determining how to populate intendedRecipient will be up to community and network policy. 
-Networks that wish to enable the Message Delivery use case should ensure that whatever values they select can be used by responding gateways to the actual intended recipient. 
+Networks that wish to enable the push model of exchange should ensure that whatever values they select can be used by responding gateways to the actual intended recipient. 
 
-In an environment where suitable intendedRecipient addresses can be determined, a Document Source (or delegated Initiating Gateway) would accomplish Message Delivery by doing the following:
-- First, use the Endpoint Discovery Algorithm to find the most localized and suitable Endpoint for Message Delivery to the intended recipient's Organization. 
+In an environment where suitable intendedRecipient addresses can be determined, a Document Source (or delegated Initiating Gateway) would accomplish pushing to the recipient by doing the following:
+- First, use the Endpoint Discovery Algorithm to find the most localized and suitable Endpoint for push messaging to the intended recipient's Organization. 
 - Then, compose a message with intendedRecipient populated according to community or network policy, and transmit that message to the discovered Endpoint. 
 
 ### Associating Documents With Directory Entries
@@ -850,7 +850,7 @@ We’ve elided some details to make the diagram as simple as possible:
 
 ![Document Access: Comprehensive Multi-Perspective Example](images/access-multi-level-community.svg)
 
-## Message Delivery
+## Push
 
 TODO
 
