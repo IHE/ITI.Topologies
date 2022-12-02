@@ -842,7 +842,7 @@ In our comprehensive Document Access example, the full directory supports multip
 - Member of Valley Region HIE
 - Member of Valley Region HIE wishing to call out to Big Health Exchange
 
-Note that our example does not rely on selective visibility based on the directory consumer’s perspective; all consumers can see all directory details. However, deployments may choose to perform this filtering.
+Note that our example does not rely on selective visibility based on the directory consumer’s perspective; all consumers can see all directory details. See section 6: [mCSD Explicit Endpoint Accessibility Option](https://github.com/IHE/ITI.Topologies/blob/main/topologies.md#explicit-endpoint-accessibility-option) for some suggested requirements for directory consumers to determine their perspective, specifically as it relates to which Endpoints their client(s) have access to.
 
 We’ve elided some details to make the diagram as simple as possible:
 - We omit New Hope’s Responding Gateway and internal details, since they aren’t involved in this Document Access example.
