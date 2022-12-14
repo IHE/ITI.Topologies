@@ -352,7 +352,7 @@ The EHR needs to be able to send a message that will be received by the communit
 The IHE XDR integration profile enables the sending of an unsolicited message from a source to a destination, and the IHE XCDR integration profile supplement allows for routing via Home Community ID. So, if Dr. Suwati's EMR can construct a message and send it to an XCDR initiating gateway that has access to University Health, then the XCDR initiating gateway can route the message to that organization. However, before that can happen, the EMR must be able to determine that Dr. Santos is a physician that cares for patients at University Health, and that University Health is reachable via the network. This problem is very similar to Problem 1 above. 
 
 >#### Problem 3
-> How can an EMR discover the message transmission route to send a message to a provider at an outside organization which which it does not have a direct trust relationship?
+> How can an EMR discover the message transmission route to send a message to a recipient at an outside organization which which it does not have a direct trust relationship?
 
 If Problem 3 were to be solved, then the EMR would know that by sending an XDR message with the Transmits Home Community ID option to the Big Health Exchange initiating gateway, it can ensure that the message is routed to the Valley Region HIE. But that is not sufficient for Dr. Santos to receive it, the message needs to be further routed to his incoming mail box at University Health. This is the final problem this white paper seeks to address:
 
