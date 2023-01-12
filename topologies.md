@@ -422,10 +422,10 @@ This section provides guidance on how the above community topologies might be re
 
 ## Purpose Built vs Comprehensive Directories
 
-Many current Endpoint directories that are in production at the time of this writing are purpose-built, which is to say they only store information about organization, location, and endpoint information. 
+Many Endpoint directories that are in production at the time of this writing are purpose-built, which is to say they only store information about organization, location, and endpoint information. 
 The sole use case of these directories is endpoint lookup, and for this reason, directories often reflect network details directly in the Organization resource, such as:
 - The organization's role in the network, like participant or sub-participant, expressed as the type of organization.
-- The organization's relationship to its connectivity vendor, expressed as the organization hierarchy (i.e. Organization.partOf in FHIR).
+- The organization's relationship to its connectivity parent, expressed as the organization hierarchy (i.e. Organization.partOf in FHIR).
 - The organization's connectivity state 
 - Supported communication profiles, purposes of use, etc. 
 - A single type of organizational identifier, most commonly used as the Home Community ID for IHE cross community integration profiles
@@ -433,16 +433,16 @@ The sole use case of these directories is endpoint lookup, and for this reason, 
 The purpose-built nature of these directories makes representation of other organizational hierarchies, such as business relationships and jurisdictional governance, challenging. 
 This is because business, jurisdictional, and technical system relationships tend to have organizational hierarchies that do not match one another. 
 A directory purpose-built for electronic endpoint exchange tends to prioritize technical system relationships in hierarchical representations, which means that other types of hierarchical relationships are not represented properly. 
-This is a significant drawback, as electronic communication information becomes more useful when paired with user facing information.
+This is a significant drawback, as electronic communication information becomes more useful when paired with information that non-technical end users might find relevant. 
 
-For example, suppose a clinician works for an organization that contracts out services to several healthcare provider organizations, and that clinician has a specific electronic delivery address for each healthcare provider organization. 
-An individual trying to message that clinician about one of their patients would need to understand this well enough to choose the correct delivery address to send their message. 
+For example, suppose a clinician works for a staffing organization that contracts out services to several healthcare provider organizations, and that clinician has a specific electronic delivery address for each healthcare provider organization. 
+An individual trying to message that clinician about one of their patients would need to understand this well enough to choose the correct delivery address to send the message to the correct provider organization. 
 At the same time, a public health worker might want to be able to quickly identify and message all of the infection disease experts in their government jurisdiction to alert them of a new disease outbreak. 
 As expectations of connectedness and automation grow, we predict that it will be necessary to have an increasing amount of information available in a single, centralized directory.
 This means that it will be necessary to represent multiple disparate systemic hierarchies in a single directory. 
 
 The IHE mCSD integration profile is well suited to address this problem by utilizing the OrganizationAffiliation resource to provide for the representation of multiple organizational hierarchies, and by also considering how the Practitioner and PractitionerRole resources can be integrated into such a directory. 
-This allows for healthcare facilities, care services, healthcare workers, and other healthcare entities to all exist in a central location along with their communication details. 
+This allows for data about healthcare facilities, care services, healthcare workers, and other healthcare entities to all exist in a central location along with their communication details. 
 
 ## Directory Layout Guidance
 
@@ -453,13 +453,13 @@ This guidance will be focused on a central network directory that uses the HL7 F
 
 The first question that is asked when document sharing is "what are the parties to the exchange?" 
 This question implies the use of the Organization Resource to model the entities exchanging data. 
-An Organization is a group of people or organizations that form some collective of action, such as companies, institutions, corporations, departments, community groups, healthcare practice groups, healthcare payers, etc. 
+HL7 FHIR defines an Organization as a group of people or organizations that form some collective of action, such as companies, institutions, corporations, departments, community groups, healthcare practice groups, healthcare payers, etc. 
 Organizations often exist in one or more hierarchies, where those hierarchies might represent business entity relationships, jurisdictional relationships, IT relationships, etc. 
 Organizations have a few key attributes that are relevant for Document Sharing:
 
 * A logical Identifier that uniquely identifies the Organization as an entity
 * The Name by which a human user would know of the organization
-* Telecom information that can be used to reach the Organization
+* Telecommunication identifiers that can be used to reach the Organization
 * Information about what larger Organization the Organization might be part of
 * One or more endpoints for electronic communication and data exchange
 
@@ -468,10 +468,13 @@ While the Organization Resource can only refer to one parent Organization direct
 The partOf element is typically used to represent business relationships (Department X is part of Organization Y which is a subsidiary of Organization Z), however, some directories might choose to use partOf to also represent document sharing access. 
 The OrganizationAffiliation Resource establishes a parent-child relationship via its organization (parent) and participatingOrganization (child) elements. 
 It also has a code element that can be used to identify the nature of the relationship between organization and participatingOrganization. 
-mCSD defines a code - DocShare-federate - to imply that a parent organization provides access to documents for its children in a Document Sharing Network, and additional codes might be defined by mCSD in the future or by directory policy. 
+mCSD defines a code - DocShare-federate - to imply that a parent organization provides access to documents for its children in a Document Sharing Network.
+Additional codes might be defined by mCSD in the future or by directory policy. 
 OrganizationAffiliation also has an endpoint element.
-This can be used instead of Organization.Endpoint when it needs to be clear that while the Endpoint is child Organization specific, it is configured by the parent organization. 
-This understanding is necessary when there are multiple affiliated parent Organizations that provide child specific endpoints to a particular child Organization, or when the parent organization is the one managing trust relationships for the Endpoint despite the Endpoint serving a single child organization. 
+This can be used instead of Organization.Endpoint when it needs to be clear that while the Endpoint is child Organization specific, it is relevant only in the context of the OrganizationAffiliation, rather than in general. 
+This understanding is necessary in comprehensive directories where access to the endpoint is predicated on having a relationship with the parent organization.
+This is often the case for endpoints available on the public internet, since document sharing endpoints generally cannot allow access to unauthenticated or unauthorized users. 
+In this scenario, the OrganizationAffiliation would have .organization pointing to an HIE Organization that establishes strong rules for governance and provides credentials to each member to access the other members' endpoints.
 
 The third Resource that is critical to establishing connectivity is the Endpoint resource. 
 An Organization can have one or more Endpoints to represent an access point for electronic communication with that Organization. 
@@ -499,13 +502,12 @@ Careful planning of the directory structure can facilitate the programmatic disc
 
 ### Indicating Document Sharing Connectivity
 
-As stated previously, document Sharing relationships might be expressed in the directory via Organization.partOf or by use of the OrganizationAffiliation Resource.
+As stated previously, document sharing relationships might be expressed in the directory via Organization.partOf or by use of the OrganizationAffiliation Resource.
 
 Organization.partOf is the simplest way to represent a relationship between two Organizations.
 When child organizations have a partOf relationship with a parent, there is ambiguity around whether requesting data from, or delivering messages to, the parent organization will return data from, or route the message to, the child organizations. 
-Alternatively, mCSD supplies an OrganizationAffiliation.code - DocShare-federate - that can be used on an OrganizationAffiliation Resource to explicitly declare that a parent provides document sharing access to a child organization. 
-The DocShare-federate code implies that children are accessible for all document sharing technologies supported by the parent; there is no way to declare that the parent endpoints will work for pull but not push, for example. 
-mCSD might declare a more granular set of OrganizationAffiliation codes in the future to help facilitate this level of nuance.
+Therefore, this relationship is only feasible in purpose built directories where it is obvious what the .partOf relationships convey, and the future growth opportunities for such a directory are limited. 
+Conversely, a more explicit and future proof alternative is to use the OrganizationAffiliation resource to convey what document sharing access is possible. 
 
 Because the use of partOf is not explicit in whether it signifies that a parent Organization provides document sharing access to its children, directory policy will need to clarify the meaning of partOf with respect to Document Sharing. 
 Directory policy that declares organizational hierarchy via partOf implies accessibility to child entries, meaning:
@@ -527,6 +529,11 @@ This is the most explicit policy, but one that might be operationally cumbersome
 In all three cases, the Endpoint Discovery Algorithm later in this section will identify an endpoint if one exists. 
 However, the endpoint discovery algorithm will require further configuration to align the notion of a "suitable" endpoint with directory policy. 
 For example, if the directory policy declares that Organization.partOf shall not be used to convey document sharing relationships, then the Endpoint Discovery Algorithm should be configured to not traverse those relationships. 
+
+In the examples that follow, the OrganizationAffiliation Resource is used to convey document sharing connectivity information due to its increased versatility. In this paper, the following value set will be used:
+* DocShare-federate - As in mCSD, this code indicates that documents from the .participatingOrganization are available by communicating with the .organization
+* "HIE Connectivity" - This code is used to indicate that clients that have obtained a credential from the parent organization (.organization) can utilize the Endpoint associated with the OrganizationAffiliation to access the .participatingOrganization
+* "Direct" - this code is used to indicate that the .participatingOrganization should be able to reach the .organization directly via .Endpoint. This code does not make any claims about the connectivity available for any organizations other than the two directly linked to the OrganizationAffiliation Resource. Note that many document sharing networks might choose to distribute the information needed to establish these connections out of band rather than via the directory. 
 
 ### Example Community Directory Layouts
 
