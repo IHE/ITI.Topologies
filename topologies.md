@@ -534,10 +534,11 @@ In the examples that follow, the OrganizationAffiliation Resource is used to con
 * DocShare-federate - As in mCSD, this code indicates that documents from the .participatingOrganization are available by communicating with the .organization
 * "HIE Connectivity" - This code is used to indicate that clients that have obtained a credential from the parent organization (.organization) can utilize the Endpoint associated with the OrganizationAffiliation to access the .participatingOrganization
 * "Direct" - this code is used to indicate that the .participatingOrganization should be able to reach the .organization directly via .Endpoint. This code does not make any claims about the connectivity available for any organizations other than the two directly linked to the OrganizationAffiliation Resource. Note that many document sharing networks might choose to distribute the information needed to establish these connections out of band rather than via the directory. 
+* Other codes are used to indicate relationships irrelevant to document sharing access. 
 
 ### Example Community Directory Layouts
 
-#### Single Organization Community
+#### Representation of a single Organization's Endpoint in a directory
 
 In a Single Organization Community, the Community can be represented as a single Organization resource with an Organization identifier and a Home Community ID, and these identifiers might even be the same. 
 Since the Community's Responding Gateway serves a single Organization, Endpoints for each service provided by the Responding Gateway can be tied directly to the Organization resource, using the Organization.endpoint element. 
@@ -567,46 +568,65 @@ Another similar relationship between E and F might exist, but E handles network 
 
 **Figure 1:46.8.1-4: Organization-specific Endpoint Hosted by Unrepresented Intermediary**
 
-Consider another pair of organizations, G and H. H provides document sharing infrastructure services to G by providing G with an endpoint specific to its organization, but H manages the endpoint entirely, including managing trust for outside entities. 
-That is to say, outside entities can exchange data with G if they have a trust relationship with H. 
-In this situation, it can be said that H is acting as a transparent proxy for G. 
+#### Organizations with Multiple Endpoints
 
-Pointing to G's Endpoint from an OrganizationAffiliation linking G to H is likely to be a good choice to represent this situation. 
-If the endpoint were to be pointed to by H, it is not clear that data for H would not be returned by that endpoint, and H might have multiple affiliated organizations for which it needs to provide endpoints. 
-Pointing at G's endpoint from G's Organization resource could work if the directory enforces that only a single route to G exist. 
+A single Organization might have multiple Endpoints for different purposes. 
+For example, endpoints might be needed for IHE XCPD, XCA, XCDR, and a FHIR endpoint to accommodate PDQm and MHD transactions. 
+
+![Multiple Endpoints per Organization](images/dir-endpoint-xdr-mhd.svg)
+
+**Figure 1:46.8.3-1: Multiple Endpoints For A Single Organization**
+
+#### Representing Network Membership and Connectivity
+
+Suppose Organization H is the governing organization for a Health Information Exchange Network, in which G is a member.
+Organization G hosts its own document sharing endpoint for access to its healthcare data by other members of H. 
+
+We will represent this situation by using an OrganizationAffiliation resource with a code of "HIE Connectivity" to indicate this fact to other members in the directory.  
+If the endpoint were to be pointed to by the Organization H resource, it is not clear that data for H would not be returned by that endpoint, and H might have multiple affiliated organizations for which it needs to provide endpoints. 
+Pointing at G's endpoint from G's Organization resource is more aligned with what is commonly done today, but would only work unambiguously if the directory is purpose built such that it is assumed that all endpoints are accessible to members of H.
 However, if G needs multiple endpoints to support different affiliated organizations that provide access to it, then it would be challenging to differentiate the different endpoints attached to G. 
 In this example, OrganizationAffiliation allows the Endpoint to be declared specific to G while still making it clear that it is affiliated with H. 
 
 ![Organization Specific Endpoint Controlled by Affiliate](images/dir-org-specific-endpoint-from-affil.svg)
 
-**Figure : Organization-specific Endpoint Controlled by Affiliation**
+**Figure : Organization-specific Endpoint With Access Provided By Affiliation**
+
+Note that in this case, while the endpoint is specific to G, it is hosted by H as indicated by the managingOrganization link. 
+However, since a client does not care that H manages the endpoint, only that it is used to access G and that members of H are authorized to use it.
+A client would not generally use the .managingOrganization link for functional purposes, except to provide information to end users in the event IT assistance is needed from H. 
+This is an example of a case where H is acting as a transparent proxy.
 
 #### Multiple Paths to an Organization
 
-An organization might be a member of, and reachable by, multiple networks. If each network exposes an Organization specific endpoint to the Organization, then they must list those endpoints on the OrganizationAffiliation Resource, since listing them on the Organization would create ambiguity as to which parent network each endpoint would be used for. 
+An organization might be a member of, and reachable by, multiple networks. If each network exposes an Organization specific endpoint to the Organization, then they must list those endpoints on the OrganizationAffiliation Resource.
+Since each OrganizationAffiliation resource points to the appropriate network in .organization, it is clear to clients what credentials are needed for each endpoint. 
 
 ![Organization With Multiple Affiliations](images/dir-org-specific-endpoint-multiple-routes.svg)
 
 **Figure : Organization-specific Endpoints From Multiple Affiliations**
 
-#### Endpoint to a Structure
+#### Endpoint to a Complex Organization
 
-It is possible for an organization with an endpoint, such as Organization A, to have other Organizations that point to it via partOf. 
-This would be commonly used in the case of subsidiaries or departments within Organization A:
+If an Organization A has a number of sub-organizations that generally do not act independently and share an IT system, such as is the case with departments, then the simplicity of .partOf might be beneficial instead of using OrganizationAffiliation. 
+
+Consider the following diagram, where Organization A has two departments, modeled as Organization AA and Organization AB:
 
 ![Endpoint to Parent Organization](images/dir-endpoint-to-org-hierarchy.svg)
 
 **Figure 1:46.8.2-1: Endpoint to Parent Organization**
 
-The following shows the same Organization hierarchy, but using OrganizationAffiliation instead of partOf to declare the relationship:
+The following shows the same Organization hierarchy, but using OrganizationAffiliation instead of partOf to declare the relationship. This might be more appropriate where Organizations AA and AB are subsidiaries that have some independent capabilities apart from Organization A, but still share IT resources. Here, the DocShare-federate code is used to indicate that requesting data from Organization A will return data for Organization AA and AB:
 
 ![Endpoint to Parent Organization with OrgAffiliation](images/dir-endpoint-to-org-affiliates.svg)
 
 **Figure 1:46.8.2-1: Endpoint to Parent Organization with OrganizationAffiliation**
 
+#### Importance of Policy Specifying the Meaning of OrganizationAffiliation.code
+
 Directories that will have Organizations with partOf relationships where both Organizations have endpoints should have a way to distinguish whether the parent endpoint provides access to data from the child. 
 Since OrganizationAffiliation might be used to represent several kinds of hierarchies, directory policy will dictate when OrganizationAffiliation implies document sharing access. 
-A common policy would be to specify a value set for OrganizationAffiliation.code and a value within that set that implies document sharing access. 
+OrganizationAffiliation and partOf might be used to indicate relationships outside of document sharing access according to directory policy, or directory policy might forbid that. 
 
 Suppose a directory policy stated that parent Organizations provide access to child organizations only when linked by an OrganizationAffiliation Resource where OrganizationAffiliation.code=DocShare-federate. In such a directory, the below relationship would not imply document sharing federation:
 
@@ -628,15 +648,6 @@ Then, if Organization I's endpoint would provide document sharing access to all 
 ![Endpoint to a multi-layered structure](images/dir-endpoint-to-hybrid-org-structure.svg)
 
 **Figure 1:46.8.2-3: Endpoint to Multi-Layered Organizational Structure**
-
-#### Organizations with Multiple Endpoints
-
-A single Organization might have multiple Endpoints for different purposes. 
-For example, endpoints might be needed for IHE XCPD, XCA, XCDR, and a FHIR endpoint to accommodate PDQm and MHD transactions. 
-
-![Multiple Endpoints per Organization](images/dir-endpoint-xdr-mhd.svg)
-
-**Figure 1:46.8.3-1: Multiple Endpoints For A Single Organization**
 
 ### Endpoint Discovery 
 
