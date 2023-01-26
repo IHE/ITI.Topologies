@@ -532,8 +532,8 @@ For example, if the directory policy declares that Organization.partOf shall not
 
 In the examples that follow, the OrganizationAffiliation Resource is used to convey document sharing connectivity information due to its increased versatility. In this paper, the following value set will be used:
 * DocShare-federate - As in mCSD, this code indicates that documents from the .participatingOrganization are available by communicating with the .organization
-* "HIE Connectivity" - This code is used to indicate that clients that have obtained a credential from the parent organization (.organization) can utilize the Endpoint associated with the OrganizationAffiliation to access the .participatingOrganization
-* "Direct" - this code is used to indicate that the .participatingOrganization should be able to reach the .organization directly via .Endpoint. This code does not make any claims about the connectivity available for any organizations other than the two directly linked to the OrganizationAffiliation Resource. Note that many document sharing networks might choose to distribute the information needed to establish these connections out of band rather than via the directory. 
+* HIEConnectivity - This code is used to indicate that clients that have obtained a credential from the parent organization (.organization) can utilize the Endpoint associated with the OrganizationAffiliation to access the .participatingOrganization
+* PartnerConnectivity - this code is used to indicate that the .participatingOrganization should be able to reach the .organization directly via .Endpoint. This code does not make any claims about the connectivity available for any organizations other than the two directly linked to the OrganizationAffiliation Resource. Note that many document sharing networks might choose to distribute the information needed to establish these connections out of band rather than via the directory. 
 * Other codes are used to indicate relationships irrelevant to document sharing access. 
 
 ### Example Community Directory Layouts
@@ -701,18 +701,22 @@ Here:
 We will start at the top level and work our way down:
 
 The Top Level Network has two direct members, A and B. These two members can communicate directly with each other by using the directory and trust policies provided by the Top Level Network. 
-However, each network cannot directly access the lower organizations in the network - they must use the network gateways for that access. 
-This would be represented in the Top Level Network directory as follows:
+However, each network cannot directly access the lower organizations in the network - they must use the network gateways for that access. In contrast, in Lower Network A, Communities 1.2.6 and 1.2.7 can communicate directly with one another, but to reach Community 1.2.8, they would communicate via the Lower Network A gateways. 
 
-![Top Level Diagram](images/mln-top-level-dir.svg)
+A combination of OrganizationAffiliation Resources would be used to complete this representation:
 
-**Figure 1.3-1: Top Level Directory Layout**
+* An Organization at the top level represents the Upper Network. This Organization does not have any endpoints and does not directly facilitate exchange, but exists to represent the authority for the upper network.
+* The Lower Networks connect to the upper network via OrganizationAffiliation Resources with code=HIEConnectivity. This signals that both Organizations are members of Upper Network and therefore they can access each other's corresponding endpoints. 
+* Within Lower Network A, three types of OrganizationAffiliation Resources are used
+** Those with code=DocShare-federate indicate that Lower Network A's endpoint provides access to documents from the two Organizations within. This would be used by Community 1.2.8 to access the Organizations in Lower Network A. 
+** Those with code=HIEConnectivity indicate that both orgs are members of Lower Network A, which means that as members, they can access each others corresponding endpoints. 
+** Those with code=PartnerConnectivity indicate that the lower network orgs can use the linked endpoint to access the Lower Network A gateway, which can forward requests to other organizations that are members of the Upper Network
 
-In Lower Network A, Communities 1.2.6 and 1.2.7 can communicate directly with one another, but to reach Community 1.2.8, they would communicate via the Lower Network A gateways. This implies a slightly different directory representation:
+This would be represented in an mCSD Directory as follows:
 
-![Lower Level Diagram](images/mln-level-a-directory.svg)
+![Multi Level Diagram](images/mln-dir.svg)
 
-**Figure 1.3-1: Lower Level Directory Layout**
+**Figure 1.3-1: Multi Level Directory Layout**
 
 ### Inclusion of Push Recipient Addresses
 
