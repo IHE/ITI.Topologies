@@ -33,30 +33,31 @@ UN : HCID = "1.1"
 UN : OrgID = "1.1"
 
 object ":OrganizationAffiliation" as OrgAff7HIE
-OrgAff7HIE : code = HIEConnectivity
+OrgAff7HIE : code = HIEResponder
 OrgAff7HIE --> HC7 : participatingOrganization
 LNA <-- OrgAff7HIE : organization
 OrgAff7HIE --> Endpoint7 : endpoint
 
 object ":OrganizationAffiliation" as OrgAff7
-OrgAff7 : code = DocShare-federate
+OrgAff7 : code = DocShare-federate-ext
+OrgAff7 : code = DocShare-federate-int
 OrgAff7 --> HC7 : participatingOrganization
 LNA <-- OrgAff7 : organization
 
 object ":OrganizationAffiliation" as OrgAff6
-OrgAff6 : code = DocShare-federate
+OrgAff6 : code = DocShare-federate-ext
 OrgAff6 --> HC6 : participatingOrganization
 LNA <-- OrgAff6 : organization
 
 together {
     object ":OrganizationAffiliation" as OrgAff6Peer
-    OrgAff6Peer : code = PartnerConnectivity
+    OrgAff6Peer : code = HIEInitiator
     OrgAff6Peer --> HC6 : participatingOrganization
     LNA <-- OrgAff6Peer : organization
     object "Endpoint" as EndpointAD
     EndpointAD : address = https://lower_network_A.org/lower
     object ":OrganizationAffiliation" as OrgAff7Peer
-    OrgAff7Peer : code = PartnerConnectivity
+    OrgAff7Peer : code = HIEInitiator
     OrgAff7Peer --> HC7 : participatingOrganization
     LNA <-- OrgAff7Peer : organization
     OrgAff7Peer -> EndpointAD : endpoint
@@ -64,21 +65,32 @@ together {
 }
 
 object ":OrganizationAffiliation" as OrgAff6HIE
-OrgAff6HIE : code = HIEConnectivity
+OrgAff6HIE : code = HIEResponder
 OrgAff6HIE --> HC6 : participatingOrganization
 LNA <-- OrgAff6HIE : organization
 OrgAff6HIE --> Endpoint6 : endpoint
 
-object "OrganizationAffiliation" as OrgAffA
-OrgAffA : code = HIEConnectivity
-OrgAffA --> LNA : participatingOrganization
-OrgAffA -> EndpointA : endpoint
-UN <-- OrgAffA : organization
+object "OrganizationAffiliation" as OrgAffAR
+OrgAffAR : code = HIEResponder
+OrgAffAR --> LNA : participatingOrganization
+OrgAffAR -> EndpointA : endpoint
+UN <-- OrgAffAR : organization
 
-object "OrganizationAffiliation" as OrgAffB
-OrgAffB : code = HIEConnectivity
-OrgAffB --> HC8 : participatingOrganization
-OrgAffB -> EndpointB : endpoint
-UN <-- OrgAffB : organization
+object "OrganizationAffiliation" as OrgAffBR
+OrgAffBR : code = HIEResponder
+OrgAffBR --> HC8 : participatingOrganization
+OrgAffBR -> EndpointB : endpoint
+UN <-- OrgAffBR : organization
+
+object "OrganizationAffiliation" as OrgAffAI
+OrgAffAI : code = HIEInitiator
+OrgAffAI --> LNA : participatingOrganization
+UN <-- OrgAffAI : organization
+
+object "OrganizationAffiliation" as OrgAffBI
+OrgAffBI : code = HIEInitiator
+OrgAffBI --> HC8 : participatingOrganization
+UN <-- OrgAffBI : organization
 
 @enduml
+

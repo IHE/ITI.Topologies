@@ -7,7 +7,7 @@ OrganizationG : HCID = 1.2.8
 object "Affiliated Organization H" as OrganizationH
 OrganizationH : OrgID = 1.3.4
 object "OrganizationAffiliation" as OrgAff
-OrgAff : code = HIEConnectivity
+OrgAff : code = HIEResponder
 object "Endpoint for G" as EndpointG
 EndpointG : address = https://orgH.org/orgG
 

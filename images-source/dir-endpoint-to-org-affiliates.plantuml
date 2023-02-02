@@ -11,11 +11,13 @@ EndpointA : address = https://orgA.org
 object "Organization AB" as OrganizationAB
 OrganizationAB : OrgID = 1.2.3.2
 object ":OrganizationAffiliation" as OrgAff
-OrgAff : code = DocShare-federate
+OrgAff : code = DocShare-federate-int
+OrgAff : code = DocShare-federate-ext
 OrgAff --> OrganizationAA : participatingOrganization
 OrganizationA <-- OrgAff : organization
 object ":OrganizationAffiliation" as OrgAff2
-OrgAff2 : code = DocShare-federate
+OrgAff2 : code = DocShare-federate-int
+OrgAff2 : code = DocShare-federate-ext
 OrgAff2 --> OrganizationAB : participatingOrganization
 OrganizationA <-- OrgAff2 : organization
 

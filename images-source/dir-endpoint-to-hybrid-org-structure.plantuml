@@ -15,7 +15,7 @@ OrganizationJB : OrgID = 1.2.8.2
 object "Organization JC" as OrganizationJC
 OrganizationJC : OrgID = 1.2.8.3
 object ":OrganizationAffiliation" as OrgAff
-OrgAff : code = DocShare-federate
+OrgAff : code = DocShare-federate-int
 OrgAff -> OrganizationJ : participatingOrganization
 OrganizationI <-- OrgAff : organization
 

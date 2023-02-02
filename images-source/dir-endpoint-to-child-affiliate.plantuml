@@ -19,7 +19,7 @@ EndpointAA <-l- OrganizationAA : endpoint
 OrganizationAA <- EndpointAA : managingOrganization
 
 object ":OrganizationAffiliation" as OrgAff
-OrgAff : code = DocShare-federate
+OrgAff : code = DocShare-federate-int
 OrgAff --> OrganizationAA : participatingOrganization
 OrganizationA <-- OrgAff : organization
 

@@ -531,9 +531,18 @@ However, the endpoint discovery algorithm will require further configuration to 
 For example, if the directory policy declares that Organization.partOf shall not be used to convey document sharing relationships, then the Endpoint Discovery Algorithm should be configured to not traverse those relationships. 
 
 In the examples that follow, the OrganizationAffiliation Resource is used to convey document sharing connectivity information due to its increased versatility. In this paper, the following value set will be used:
-* DocShare-federate - As in mCSD, this code indicates that documents from the .participatingOrganization are available by communicating with the .organization
-* HIEConnectivity - This code is used to indicate that clients that have obtained a credential from the parent organization (.organization) can utilize the Endpoint associated with the OrganizationAffiliation to access the .participatingOrganization
-* PartnerConnectivity - this code is used to indicate that the .participatingOrganization should be able to reach the .organization directly via .Endpoint. This code does not make any claims about the connectivity available for any organizations other than the two directly linked to the OrganizationAffiliation Resource. Note that many document sharing networks might choose to distribute the information needed to establish these connections out of band rather than via the directory. 
+* PartnerConnectivity - this code is used to indicate that the .participatingOrganization should be able to reach the .organization directly via .Endpoint. This code does not make any claims about the connectivity available for any organizations other than the two directly linked to the OrganizationAffiliation Resource. Note that many document sharing networks might choose to distribute the information needed to establish these connections out of band rather than via the directory.
+* HIEInitiator - This code is used to indicate that the Organization linked in .participatingOrganization is a member of the network headed by the Organization in .organization, and it has permission and intent to request data from other members of the network.
+In this case, OrganizationAffiliation.endpoint represents the endpoint used by the .participatingOrganization to make requests of the Initiating Gateway under the authority of .organization.  
+* HIEResponder - This code is used to indicate that the Organization linked in .participatingOrganization is a member of the network headed by the Organization in .organization, and it has an Endpoint that accepts requests from other members of the network that have an HIEInitiator relationship with the network governing Organization. 
+In this case, OrganizationAffiliation.endpoint contains endpoints used by other network members to send requests to .participatingOrganization.
+This Endpoint may also be used by Initiating and Responding gateways operated by the .organization. 
+* DocShare-federate-int - This code indicates that documents from the .participatingOrganization are available to organizations within the network by communicating with the network Initiating Gateway operated by .organization.
+In this context, "within the network" means organizations that have an HIEInitiator relationship with the .organization.
+This code is similar to the DocShare-federate code in mCSD, but is limited in scope to Organizations internal to the network.
+* DocShare-federate-ext - This code indicates that documents from the .participatingOrganization are available to organizations outside of the network by communicating with the network Responding Gateway operated by .organization. 
+In this context, "outside the network" means organizations that do not have a child relationship with the .organization, but do have upper level network or peer connectivity with that Organization. 
+This code is similar to the DocShare-federate code in mCSD, but is limited in scope to Organizations external to the network.
 * Other codes are used to indicate relationships irrelevant to document sharing access. 
 
 ### Example Community Directory Layouts
@@ -582,11 +591,11 @@ For example, endpoints might be needed for IHE XCPD, XCA, XCDR, and a FHIR endpo
 Suppose Organization H is the governing organization for a Health Information Exchange Network, in which G is a member.
 Organization G hosts its own document sharing endpoint for access to its healthcare data by other members of H. 
 
-We will represent this situation by using an OrganizationAffiliation resource with a code of "HIE Connectivity" to indicate this fact to other members in the directory.  
+We will represent this situation by using an OrganizationAffiliation resource with a code of "HIEResponder" to indicate this fact to other members in the directory.  
 If the endpoint were to be pointed to by the Organization H resource, it is not clear that data for H would not be returned by that endpoint, and H might have multiple affiliated organizations for which it needs to provide endpoints. 
 Pointing at G's endpoint from G's Organization resource is more aligned with what is commonly done today, but would only work unambiguously if the directory is purpose built such that it is assumed that all endpoints are accessible to members of H.
 However, if G needs multiple endpoints to support different affiliated organizations that provide access to it, then it would be challenging to differentiate the different endpoints attached to G. 
-In this example, OrganizationAffiliation allows the Endpoint to be declared specific to G while still making it clear that it is affiliated with H. 
+In this example, OrganizationAffiliation allows the Endpoint to be declared specific to G while still making it clear that it is accessible by Initiators on H's network. 
 
 ![Organization Specific Endpoint Controlled by Affiliate](images/dir-org-specific-endpoint-from-affil.svg)
 
@@ -616,7 +625,7 @@ Consider the following diagram, where Organization A has two departments, modele
 
 **Figure 1:46.8.2-1: Endpoint to Parent Organization**
 
-The following shows the same Organization hierarchy, but using OrganizationAffiliation instead of partOf to declare the relationship. This might be more appropriate where Organizations AA and AB are subsidiaries that have some independent capabilities apart from Organization A, but still share IT resources. Here, the DocShare-federate code is used to indicate that requesting data from Organization A will return data for Organization AA and AB:
+The following shows the same Organization hierarchy, but using OrganizationAffiliation instead of partOf to declare the relationship. This might be more appropriate where Organizations AA and AB are subsidiaries that have some independent capabilities apart from Organization A, but still share IT resources. Here, the DocShare-federate codes are used to indicate that requesting data from Organization A will return data for Organization AA and AB:
 
 ![Endpoint to Parent Organization with OrgAffiliation](images/dir-endpoint-to-org-affiliates.svg)
 
@@ -628,13 +637,13 @@ Directories that will have Organizations with partOf relationships where both Or
 Since OrganizationAffiliation might be used to represent several kinds of hierarchies, directory policy will dictate when OrganizationAffiliation implies document sharing access. 
 OrganizationAffiliation and partOf might be used to indicate relationships outside of document sharing access according to directory policy, or directory policy might forbid that. 
 
-Suppose a directory policy stated that parent Organizations provide access to child organizations only when linked by an OrganizationAffiliation Resource where OrganizationAffiliation.code=DocShare-federate. In such a directory, the below relationship would not imply document sharing federation:
+Suppose a directory policy stated that parent Organizations provide access to child organizations only when linked by an OrganizationAffiliation Resource where OrganizationAffiliation.code=DocShare-federate-int. In such a directory, the below relationship would not imply document sharing federation:
 
 ![Endpoints to Both Parent and Child Organizations](images/dir-endpoint-to-child-hierarchy.svg)
 
 **Figure 1:46.8.2-1: Endpoints to Both Parent and Child Organizations**
 
-If Organization A did provide document sharing access to Organization AA, then an explicit OrganizationAffiliation with code=DocShare-federate would be declared:
+If Organization A did provide document sharing access to Organization AA, then an explicit OrganizationAffiliation with code=DocShare-federate-int would be declared:
 
 ![Endpoints to Both Parent and Child Organizations with OrgAffiliation](images/dir-endpoint-to-child-affiliate.svg)
 
@@ -642,7 +651,7 @@ If Organization A did provide document sharing access to Organization AA, then a
 
 In a multi-layered network, it is likely that different solutions will be used at different levels. 
 Here, Organization J has three subsidiaries, Organizations JA, JB, and JC, as well as a document sharing affiliation with Organization I. 
-Suppose the directory policy stated that document sharing access could be assumed when there was an OrganizationAffiliation relationship with OrganizationAffiliation.code=DocShare-federate or when Organization.partOf was the only path to a parent organization. 
+Suppose the directory policy stated that document sharing access could be assumed when there was an OrganizationAffiliation relationship with OrganizationAffiliation.code=DocShare-federate-int or when Organization.partOf was the only path to a parent organization. 
 Then, if Organization I's endpoint would provide document sharing access to all four organizations, it would be represented as so in the directory:
 
 ![Endpoint to a multi-layered structure](images/dir-endpoint-to-hybrid-org-structure.svg)
@@ -651,29 +660,65 @@ Then, if Organization I's endpoint would provide document sharing access to all 
 
 ### Endpoint Discovery 
 
-The following example shows the steps used by a Care Services Selective Consumer to navigate a directory to find suitable electronic service Endpoints to a desired Organization. 
-A "suitable" Endpoint is one that can provide the service needed by the consumer. 
-This typically means it has a connectionType and possibly an endpoint specificType that matches the transaction it wishes to initiate, and an Active status. 
-The example uses Organization.partOf and the mCSD-profiled OrganizationAffiliation with codes indicating federated connectivity for Document Sharing (e.g., affiliated organizations may be addressed as intendedRecipient). 
-The algorithm below uses depth-first search and guarantees that if an endpoint is available, it will be found. 
-Implementations might wish to enhance the algorithm to search in alternative ways depending on their deployment environment and path preferences. 
-Implementations are likely to have to adjust the below algorithm to account for directory policy, for example, policies that forbid the use of Organization.partOf to indicate document sharing access. 
-It is also for illustrative purposes only and does not protect against invalid data such as missing elements, hierarchical loops, or other programming hazards. 
+One of the necessary goals of designing a directory structure should be to enable consumers to programmatically determine who they can communicate with and which communication endpoints they can use to do so. 
+Following the example directory structure outlined above, the following pair of algorithms could be implemented by a Care Services Selective Consumer to navigate the directory. 
+The first algorithm - the Network Access Endpoint Discovery Algorithm - is used to locate an endpoint that can be used to access a higher level network. 
+The second algorithm - the Service Provider Endpoint Discovery Algorithm - is used to locate the endpoint that should be used to send a request to a given service provider in the directory. 
+The Service Provider Endpoint Discovery Algorithm could be a primary algorithm for locating the endpoint that a client needs to use to accomplish sending a message, and it uses the Network Access Endpoint Discovery Algorithm internally to resolve that answer. 
 
-#### Endpoint Discovery Algorithm
+There are a few things to be noted about these algorithms. 
+First, they use the term "suitable endpoint" to refer to an endpoint that has an appropriate type for the task at hand. 
+Second, they assume the above example codes are used in the directory. 
+Finally, these algorithms are for illustrative purposes only. 
+They are not optimized, and they do not defend against programming hazards such as nonsensical data, infinite loops, etc. 
+It is possible that with directory policies that constrain directory layout, these algorithms could be simplified. 
 
-- Accept as input a desiredOrg - the Organization for which an endpoint is sought
-- For each Endpoint in Organization.endpoint
-  - If Endpoint meets the desired criteria, the algorithm ends with Endpoint as the result
-- Perform a search for OrganizationAffiliation Resources where OrganizationAffiliation.participatingOrganization is currentOrg and OrganizationAffiliation.code indicates the needed document sharing access
-- For each OrganizationAffiliation Resource found
-  - For each Endpoint in OrganizationAffiliation.endpoint
-    - If Endpoint meets the desired criteria, the algorithm ends with Endpoint as the result
-  - Execute the Endpoint Discovery Algorithm with OrganizationAffiliation.organization as the desiredOrg
-  - If an Endpoint was returned, the algorithm ends with Endpoint as the result
-- If Organization.partOf is not null, execute the Endpoint Discovery Algorithm with Organization.partOf as the desiredOrg
-- If an Endpoint was returned, the algorithm ends with Endpoint as the result
-- Else, the algorithm ends with no result found (null)
+#### Network Access Endpoint Discovery Algorithm
+
+- Accept as input a Data Consuming Organization A and Network Entity Organization B
+- Foreach OrganizationAffiliation hieAff where hieAff.organization is B
+  - If hieAff.participatingOrganization is A and hieAff.code contains "HIEInitiator"
+    - Foreach hieAff.endpoint E
+      - If E is a satisfactory Endpoint, the algorithm ends with E
+    - Foreach B.endpoint E
+      - If E is a satisfactory Endpoint, the algorithm ends with E
+- Foreach OrganizationAffiliation intAff where intAff.organization is B
+  - If intAff.code contains "HIEInitiator"
+    - Let C be intAff.participatingOrganization
+    - Run the Network Access Endpoint Discovery Algorithm for A and C
+    - If a result is returned, the algorithm ends with the returned value
+- If A.partOf is B
+  - Foreach B.endpoint E
+    - If E is a satisfactory Endpoint, the algorithm ends with E
+- The algorithm ends with a null result
+
+#### Service Provider Endpoint Discovery Algorithm
+
+- Accept as input a Data Consuming Organization A and Data Providing Organization B
+- Foreach B.endpoint E
+  - If E is a satisfactory Endpoint, the algorithm ends with E
+- Foreach OrganizationAffiliation orgAff where orgAff.participatingOrganization is A, orgAff.organization is B, and orgAff.code contains "PartnerConnectivity"
+  - Foreach orgAff.endpoint E
+    - If E is a satisfactory Endpoint, the algorithm ends with E
+- Foreach OrganizationAffiliation orgAffDest where orgAffDest.participatingOrganization is B
+  - Let H be orgAffDest.organization
+  - If orgAffDest.code contains "HIEResponder"
+    - Let E be a null Endpoint
+    - Foreach orgAffDest.endpoint F
+      - If F is a satisfactory Endpoint, let E be F
+    - If E is null
+      - Foreach H.endpoint F
+        - If F is a satisfactory Endpoint, let E be F
+    - If E is not null
+      - Foreach OrganizationAffiliation orgAffHIE where orgAffHIE.organization is H and orgAffHIE.code contains "HIInitiator"
+        - Let C be orgAffHIE.participatingOrganization
+        - If C is A, the algorithm ends with E
+        - Else, run the Network Access Endpoint Discovery Algorithm for A and C. If the result is not null, the algorithm ends with the result. 
+  - If orgAffDest.code contains "docShare-federate-ext"
+    - Run the Endpoint Discovery Algorithm for A and H. If a result is returned, the algorithm ends with the result. 
+- Let C be B.partOf
+- If C is not null, return the result of the Endpoint Discovery Algorithm for A and C
+- Return no result (null)
 
 #### Endpoint Discovery Considerations
 Rather than a first-match search, the Care Services Selective Consumer might search for and decide among multiple electronic paths to the same Organization. For example:
@@ -705,12 +750,17 @@ However, each network cannot directly access the lower organizations in the netw
 
 A combination of OrganizationAffiliation Resources would be used to complete this representation:
 
-* An Organization at the top level represents the Upper Network. This Organization does not have any endpoints and does not directly facilitate exchange, but exists to represent the authority for the upper network.
-* The Lower Networks connect to the upper network via OrganizationAffiliation Resources with code=HIEConnectivity. This signals that both Organizations are members of Upper Network and therefore they can access each other's corresponding endpoints. 
-* Within Lower Network A, three types of OrganizationAffiliation Resources are used
-** Those with code=DocShare-federate indicate that Lower Network A's endpoint provides access to documents from the two Organizations within. This would be used by Community 1.2.8 to access the Organizations in Lower Network A. 
-** Those with code=HIEConnectivity indicate that both orgs are members of Lower Network A, which means that as members, they can access each others corresponding endpoints. 
-** Those with code=PartnerConnectivity indicate that the lower network orgs can use the linked endpoint to access the Lower Network A gateway, which can forward requests to other organizations that are members of the Upper Network
+* An Organization at the top level represents the Upper Network. This Organization does not have any endpoints and does not directly facilitate exchange, but exists to represent the entity in charge of operating the upper network.
+* The Lower Networks connect to the upper network via a pair of OrganizationAffiliation Resources. 
+One OrganizationAffiliation Resource will have code="HIEResponder" and their upper network accessible endpoint to indicate that they will respond on the network.
+The other will have code "HIEInitiator" to indicate that they are a client on the upper network.
+Since both Organizations are both initiators and responders on upper network, they can access each other's endpoints. 
+- Within Lower Network A, four types of OrganizationAffiliation Resources are used
+  - Those with code=DocShare-federate-ext indicate that Lower Network A's endpoint on the upper network provides access to documents from the two Organizations within. This would be used by Community 1.2.8 to access the Organizations in Lower Network A. 
+  - Those with code=DocShare-federate-int indicate that Lower Network A's endpoint for its members provides access to documents from the Organizations within.
+  In this case, since only Community 1.2.7 has this code, only Community 1.2.7's documents will be returned by Lower Network A's Initiating Gateway when queried from within the network. 
+  - Those with code=HIEInitiator and HIEResponder act as they do on the upper network, but scoped to the lower network. 
+  In other words, they indicate that both members of Lower Network A can access each other's corresponding endpoints. 
 
 This would be represented in an mCSD Directory as follows:
 
