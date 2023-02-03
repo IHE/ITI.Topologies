@@ -122,6 +122,11 @@ Some intended audiences include:
 
 The following concepts and definitions will be used throughout this white paper. 
 
+### Document Sharing Environment
+
+**Document Sharing Environment** refers to any situation where two or more healthcare IT systems are exchanging health information in document format. 
+Examples of document sharing environments include but are not limited to document sharing communities and document sharing networks. 
+
 ### Document Sharing Community
 
 A **Document Sharing Community** is a group of facilities/enterprises that have agreed to work together using a common set of policies for the purpose of sharing health information within the community via an established mechanism. 
