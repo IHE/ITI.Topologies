@@ -798,6 +798,77 @@ Therefore, the authorInstitution and authorPerson document sharing metadata elem
 
 Note that Organizational identifiers like Home Community ID or Repository Unique ID are often not unique to a particular Organization and so should not be relied upon to attribute documents to a particular Organization. 
 
+## Example Directory Policies
+
+Directory policy will dictate the structure of the directory. 
+In this section, several candidate policies are outlined to illustrate what a policy might look like and the effect that it has on the directory. 
+
+### Fully Comprehensive Directory
+
+In a fully comprehensive directory, Organization relationships are declared explicitly wherever possible.
+This ensures that multiple use cases and hierarchies can be represented in the directory, and new use cases can be added in the future with minimal chance of conflicting with the existing directory layout. 
+The examples presented in this white paper would be aligned with this type of policy. 
+
+This policy might look like the following:
+
+- All Organizations known to users of the directory shall be published as Organization Resources
+- The Organization that operates the directory shall be published as an Organization Resource
+- The Organization that operates the top level network trust model shall be published as an Organization Resource
+- Organization.partOf shall only be used when the child Organization is a legal subsidiary of the parent. 
+- Organization.partOf should not be used to indicate network connectivity or accessability. 
+If that implication is desired, it shall only be assumed when there are no other routes to the partOf organization.
+The meaning of partOf as indicating a legal subsidiary shall be maintained in this case. 
+- Organization relationships other than legal subsidiary shall be represented using OrganizationAffiliation.
+- The following is the value set for OrganizationAffiliation.code:
+  - HIEInitiator - This code is used to indicate that the Organization linked in .participatingOrganization is a member of the network headed by the Organization in .organization, and it has permission and intent to request data from other members of the network.
+  In this case, OrganizationAffiliation.endpoint represents the endpoint used by the .participatingOrganization to make requests of the Initiating Gateway under the authority of .organization.
+  - HIEResponder - This code is used to indicate that the Organization linked in .participatingOrganization is a member of the network headed by the Organization in .organization, and it has an Endpoint that accepts requests from other members of the network that have an HIEInitiator relationship with the network governing Organization.
+  In this case, OrganizationAffiliation.endpoint contains endpoints used by other network members to send requests to .participatingOrganization.
+  This Endpoint may also be used by Initiating and Responding gateways operated by the .organization.
+  - DocShare-federate-int - This code indicates that healthcare documents from the .participatingOrganization are available to organizations within the network by communicating with the network Initiating Gateway operated by .organization.
+  In this context, "within the network" means organizations that have an HIEInitiator relationship with the .organization.
+  - DocShare-federate-ext - This code indicates that healthcare documents from the .participatingOrganization are available to organizations outside of the network by communicating with the network Responding Gateway operated by .organization.
+  In this context, "outside the network" means organizations that do not have a child relationship with the .organization, but do have upper level network or peer connectivity with that Organization.
+  - MessagePush-federate-int - This code indicates that messages destined for recipients of .participatingOrganization can be successfully routed by .organization when originating within the network. 
+  - MessagePush-federate-ext - This code indicates that messages destined for recipients of .participatingOrganization can be successfully routed by .organization when originating outside the network.
+  - Business-client - This code indicates that the .participatingOrganization is a business client of the .organization.
+  Such relationships do not have implications on document sharing connectivity. 
+  - Supplier - This code indicates that the .participatingOrganization receives supplies from the .organization. 
+  Such relationships do not have implications on document sharing connectivity. 
+  - UnderJurisdiction - This code indicates that the .participatingOrganization is under the legal jurisdiction of the .organization. 
+  Such relationships do not have implications on document sharing connectivity. 
+  - member - This code indicates a type of non-ownership relationship between entities (encompasses partnerships, collaboration, joint ventures, etc.)
+  - Other codes shall not be used
+- If the Organization represents a community with a HomeCommunityID, it shall have its HomeCommunityID as an identifer where identifer.type.code is HCID and identifer.type.system is https://example.com/IDCodes
+- All Orgazation Resources shall have a business identifier. 
+
+### Single Route Directory
+
+A directory might wish to ensure that there is only a single communication route between any two communication resources.
+Such a property might simplify the endpoint discovery algorithm, but makes managing the directory more difficult and potentially limits the use cases it can accommodate. 
+
+Such a directory policy would be similar to the Fully Comprehensive Directory, but would have an additional policy that directory entries must be curated to ensure that only the optimal routes are represented. 
+
+### Single Level Endpoint Directory with Federation
+
+A directory for a multi layered network might choose to only contain endpoints for Organizations at the top level. 
+This would make sense if federation can be assumed at lower levels and lower levels had alternate mechanisms to discover endpoints within. 
+The result of this is very simplistic endpoint discovery at the top level at the cost of directory flexibility. 
+
+This directory might have the following policy:
+
+- Organizations at the top level network must be present in the directory.
+- Organizations at the top level store their endpoints at Organization.endpoint, and all endpoints are accessible to all other top level Organizations
+- All other Organizations must have a partOf chain to the top level
+- Top level Organizations must be able to provide document sharing access to all Organizations underneath
+
+Note that this policy precludes using the directory for any other purpose and will make it challenging to transition to a more comprehensive directory. 
+
+The following are some of the use cases that might not be properly supported in such a directory:
+- Organizations that are accessible by multiple networks
+- Organizations that have multiple systems within them that are accessible via disjoint networks
+- Business relationships outside of network connectivity
+
 ## Examples
 In this section we will take the example topologies from above and show how they would be represented in an mCSD directory
 
