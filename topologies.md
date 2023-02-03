@@ -584,6 +584,8 @@ For example, endpoints might be needed for IHE XCPD, XCA, XCDR, and a FHIR endpo
 
 ![Multiple Endpoints per Organization](images/dir-endpoint-xdr-mhd.svg)
 
+This example does not specify the specificType extension for the RESTful FHIR endpoint because the needed information can be retrieved by retrieving the Organization's CapabilityStatement. However, one might choose to publish a list of supported FHIR profiles on the FHIR endpoint so that that information is available in the directory. 
+
 **Figure 1:46.8.3-1: Multiple Endpoints For A Single Organization**
 
 #### Representing Network Membership and Connectivity
