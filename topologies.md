@@ -287,6 +287,7 @@ Consider a network that consists of two separate communities. The network might 
 A **multi-layered-network** is simply a network that contains other networks within. A multi-layered network is itself a general network, but is distinguished by the fact that it consists of policy agreements and communication infrastructure to facilitate communication across different entities that themselves can operate independently as networks. 
 
 ![Comparison of Community, Network, and Multi-Layer Network](images/network_community_multi-layer_venn.svg)
+
 **Figure 1.3-1: Comparison of Community, Network, and Multi-Layer Network**
 
 # 2 Federation Use Cases
