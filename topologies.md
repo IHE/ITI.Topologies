@@ -269,6 +269,26 @@ When it receives a message for delivery, it must be able to route the message to
 
 The advantages of such an architecture is that it offers a simplified mechanism for interacting with the network for systems outside of the network, at the cost of complicating the network architecture. 
 
+## 1.4 Community vs Network vs Multi-Layered Network
+
+The concepts of Community, Network, and Multi-Layered network are very similar in concept, so it is important to distinguish how those terms are used here. 
+
+A **community** is distinguished as an entity that provides infrastructure to allow access to healthcare data internally, and provide internal systems access to external communities. 
+A community is always assigned a Home Community ID that can be used to address the community in document sharing. 
+
+A document sharing **network** is distinguished as a group of entities with shared governance that agree on data sharing policies and technologies. 
+A network will typically have some amount of central infrastructure. 
+Common central components might include a Certificate Authority for facilitating authentication between network members, a central directory for facilitating network membership discovery, and initiating and responding gateways for federating exchange inside and outside of the network. 
+A community inherently meets this definition, so all communities are networks, but not all networks are communities. 
+A network might not be assigned its own Home Community ID in the case where it does not provide any services that require addressing the network as a whole. 
+
+Consider a network that consists of two separate communities. The network might contain initiating and responding gateways, but if the network delegates patient matching to both communities, and forces other requests to address a single one of the communities, it would not typically be seen as its own community. 
+
+A **multi-layered-network** is simply a network that contains other networks within. A multi-layered network is itself a general network, but is distinguished by the fact that it consists of policy agreements and communication infrastructure to facilitate communication across different entities that themselves can operate independently as networks. 
+
+![Comparison of Community, Network, and Multi-Layer Network](images/network_community_multi-layer_venn.svg)
+**Figure 1.3-1: Comparison of Community, Network, and Multi-Layer Network**
+
 # 2 Federation Use Cases
 
 ## Document Access
