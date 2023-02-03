@@ -756,6 +756,40 @@ Rather than a first-match search, the Care Services Selective Consumer might sea
 
 Community or Network governance may also choose to place restrictions on the directory layout to ensure that there will be only a single path to any given Organization in order to simplify deployment and operations. 
 
+### Publishing a New Entry
+
+When publishing a new entry, the goal is to ensure that the resulting data structures accurately reflect access in the directory from the perspective of the endpoint discovery algorithm. 
+
+- First, publish the new Organization resource, ensuring that it has a unique Organization.identifier if expected by directory policy
+- If the Organization is a community and directory policy includes handling for Home Community IDs, ensure such an ID is also included in the Organization Resource. 
+- If the Organization has a parent that should be represented by .partOf per directory policy, set Organization.partOf as needed
+- If the Organization is a part of a network and will be entitled to initiate requests to other network members, create an OrganizationAffiliation Resource where
+  - OrganizationAffiliation.participatingOrganization is the new Organization
+  - OrganizationAffiliation.organization is the Organization representing the network itself
+  - OrganizationAffiliation.code is "HIEInitiator"
+  - If the Organization should be allowed to initiate requests to the network initiating gateway
+    - If no Endpoint Resource for the Initiating Gateway exists, create one
+    - OrganizationAffiliation.endpoint is the initiating gateway's endpoint
+- If the Organization can respond to requests from other network members
+  - Create a new Endpoint Resource for the Organization's endpoint
+  - Create a new OrganizationAffiliation Resource where
+    - OrganizationAffiliation.participatingOrganization is the new Organization
+    - OrganizationAffiliation.organization is the Organization representing the network itself
+    - OrganizationAffiliation.code is "HIEResponder"
+    - OrganizationAffiliation.endpoint is the Organization's endpoint
+- If the network's Initiating Gateway can return data for the new Organization in response to requests from other network members
+  - Create a new OrganizationAffiliation Resource where
+    - OrganizationAffiliation.participatingOrganization is the new Organization
+    - OrganizationAffiliation.organization is the Organization representing the network itself
+    - OrganizationAffiliation.code is "DocShare-federate-int"
+- If the network's Responding Gateway can return data for the new Organization in response to requests from other network external Organizations
+  - Create a new OrganizationAffiliation Resource where
+    - OrganizationAffiliation.participatingOrganization is the new Organization
+    - OrganizationAffiliation.organization is the Organization representing the network itself
+    - OrganizationAffiliation.code is "DocShare-federate-ext"
+- Create additional OrganizationAffiliation Resources as needed
+- Create other Resources that link to Organization as needed
+
 ### Directory Perspective
 
 An important consideration when layering multiple networks is how different entities in the network will perceive the network. Care needs to be taken to ensure that network directories at each level accurately reflect the set of endpoints reachable by those members. For example, consider the multi-layered network diagram:
