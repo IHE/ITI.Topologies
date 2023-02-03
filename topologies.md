@@ -842,7 +842,7 @@ The meaning of partOf as indicating a legal subsidiary shall be maintained in th
   - member - This code indicates a type of non-ownership relationship between entities (encompasses partnerships, collaboration, joint ventures, etc.)
   - Other codes shall not be used
 - If the Organization represents a community with a HomeCommunityID, it shall have its HomeCommunityID as an identifer where identifer.type.code is HCID and identifer.type.system is https://example.com/IDCodes
-- All Orgazation Resources shall have a business identifier. 
+- All Organization Resources shall have a business identifier. 
 
 ### Single Route Directory
 
