@@ -931,6 +931,13 @@ The following are some of the use cases that might not be properly supported in 
 - Organizations that have multiple systems within them that are accessible via disjoint networks
 - Business relationships outside of network connectivity
 
+### Other Options To Simplify Directories
+
+The comprehensive directory introduced in this white paper includes several features that might not need to be stored in the directory. 
+Some examples include:
+- Peer connectivity could be excluded in favor of out of band configuration
+- Network participants might choose to configure the endpoints to access their network gateways rather than pull those endpoints from the directory
+
 ## Examples
 In this section we will take the example topologies from above and show how they would be represented in an mCSD directory
 
