@@ -901,7 +901,7 @@ The meaning of partOf as indicating a legal subsidiary shall be maintained in th
   Such relationships do not have implications on document sharing connectivity. 
   - member - This code indicates a type of non-ownership relationship between entities (encompasses partnerships, collaboration, joint ventures, etc.)
   - Other codes shall not be used
-- If the Organization represents a community with a HomeCommunityID, it shall have its HomeCommunityID as an identifer where identifer.type.code is HCID and identifer.type.system is https://example.com/IDCodes
+- If the Organization represents a community with a HomeCommunityID, it shall have its HomeCommunityID as an identifier where identifier.type.code is HCID and identifier.type.system is https://example.com/IDCodes
 - All Organization Resources shall have a business identifier. 
 
 ### Single Route Directory
@@ -941,17 +941,53 @@ Some examples include:
 ## Examples
 In this section we will take the example topologies from above and show how they would be represented in an mCSD directory
 
-### Single Community With Data Aggregator
+### Single Organization Community
 
-TODO
+This case is the simplest, though it is unlikely to be useful at this level of simplicity. 
+The Organization is simply represented by itself.
 
-### Single Community With Multiple Affinity Domains 
+![Single Organization Community Directory Layout](images/single_affinity_domain_community_directory.svg)
 
-TODO
+**Figure 1.3-1: Single Organization Community Directory Layout**
 
-### Multiple Community Network 
+### Multi-Organization Community
 
-TODO
+A multi-organization community can be modeled as a network in the directory. 
+Only the community level Organization resource has a Home Community ID. 
+The sub Organizations can be accessed via federation and submit their data to the central community infrastructure. 
+
+![Multi-Organization Community Directory Layout](images/multi_organization_community_directory.svg)
+
+**Figure 1.3-1: Multi-Organization Community Directory Layout**
+
+### Single Facade Community
+
+In the case of a Single Facade Community, the internals of the community are abstracted from the directory and its consumers.
+The Community appears as a single reachable entity in the directory, but sub Organizations are listed as affiliated entities so that other network members can discover their presence. 
+In this case, the directory does not facilitate communication within the community. 
+
+![Single Facade Community Directory Layout](images/single_facade_community_directory.svg)
+
+**Figure 1.3-1: Single Facade Community Directory Layout**
+
+### Multiple Community Network
+
+A multi-community network would build on the individual communities by representing each community as an HIEInitiator and HIEResponder for a higher level Network Organization. 
+The Network level Organization also has a DocShare-federate-ext relationship with the lower communities to indicate that it can federate document sharing. 
+Note that because the upper level community is not addressable and so does not have its own Home Community ID.
+
+![Multi-Community Network Directory Layout](images/multi_community_network_directory.svg)
+
+**Figure 1.3-1: Multi-Community Network Directory Layout**
+
+### Multi Layered Network
+
+Representing a multi-layered network is simply a matter of combining the individual networks together in the same way. 
+A network with initiating and responding gateways can be connected to a higher level network in the same way as an individual organization or community. 
+
+![Multi Level Diagram](images/mln-dir.svg)
+
+**Figure 1.3-1: Multi Level Directory Layout**
 
 # 5 Example Use Case Solutions
 This section will describe how the use cases in section 2 are enabled by the above suggestions

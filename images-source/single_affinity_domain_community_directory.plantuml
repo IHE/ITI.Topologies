@@ -1,0 +1,10 @@
+@startuml single_affinity_domain_community_directory
+hide footbox
+
+
+object "Organization" as Org
+Org : Name = "Organization ABC"
+Org : OrgID = 1.2.3
+Org : HCID = 1.2.3
+
+@enduml

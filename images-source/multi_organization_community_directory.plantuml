@@ -1,0 +1,68 @@
+@startuml multi_organization_community_directory
+hide footbox
+
+object "Community" as Community
+Community : OrgID = 1.2.5
+Community : HCID = 1.2.5
+
+object "Organization ABC" as OrgA
+OrgA : OrgID = 1.2.5.1
+
+object "Organization EFG" as OrgE
+OrgE : OrgID = 1.2.5.2
+
+object "Endpoint" as ComEndpointPatDisc
+ComEndpointPatDisc : specificType = "PDQ-Supplier-Query"
+ComEndpointPatDisc : identifier = "1.2.5.0.1"
+ComEndpointPatDisc : connectionType = "ihe-pdq"
+ComEndpointPatDisc : purposeOfUse = "TREAT"
+ComEndpointPatDisc : status = "Active"
+ComEndpointPatDisc : address = "https://Community.org/pdq/int"
+
+object "Endpoint" as ComEndpointDocDisc
+ComEndpointDocDisc : specificType = "XDS-Registry-Query"
+ComEndpointDocDisc : identifier = "1.2.5.0.2"
+ComEndpointDocDisc : connectionType = "ihe-xds"
+ComEndpointDocDisc : purposeOfUse = "TREAT"
+ComEndpointDocDisc : status = "Active"
+ComEndpointDocDisc : address = "https://Community.org/xds/registry/int"
+
+object "Endpoint" as ComEndpointDocRet
+ComEndpointDocRet : specificType = "XDS-Repository-Retrieve"
+ComEndpointDocRet : identifier = "1.2.5.0.3"
+ComEndpointDocRet : connectionType = "ihe-xds"
+ComEndpointDocRet : purposeOfUse = "TREAT"
+ComEndpointDocRet : status = "Active"
+ComEndpointDocRet : address = "https://Community.org/xds/repository/query/int"
+
+object "Endpoint" as ComEndpointSub
+ComEndpointSub : specificType = "XDS-Repository-ProvideReg"
+ComEndpointSub : identifier = "1.2.5.0.4"
+ComEndpointSub : connectionType = "ihe-xds"
+ComEndpointSub : purposeOfUse = "TREAT"
+ComEndpointSub : status = "Active"
+ComEndpointSub : address = "https://Community.org/xds/repository/pnr/int"
+
+object "OrganizationAffiliation" as OrgAffA
+OrgAffA : code = "DocShare-federate-ext"
+OrgAffA : code = "DocShare-federate-int"
+OrgAffA : code = "HIEInitiator"
+OrgAffA -u-> ComEndpointPatDisc : endpoint
+OrgAffA -u-> ComEndpointDocDisc : endpoint
+OrgAffA -u-> ComEndpointDocRet : endpoint
+OrgAffA -u-> ComEndpointSub : endpoint
+OrgAffA -u-> Community : organization
+OrgAffA --> OrgA : participatingOrganization
+
+object "OrganizationAffiliation" as OrgAffE
+OrgAffE : code = "DocShare-federate-ext"
+OrgAffE : code = "DocShare-federate-int"
+OrgAffE : code = "HIEInitiator"
+OrgAffE -u-> ComEndpointPatDisc : endpoint
+OrgAffE -u-> ComEndpointDocDisc : endpoint
+OrgAffE -u-> ComEndpointDocRet : endpoint
+OrgAffE -u-> ComEndpointSub : endpoint
+OrgAffE -u-> Community : organization
+OrgAffE --> OrgE : participatingOrganization
+
+@enduml

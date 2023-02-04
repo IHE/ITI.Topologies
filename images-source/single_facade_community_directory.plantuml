@@ -1,0 +1,32 @@
+@startuml single_facade_community_directory
+hide footbox
+
+object "Community" as Community
+Community : OrgID = 1.2.4
+Community : HCID = 1.2.4
+
+object "Organization ABC" as OrgA
+OrgA : OrgID = 1.2.4.1
+
+object "Organization EFG" as OrgE
+OrgE : OrgID = 1.2.4.2
+
+object "Organization HIJ" as OrgH
+OrgH : OrgID = 1.2.4.3
+
+object "OrganizationAffiliation" as OrgAffA
+OrgAffA : code = "DocShare-federate-ext"
+OrgAffA -u-> Community : organization
+OrgAffA --> OrgA : participatingOrganization
+
+object "OrganizationAffiliation" as OrgAffE
+OrgAffE : code = "DocShare-federate-ext"
+OrgAffE -u-> Community : organization
+OrgAffE --> OrgE : participatingOrganization
+
+object "OrganizationAffiliation" as OrgAffH
+OrgAffH : code = "DocShare-federate-ext"
+OrgAffH -u-> Community : organization
+OrgAffH --> OrgH : participatingOrganization
+
+@enduml

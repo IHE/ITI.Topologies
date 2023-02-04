@@ -1,0 +1,64 @@
+@startuml multi_community_network_directory
+hide footbox
+
+object "Community" as Community3
+Community3 : OrgID = 1.2.3
+Community3 : HCID = 1.2.3
+
+object "Community" as Community4
+Community4 : OrgID = 1.2.4
+Community4 : HCID = 1.2.4
+
+object "Community" as Community5
+Community5 : OrgID = 1.2.5
+Community5 : HCID = 1.2.5
+
+object "Network" as Network
+Network : orgID = 1.2
+
+object "Inititing Endpoints" as NetEnds
+
+object "Responding Endpoints" as RespEnds3
+object "Responding Endpoints" as RespEnds4
+object "Responding Endpoints" as RespEnds5
+
+object "OrganizationAffiliation" as OrgAff3
+OrgAff3 : code = "DocShare-federate-ext"
+OrgAff3 : code = "HIEInitiator"
+OrgAff3 -u-> NetEnds : endpoint
+OrgAff3 -u-> Network : organization
+OrgAff3 --> Community3 : participatingOrganization
+
+object "OrganizationAffiliation" as OrgAff4
+OrgAff4 : code = "DocShare-federate-ext"
+OrgAff4 : code = "HIEInitiator"
+OrgAff4 -u-> NetEnds : endpoint
+OrgAff4 -u-> Network : organization
+OrgAff4 --> Community4 : participatingOrganization
+
+object "OrganizationAffiliation" as OrgAff5
+OrgAff5 : code = "DocShare-federate-ext"
+OrgAff5 : code = "HIEInitiator"
+OrgAff5 -u-> NetEnds : endpoint
+OrgAff5 -u-> Network : organization
+OrgAff5 --> Community5 : participatingOrganization
+
+object "OrganizationAffiliation" as OrgAff3Resp
+OrgAff3Resp : code = "HIEResponder"
+OrgAff3Resp --> RespEnds3
+OrgAff3Resp -u-> Network : organization
+OrgAff3Resp --> Community3 : participatingOrganization
+
+object "OrganizationAffiliation" as OrgAff4Resp
+OrgAff4Resp : code = "HIEResponder"
+OrgAff4Resp --> RespEnds4
+OrgAff4Resp -u-> Network : organization
+OrgAff4Resp --> Community4 : participatingOrganization
+
+object "OrganizationAffiliation" as OrgAff5Resp
+OrgAff5Resp : code = "HIEResponder"
+OrgAff5Resp --> RespEnds5
+OrgAff5Resp -u-> Network : organization
+OrgAff5Resp --> Community5 : participatingOrganization
+
+@enduml
