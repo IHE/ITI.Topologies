@@ -30,39 +30,6 @@ Information about the organization of IHE Technical Frameworks and Supplements a
 
 The current version of the IHE IT Infrastructure Technical Framework can be found at [IT Infrastructure Technical Framework](https://profiles.ihe.net/).
 
-**CONTENTS**
-
-<!-- TOC depthFrom:1 depthTo:2 -->
-<!--
-- [Introduction to this Supplement](#introduction-to-this-supplement)
-- [Open Issues and Question](#open-issues-and-question)
-- [Closed Issues](#closed-issues)
-- [IHE Technical Frameworks General Introduction](#ihe-technical-frameworks-general-introduction)
-	- [9 Copyright Licenses](#9-copyright-licenses)
-- [IHE Technical Frameworks General Introduction Appendices](#ihe-technical-frameworks-general-introduction-appendices)
-    - [Appendix A - Actor Summary Definitions](#appendix-a---actor-summary-definitions)
-	- [Appendix B - Transaction Summary Definitions](#appendix-b---transaction-summary-definitions)
-	- [Appendix D - Glossary](#appendix-d---glossary)
-- [Volume 1 - Profiles](#volume-1---profiles)
-- [34 IUA Profile](#34-iua-profile)
-    - [34.1 IUA Actors, Transactions, and Content Modules](#341-iua-actors-transactions-and-content-modules)
-    - [34.2 IUA Actor Options](#342-iua-actor-options)
-    - [34.3 IUA Required Actor Groupings](#343-iua-required-actor-groupings)
-    - [34.4 IUA Overview](#344-iua-overview)
-    - [34.5 IUA Security Considerations](#345-iua-security-considerations)
-    - [34.6 IUA Cross Profile Considerations](#346-iua-cross-profile-considerations)
-- [Volume 2 - Transactions](#volume-2---transactions)
-    - [3.71 Get Access Token [ITI-71]](#371-get-access-token-iti-71)
-    - [3.72 Incorporate Access Token [ITI-72]](#372-incorporate-access-token-iti-72)
-    - [3.102 Introspect Token [ITI-102]](#3102-introspect-token-iti-102)
-    - [3.103 Get Authorization Server Metadata [ITI-103]](#3103-get-authorization-server-metadata-iti-103)
-- [33 MHD Profile](#33-mhd-profile)
-- [9 ATNA Profile](#9-atna-profile)
--->
-<!-- /TOC -->
-
-TODO:  Fix
-
 # 1 Introduction
 
 As civilization becomes increasingly connected, it is becoming increasingly important and expected that all stakeholders in a health information ecosystem can access the information they need quickly, seamlessly, and without concern for jurisdictional, geographic, or organizational boundaries. 
@@ -991,8 +958,6 @@ A network with initiating and responding gateways can be connected to a higher l
 
 # 5 Example Use Case Solutions
 This section will describe how the use cases in section 2 are enabled by the above suggestions
-
-TODO:  Flesh out
 
 ## Document Access 
 
