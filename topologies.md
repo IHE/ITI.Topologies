@@ -1104,7 +1104,92 @@ TODO
 
 # 6 Miscellaneous
 
-## Further Reading
+## Opportunities To Define and Enhance Standards
+
+In the process of writing this paper, there were a number of opportunities to improve existing or create new standards that have been identified. 
+This section outlines those identified opportunities. 
+
+### Value-Set for OrganizationAffiliation.code
+
+The examples in this paper illustrate the use of several codes that would be found within the value set for OrganizationAffiliation.code. 
+Today, the mCSD Organization Affiliation Types ValueSet includes only a single code in addition to the base FHIR specification - DocShare-federate. 
+
+We would propose a number of additional codes be added to support the capabilities desired in this white paper. 
+
+#### PartnerConnectivity
+
+The purpose of a PartnerConnectivity code would be to indicate direct peer connectivity between two Organizations. 
+While we might expect such information be stored as configuration in the two peers rather than in a central directory, we think that having such a code is useful for being able to establish a complete directory. 
+
+#### HIEInitiator and HIEResponder
+
+The purpose of these codes would be to indicate an Organization's direct participation in the network symbolized by its parent Organization. 
+In this situation, the HIEInitiator code would indicate that the Organization will initiate requests in such a network, while the HIEResponder code would indicate that it can respond to such requests from other members. 
+
+#### DocShare-federate
+
+The DocShare-federate code was added to mCSD to indicate that a parent Organization might serve requests for a linked child Organization. 
+However, there are a number of assumptions here that might require the current code to be expanded into a number of sub-codes:
+
+##### Internal vs External Federation
+
+With a single code, it must be assumed that the parent Organization's system (represented by the linked Endpoints) will return data from the linked children regardless of where the requests originates from. 
+This is insufficient, as the system might actually only have the capability to return results for certain clients. 
+
+One example is a network responding gateway that is only willing to perform federation services for clients external to the network. 
+This would be a likely implementation decision in the case where it is expected that network members get data directly from one another rather than via the gateway.
+In this situation, perhaps the responding gateway exists to provide access to external clients, and the operators wish to keep operating costs to a minimum. 
+
+A network responding gateway might likewise only be willing to federate requests sourced from internal clients. 
+Such a policy might be desirable if the network gateway generally federates requests for internal clients, and a particular data source has not agreed to a policy to release data outside the network. 
+
+To facilitate the need to represent this information in an mCSD directory, we propose that a more comprehensive Value-Set would differentiate between federation internal and external to a network. 
+
+##### "Push" vs "Pull"
+
+In comprehensive networks, it is likely that network members will have use cases for both data query and retrieve ("pull") and message delivery/"push" use cases. 
+However, network gateways might be capable of federating only one type of use case. 
+To accommodate a need to represent that in an mCSD directory, we propose defining separate codes for each of these use cases. 
+
+##### Differences For Each Standard or Integration Profile
+
+Finally, we anticipate that a particular network gateway might have endpoints compatible with several exchange standards or IHE integration profiles, but have different federation capabilities for each standard. 
+This might be the case if the different standards or integration profiles are actually implemented by different IT systems operated by the Organization, and those systems have differing levels of interoperability with network members. 
+To accommodate the need to represent this in an mCSD directory, we propose introducing distinct federation codes for each IHE integration profile to which federation across a network might apply, and for anticipated non-IHE standards. 
+The resulting Value-Set should be extensible to allow for deployments to implement protocols not anticipated by IHE. 
+
+### Additional Targeting Capabilities in Cross Community Profiles
+
+The use cases and examples in this paper assume and/or imply that when a data consumer is searching for and requesting data from a data provider, it is generally interested in casting a wide net and thus receiving data from all available data providers. 
+However, a consumer might wish to target only a single data provider where the source of the needed data is known. 
+Targeting a single data provider would reduce the computational burden of searching for data across non-targeted providers as well as for the consumer. 
+
+There is opportunity to improve the targeting guidance in the IHE XCPD and XCA integration profiles. 
+In XCPD, many deployments today use the device receiver ID to target a patient discovery request to a single community, and some initiating and responding gateways respect that behavior. 
+However, this behavior is not actually defined in the XCPD integration profile. 
+Defining such behavior would benefit deployments that have this need, thus improving interoperability. 
+
+With respect to XCA, queries are generally targeted to either a home community or to a patient identifier. 
+While it is unlikely that two communities would share patient ID assigning authorities, and thus the full patient identifier (including assigning authority) would uniquely target a community, this is not a guarantee. 
+More importantly, the directory model outlined in this paper does not suggest a mechanism to associate an assigning authority with a responding gateway. 
+Thus, and XCA initiating gateway might not have a mechanism to determine which community should respond to a particular request. 
+This could be alleviated by suggesting that document consumers should supply the home community ID of a patient identifier even in XCA query requests that contain a patient identifier, to facilitate message routing. 
+
+### Use of Home Community IDs in IHE FHIR Integration Profiles
+
+For network gateways that do not act as facade communities, the mechanisms described in this paper rely on Home Community ID for message routing. 
+Home Community ID is only defined for the IHE XCPD, XCA, and XCDR integration profiles, for Patient Discovery, Document Query and Retrieve, and Push use cases, respectively. 
+Many deployments today are moving toward a FHIR based model of data exchange. 
+In order to achieve federation following the same patterns outlined in this paper, the IHE FHIR integration profiles would need to be enhanced to incorporate message routing. 
+This might be done using the same patterns established in XCPD, XCA, and XCDR, or it might involve alternative solutions such as clever encoding of routing information inside of FHIR Resource IDs. 
+Further exploration of this topic is needed. 
+
+### Federated FHIR Data Exchange Outside of Document Sharing
+
+The topics and guidance presented here are presented through the lense of exchanging healthcare data via document sharing. 
+However, modern deployments are looking to move toward RESTful exchange of discrete healthcare data elements in the form of individual FHIR Resources, such as the exchange patterns profiled by the HL7 IPA Implementation Guide. 
+The use of document sharing simplifies the federation scenarios by significantly limiting the number of individual artifacts that need to be exchanged and the linkages between artifacts. 
+Exploration of FHIR RESTful data exchange is likely necessary to achieve a successful deployment. 
 
 ## Scratchpad
 TODO:  This section SHALL be removed prior to public comment
