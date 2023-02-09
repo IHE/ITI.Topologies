@@ -1,0 +1,85 @@
+@startuml
+hide footbox
+
+object ":Organization" as nhie
+nhie : name = "Big Health Exchange"
+nhie : OrgID = 7.8.9
+
+object ":Organization" as Partners
+Partners : name = "New Hope\nMedical Partners"
+
+object "New Hope BigHx External Initiating Gateway : Endpoint(s)" as ig1
+ig1 : connectionType =\n  XCPD-InitGateway-PatientDiscovery-AsyncResponse,\n  XCA-InitGateway-Query-AsyncResponse,\n  XCA-InitGateway-Retrieve-AsyncResponse
+
+object "orgAff4:OrganizationAffiliation" as OrgAff4
+OrgAff4 : code = “HIE/HIO”
+OrgAff4 --> Partners : participatingOrganization
+nhie <-- OrgAff4 : organization
+ig1 <-- OrgAff4
+
+object ":Organization" as hie
+hie : name = "Valley Region HIE"
+hie : OrgID = 1.2.3.0
+hie : HCID = 1.2.3
+
+object "orgAff5:OrganizationAffiliation" as OrgAff5
+OrgAff5 : code = “HIE/HIO”
+OrgAff5 --> hie : participatingOrganization
+nhie <-- OrgAff5 : organization
+
+object "Valley BigHx Responding Gateway : Endpoint(s)" as rg1
+rg1 : connectionType = \n  XCPD-RespGateway-PatientDiscovery,\n  XCPD-RespGateway-PatientDiscovery-Async,\n  XCA-RespGateway-Query,\n  XCA-RespGateway-Retrieve,\n  XCA-RespGateway-Query-Async,\n  XCA-RespGateway-Retrieve-Async
+rg1 <-- OrgAff5
+
+object "Valley BigHx External Initiating Gateway : Endpoint(s)" as ig2
+ig2 : connectionType =\n  XCPD-InitGateway-PatientDiscovery-AsyncResponse,\n  XCA-InitGateway-Query-AsyncResponse,\n  XCA-InitGateway-Retrieve-AsyncResponse
+ig2 <-- OrgAff5
+
+object "Valley BigHx Internal Initiating Gateway : Endpoint(s)" as ig3
+ig3 : connectionType = \n  XCPD-RespGateway-PatientDiscovery,\n  XCPD-RespGateway-PatientDiscovery-Async,\n  XCA-InitGateway-Query,\n  XCA-InitGateway-Retrieve,\n  XCA-InitGateway-Query-Async,\n  XCA-InitGateway-Retrieve-Async
+ig3 <- hie
+
+object "Valley HIE Centralized Services : Endpoint(s)" as hieEndpoints
+hieEndpoints : connectionType = \n  PDQ-Supplier-Query,\n  XDS-Registry-Query,\n  XDS-Registry-Query-Async,\n  XDS-Repository-Retrieve,\n  XDS-Repository-Retrieve-Async,\n  XDS-OnDemandSource-Retrieve,\n  XDS-OnDemandSource-Retrieve-Async
+hie -> hieEndpoints
+
+object ":Organization" as Valley
+Valley : name = "Valley Access Healthcare"
+Valley : OrgID = 1.2.3.2
+
+object ":Organization" as OU
+OU : name = "University Health"
+OU : alias = "OU Health System",\n"OU Health"
+OU : OrgID = 1.2.3.3
+
+object ":Organization" as Urgent
+Urgent : name = "Urgent Health"
+Urgent : OrgID = 4.5.6.7
+
+object "orgAff1:OrganizationAffiliation" as OrgAff1
+OrgAff1 : code = “HIE/HIO”,\n“DocShare-federate”
+OrgAff1 --> Valley : participatingOrganization
+hie <-- OrgAff1 : organization
+
+object "orgAff2:OrganizationAffiliation" as OrgAff2
+OrgAff2 : code = “HIE/HIO”,\n“DocShare-federate”
+OrgAff2 --> OU : participatingOrganization
+hie <-- OrgAff2 : organization
+
+object "orgAff3:OrganizationAffiliation" as OrgAff3
+OrgAff3 : code = “HIE/HIO”,\n“DocShare-federate”
+OrgAff3 --> Urgent : participatingOrganization
+hie <-- OrgAff3 : organization
+
+object ":Endpoint" as con1
+con1 : connectionType = \n  XDS-Consumer-Query-AsyncResponse,\n  XDS-Consumer-Retrieve-AsyncResponse
+Valley --> con1
+
+object ":Endpoint" as con2
+con2 : connectionType = \n  XDS-Consumer-Query-AsyncResponse,\n  XDS-Consumer-Retrieve-AsyncResponse
+OU --> con2
+
+object ":Endpoint" as con3
+con3 : connectionType = \n  XDS-Consumer-Query-AsyncResponse,\n  XDS-Consumer-Retrieve-AsyncResponse
+Urgent --> con3
+@enduml
