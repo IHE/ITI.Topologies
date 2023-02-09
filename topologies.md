@@ -1123,6 +1123,12 @@ This might be the case if the different standards or integration profiles are ac
 To accommodate the need to represent this in an mCSD directory, we propose introducing distinct federation codes for each IHE integration profile to which federation across a network might apply, and for anticipated non-IHE standards. 
 The resulting Value-Set should be extensible to allow for deployments to implement protocols not anticipated by IHE. 
 
+### Normative Requirements Consistent With This Guidance
+
+This white paper proposes strategies that can be used to manage a complex, multi-layered network and represent it in a centralized directory, with the mCSD integration profile being the basis of the directory used in examples. 
+It would be potentially useful for IHE's suite of integration profiles to specify normative, testable requirements for implementations to align with. 
+Such requirements might take the form of either content profiles on the mCSD directory contents and optional endpoint discovery requirements for Care Services Selective Consumer actors. 
+
 ### Additional Targeting Capabilities in Cross Community Profiles
 
 The use cases and examples in this paper assume and/or imply that when a data consumer is searching for and requesting data from a data provider, it is generally interested in casting a wide net and thus receiving data from all available data providers. 
