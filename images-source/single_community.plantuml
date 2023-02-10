@@ -1,0 +1,9 @@
+@startuml single_community
+title "Single Affinity Domain Community"
+skinparam linetype ortho
+package "Home Community ID 1.2.3" as community {
+    rectangle "Organization ABC" as org {
+    }
+}
+
+@enduml

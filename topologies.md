@@ -344,9 +344,10 @@ This white paper does not specify or endorse any particular network topology. In
 
 It is possible for a singleton organization to form a community by itself, and for that community to interface directly with other networks. 
 
-The following example shows Home Community 1.2.3, architected as a single XDS Affinity Domain that is completely controlled by Organization ABC.
+The community might be architected as an XDS Affinity Domain or some other architecture. 
+More information is available in [Section 3.2.3 of the HIE Whitepaper](https://profiles.ihe.net/ITI/HIE-Whitepaper/index.html#323-governance).
 
-![Single Organization Community](images/single_affinity_domain_community.svg)
+![Single Organization Community](images/single_community.svg)
 
 **Figure 1.3-1: Single Organization Community Layout**
 
