@@ -1096,6 +1096,27 @@ This is what the sequence diagram looks like:
 
 # 6 Miscellaneous
 
+## Open Issues
+
+Industry feedback is sought regarding the following issues:
+
+### Use of Organization Affiliation
+
+This solutions proposed here make heavy use of OrganizationAffiliation connections between Organizations to define explicit relationships and signal Endpoint connectivity. 
+This heavy use of OrganizationAffiliation might be seen as rather cumbersome to maintain, and so more elegant solutions might be appealing. 
+
+One alternative would be to simply attach all endpoints to the Organization to which they belong, and use extensions to identify to which network clients the endpoints will allow access. 
+In the case of intermediary federation, endpoints might encode the child organization to allow routing. 
+This solution has a drawback in that a client cannot discover what Organization it is actually querying for information. 
+This means it might get back results that were broader than it expected, or it might repeat searches where a single search to the responding gateway might have returned the needed results. 
+
+A slightly less intrusive alternative would be to specify that endpoints on Organization may be used by child Organizations but not by others.
+This would reduce the number of OrganizationAffiliation Resources by removing the need for the HIEInitiator Resources. 
+However, this solution does not make explicit the accessability of the endpoints used to initiate communication to the higher levels, nor does it make explicit which Organizations have permission to initiate requests in the network. 
+In the case of networks that have Organizations which respond to requests for information but may not initiate, it is not possible to determine which Organizations may initiate without the HIEInitiator code. 
+
+### Endpoints Used By a Parent To Access A Child
+
 ## Opportunities To Define and Enhance Standards
 
 In the process of writing this paper, there were a number of opportunities to improve existing or create new standards that have been identified. 
