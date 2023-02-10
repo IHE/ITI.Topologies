@@ -126,6 +126,8 @@ The Responding Gateway is the access point for actors belonging to other network
 Network Gateways expose the same interfaces and are interacted with in the same way as community gateways. The difference is that a Network Gateway might provide access to several communities. 
 Therefore, where network gateways are used, participants can interact with the network gateway in the same way as a community gateway, with the caveat that the network gateway might process information for several Home Community IDs. 
 
+The Initiating and Responding Gateway Actors are used by IHE in a variety of cross community integration profiles, including XCPD, XCA, and XCDR. 
+
 These concepts are explained further in [section 3.3 of the HIE White Paper](https://profiles.ihe.net/ITI/HIE-Whitepaper/index.html#33-federated-discovery-and-retrieve).
 
 ### Transparent Proxy

@@ -1,0 +1,119 @@
+@startuml mln-dir-3
+hide footbox
+
+object "Endpoint" as EndpointA
+EndpointA : address = https://lower_network_A.org/upper
+object "Endpoint" as EndpointB
+EndpointB : address = https://community_B.org
+object "Endpoint" as Endpoint6
+Endpoint6 : address = https://community_one_two_six.org
+object "Endpoint" as Endpoint7
+Endpoint7 : address = https://community_one_two_seven.org
+object "Endpoint" as Endpoint61
+Endpoint61 : address = https://community_one_two_six.org/61
+object "Endpoint" as Endpoint71
+Endpoint71 : address = https://community_one_two_seven.org/71
+
+object "Organization" as LNA
+LNA : Name = "Lower Network A"
+LNA : OrgID = 1.3
+object "Organization" as HC7
+HC7 : Name = "Community 1.2.7"
+HC7 : HCID = 1.2.7
+HC7 : OrgID = 1.2.7
+object "Organization" as HC6
+HC6 : Name = "Community 1.2.6"
+HC6 : HCID = 1.2.6
+HC6 : OrgID = 1.2.6
+object "Organization" as HC61
+HC61 : Name = "Community 1.2.6.1"
+HC61 : HCID = 1.2.6.1
+HC61 : OrgID = 1.2.6.1
+object "Organization" as HC71
+HC71 : Name = "Community 1.2.7.1"
+HC71 : HCID = 1.2.7.1
+HC71 : OrgID = 1.2.7.1
+
+object "Organization" as HC8
+HC8 : Name = "Community 1.2.8"
+HC8 : HCID =  1.2.8
+HC8 : OrgID = 1.2.8
+
+object "Organization" as UN
+UN : Name = "Upper Network"
+UN : HCID = "1.1"
+UN : OrgID = "1.1"
+
+object ":OrganizationAffiliation" as OrgAff7HIE
+OrgAff7HIE : code = HIEResponder
+OrgAff7HIE --> HC7 : participatingOrganization
+LNA <-- OrgAff7HIE : organization
+OrgAff7HIE --> Endpoint7 : endpoint
+
+object ":OrganizationAffiliation" as OrgAff7
+OrgAff7 : code = DocShare-federate-ext
+OrgAff7 : code = DocShare-federate-int
+OrgAff7 --> HC7 : participatingOrganization
+LNA <-- OrgAff7 : organization
+
+object ":OrganizationAffiliation" as OrgAff6
+OrgAff6 : code = DocShare-federate-ext
+OrgAff6 --> HC6 : participatingOrganization
+LNA <-- OrgAff6 : organization
+
+together {
+    object ":OrganizationAffiliation" as OrgAff6Peer
+    OrgAff6Peer : code = HIEInitiator
+    OrgAff6Peer --> HC6 : participatingOrganization
+    LNA <-- OrgAff6Peer : organization
+    object "Endpoint" as EndpointAD
+    EndpointAD : address = https://lower_network_A.org/lower
+    object ":OrganizationAffiliation" as OrgAff7Peer
+    OrgAff7Peer : code = HIEInitiator
+    OrgAff7Peer --> HC7 : participatingOrganization
+    LNA <-- OrgAff7Peer : organization
+    OrgAff7Peer -> EndpointAD : endpoint
+    EndpointAD <- OrgAff6Peer : endpoint
+}
+
+object ":OrganizationAffiliation" as OrgAff6HIE
+OrgAff6HIE : code = HIEResponder
+OrgAff6HIE --> HC6 : participatingOrganization
+LNA <-- OrgAff6HIE : organization
+OrgAff6HIE --> Endpoint6 : endpoint
+
+object "OrganizationAffiliation" as OrgAffAR
+OrgAffAR : code = HIEResponder
+OrgAffAR --> LNA : participatingOrganization
+OrgAffAR -> EndpointA : endpoint
+UN <-- OrgAffAR : organization
+
+object "OrganizationAffiliation" as OrgAffBR
+OrgAffBR : code = HIEResponder
+OrgAffBR --> HC8 : participatingOrganization
+OrgAffBR -> EndpointB : endpoint
+UN <-- OrgAffBR : organization
+
+object "OrganizationAffiliation" as OrgAffAI
+OrgAffAI : code = HIEInitiator
+OrgAffAI --> LNA : participatingOrganization
+UN <-- OrgAffAI : organization
+
+object "OrganizationAffiliation" as OrgAffBI
+OrgAffBI : code = HIEInitiator
+OrgAffBI --> HC8 : participatingOrganization
+UN <-- OrgAffBI : organization
+
+object "OrganizationAffiliation" as OrgAffLvl3A
+OrgAffLvl3A : code = HIEInitiator
+OrgAffLvl3A --> HC61 : participatingOrganization
+HC6 <-- OrgAffLvl3A : organization
+OrgAffLvl3A -> Endpoint61 : endpoint
+
+object "OrganizationAffiliation" as OrgAffLvl3B
+OrgAffLvl3B : code = HIEInitiator
+OrgAffLvl3B --> HC71 : participatingOrganization
+HC7 <-- OrgAffLvl3B : organization
+OrgAffLvl3B -> Endpoint71 : endpoint
+
+@enduml

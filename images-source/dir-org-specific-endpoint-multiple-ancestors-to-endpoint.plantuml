@@ -1,0 +1,38 @@
+@startuml dir-org-specific-endpoint-multiple-ancestors-to-endpoint
+hide footbox
+
+object "Organization C" as OrganizationC
+OrganizationC : OrgID = 2.4.2.1
+OrganizationC : HCID = 2.4.2.1
+
+object "Organization G" as OrganizationG
+OrganizationG : OrgID = 1.2.8
+OrganizationG : HCID = 1.2.8
+object "Organization L" as OrganizationL
+OrganizationL : OrgID = 1.2.8.1
+OrganizationL : HCID = 1.2.8.1
+
+object "HIE K" as OrganizationK
+OrganizationK : OrgID = 2.4.1
+object "OrganizationAffiliation" as OrgAff2
+OrgAff2 : code = HIE/HIO
+object "Endpoint for L through K" as EndpointK
+EndpointK : address = https://orgL.org/hieK
+
+object "OrganizationAffiliation" as OrgAffC
+OrgAffC : code = HIE/HIO
+
+OrgAffC --> OrganizationC : participatingOrgnization
+OrganizationK <-- OrgAffC : organization
+
+OrgAff2 --> OrganizationG : participatingOrganization
+OrganizationK <-- OrgAff2 : organization
+
+object "OrganizationAffiliation" as OrgAff3
+OrgAff3 : code = HIE/HIO
+OrganizationG <-- OrgAff3 : organization
+OrgAff3 --> OrganizationL : participatingOrganization
+OrgAff3 -> EndpointK : endpoint
+
+
+@enduml
