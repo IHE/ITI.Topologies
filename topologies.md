@@ -51,7 +51,10 @@ Readers interested in those topics are advised to look to the following existing
 - [Template for XDS Affinity Domain Deployment Mapping](https://www.ihe.net/Technical_Framework/upload/IHE_ITI_White_Paper_XDS_Affinity_Domain_Template_TI_2008-12-02.pdf)
 - [Metadata Handbook](https://profiles.ihe.net/ITI/papers/metadata/index.html) 
 
-While document sharing will be federated across networks, this white paper recommends the use of a centralized directory, likely operated by an entity not part of any of the networks, that aggregates the organizational and business information about all entities in all networks in the directory as well as the technical details needed to facilitate document sharing among them all.
+Note that this white paper is primarily intended for those wishing to combine existing document sharing networks or Health Information Exchanges. 
+Readers interested in constructing a new standalone Health Information Exchange are advised to refer to the [HIE White Paper](https://profiles.ihe.net/ITI/HIE-Whitepaper/index.html). 
+
+When document sharing will be federated across networks, this white paper recommends the use of a centralized directory, likely operated by an entity not part of any of the networks, that aggregates the organizational and business information about all entities in all networks in the directory as well as the technical details needed to facilitate document sharing among them all.
 Examples will be based on the [mCSD](https://profiles.ihe.net/ITI/mCSD/index.html) Profile, which offers the functionality needed by such a directory, and also offers a transaction that can be used to synchronize the central directory with directories operated by each network.  
 
 Networks should expose to each other standard interfaces that abstract away their underlying topologies to the greatest extent possible.
