@@ -145,6 +145,8 @@ For large networks, manual configuration is not feasible, so discovery needs to 
 Discovery can be facilitated by the addition of a central network directory into a network. 
 
 A central network directory is a care services directory that is central to the network and thus does not have bias toward one segment of the network or another. 
+Note that for the purpose of this paper, it matters only that there is a logical central network directory.
+That is to say, there might be a number of systems responsible for organizing, maintaining, and distributing the directory, but it can be thought of as logically a single cohesive whole. 
 
 In a multi-layered document sharing network, central directories for different layers of the network are likely to synchronize partially or entirely with one another in order to provide other layers of the network visibility into the Organizations present outside of their immediate network. 
 
