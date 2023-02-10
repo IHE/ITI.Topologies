@@ -243,6 +243,19 @@ A **multi-layered-network** is simply a network that contains other networks wit
 
 ![Comparison of Community, Network, and Multi-Layer Network](images/network_community_multi-layer_venn.svg)
 
+## A Note On Hierarchical Representation
+
+This white paper considers only networks that have a hierarchical based layout. 
+Each Organization connects "up" to Organizations that exist at a "higher" level in the network, meaning they serve a wider network scope, and "down" to Organizations that exist at a "lower" level in the network, meaning they server a more narrow scope. 
+This is the architecture seen most commonly in exchange communities today, and is the natural result of connecting existing networks together into a multi-layered network. 
+
+This does not mean that there is a strict hierarchy. Single Organizations or Networks might choose to become members of multiple higher networks, resulting in the potential for multiple paths to a given organization. 
+However, the design is still "hierarchical" in that each of the higher Organizations is seen as providing resources for the single member Organization. 
+
+With that having been said, the purpose of this paper is to demonstrate how such a multi-layered network would be represented in a directory, and so it takes the perspective of a system examining the directory to locate a route. 
+Nothing precludes a network from internally being architected using any architecture, be it star, mesh, ring, etc. 
+Such a network would still present an interface to the outside world, and thus the Organizations within that network can be seen as children of the network. 
+
 **Figure 1.3-1: Comparison of Community, Network, and Multi-Layer Network**
 
 # 2 Federation Use Cases
