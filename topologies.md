@@ -1015,9 +1015,6 @@ If we have a purpose-built directory just for the members of Valley HIE, the pro
 
 ![Document Access: Multi-Community HIE With Per-Community Access via Proxies: Purpose-Built Directory](images/access-cross-proxied-purpose.svg)
 
-### Supporting Proxied and Direct Perspectives
-TODO
-
 ### Multiple Communities, Intra-community Access, Central Services, Organization Data Flow via partOf
 
 Now we’d like to explore multiple communities where there is organizational structure within communities.
