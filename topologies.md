@@ -130,13 +130,13 @@ The Initiating and Responding Gateway Actors are used by IHE in a variety of cro
 
 These concepts are explained further in [section 3.3 of the HIE White Paper](https://profiles.ihe.net/ITI/HIE-Whitepaper/index.html#33-federated-discovery-and-retrieve).
 
-### Transparent Proxy
+### Proxy
 
-A **Transparent Proxy** is similar to a network gateway in that it brokers access across network boundaries. However, it is different in that a Transparent Proxy has no internal business logic - it exists solely to broker trust across the network boundary, and possibly provide translation services. 
+A **Proxy** in the context of document sharing is similar to a network gateway in that it brokers access across network boundaries. However, it is different in that a Proxy has no internal business logic - it exists solely to broker trust across the network boundary, and possibly provide translation services. 
 
-For example, suppose network 1 exists and is running smoothly, with trust between nodes being managed by a Certificate Authority internal to the network. However, that network then wants to join a higher level network, network 2, so its participants get access to the participants of the higher level, and vice versa. In order to ease the burden of federating trust across the multiple networks, network 1 might introduce a transparent proxy into its infrastructure. That proxy would trust, and be trusted by, the members of network 1, and also the other members of the higher level network 2. The transparent proxy would simply forward requests and responses in both directions across the network boundary, accessing network 1 on behalf of network 2, and network 2 on behalf of network 1. 
+For example, suppose network 1 exists and is running smoothly, with trust between nodes being managed by a Certificate Authority internal to the network. However, that network then wants to join a higher level network, network 2, so its participants get access to the participants of the higher level, and vice versa. In order to ease the burden of federating trust across the multiple networks, network 1 might introduce a proxy into its infrastructure. That proxy would trust, and be trusted by, the members of network 1, and also the other members of the higher level network 2. The proxy would simply forward requests and responses in both directions across the network boundary, accessing network 1 on behalf of network 2, and network 2 on behalf of network 1. 
 
-A transparent proxy need not be represented in a directory, because systems on the network will not necessarily be aware of its existence. From their perspective, they are talking directly to the system behind the proxy, thus why the proxy is "transparent". 
+A proxy need not be represented in a directory, because systems on the network will not necessarily be aware of its existence. From their perspective, they are talking directly to the system behind the proxy.
 
 ### Central Network Directory
 
@@ -579,7 +579,7 @@ In this example, OrganizationAffiliation allows the Endpoint to be declared spec
 Note that in this case, while the endpoint is specific to G, it is hosted by H as indicated by the managingOrganization link. 
 However, since a client does not care that H manages the endpoint, only that it is used to access G and that members of H are authorized to use it.
 A client would not generally use the .managingOrganization link for functional purposes, except to provide information to end users in the event IT assistance is needed from H. 
-This is an example of a case where H is acting as a transparent proxy.
+This is an example of a case where H is acting as a proxy.
 
 #### Multiple Paths to an Organization
 
@@ -985,9 +985,9 @@ Dr. Suwati’s search:
 
 ![Document Access: Cross-Community With Per-Community Access via Directly Owned Endpoints: Doing the search](images/access-cross-purpose-seq.svg)
 
-### Adding Transparent Intermediaries
+### Adding Proxy Intermediaries
 
-Some networks route traffic through intermediaries that may be referred to as “transparent” or “proxying”. Here’s a network topology showing that for our use case:
+Some networks route traffic through intermediaries that may be referred to as “proxying”. Here’s a network topology showing that for our use case:
 
 ![Document Access: Multi-Community HIE With Per-Community Access via Proxies: Topology](images/access-proxied-network.svg)
 
