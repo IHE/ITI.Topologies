@@ -1032,54 +1032,62 @@ If we have a purpose-built directory just for the members of Valley HIE, the pro
 
 **Figure 5.1.5-2: Multi-Community HIE With Per-Community Access via Proxies: Purpose-Built Directory**
 
-### 5.1.6 Multiple Communities, Intra-community Access, Central Services, Organization Data Flow via partOf
+### 5.1.6 Disjoint Communities, Intra-community Access, Central Services, Endpoint Access and Data Flow via partOf
 
-Now we’d like to explore multiple communities where there is organizational structure within communities.
+Now we’d like to represent disjoint (i.e. unconnected) communities in a single directory, as well as indicate organizational structure within communities. We will use this structure to indicate two things:
+- Which Endpoints can be accessed by which Organizations (note this is our first time showing multiple "perspectives" in this directory)
+- How data from Organizations flows through those Endpoints
 
-We’ll start with our earlier simpler example, where the organizations in our use case are all in the same community with central services, but we’ll add another, unrelated community, Seaside HIE. In the directory we need to add Valley HIE as its own Organization, along with Seaside HIE, which is not accessible by Valley HIE. Valley HIE gets a Home Community ID (HCID) so it can be identified by other communities. We need a way for members of Valley Region HIE to find their services, and also to know that data flows through these services from the other organizations in the HIE. We could accomplish this with partOf relationships linking the organizations to the HIE:
+We’ll start with our earlier simpler example, where the organizations in our use case are all in the same community with central services, but we’ll add another, unconnected community, Seaside HIE. In the directory we need to add Valley HIE as its own Organization, along with Seaside HIE.
+
+Valley and Seaside each get a Home Community ID (HCID) so they can be identified by other communities. We need a way for members of Valley Region HIE to find their services, and also to know that data flows through these services from the other organizations in the HIE. We could accomplish this with partOf relationships linking the organizations to the HIE:
 
 ![Document Access: Intra-Community With Central Services in Multiple Community Directory](images/access-intra-central-partOf.svg)
 
-**Figure 5.1.6-1: Intra-Community With Central Services in Multiple Community Directory**
+**Figure 5.1.6-1: Intra-Community With Central Services in Multiple Community Directory using partOf**
 
 In the search, we are showing the EHR searching for Endpoints where data flows from the known locations of treatment, and due to the fact that Urgent Health happens to be in Valley HIE which uses central services, the documents from Urgent Health are included:
 
 ![Document Access: Intra-Community With Central Services in Multiple Community Directory: Doing the search](images/access-intra-central-partOf-seq.svg)
 
-**Figure 5.1.6-2: Intra-Community With Central Services in Multiple Community Directory: Doing the search**
+**Figure 5.1.6-2: Intra-Community With Central Services in Multiple Community Directory using partOf: Doing the search**
 
-### 5.1.7 Multiple Communities, Intra-community Access, Central Services, Organization Data Flow via OrganizationAffiliation
+### 5.1.7 Disjoint Communities, Intra-community Access, Central Services, Endpoint Access and Data Flow via OrganizationAffiliation
 
 But there are some cases that would cause this structure to break down, e.g.:
 - We want to reserve partOf to reflect the organizations’ real business relationships, which are unrelated to HIE membership.
 - We want to show organizations that are in the HIE but not accessible at this time (i.e data does not flow).
 
-We can solve these in a comprehensive directory by using OrganizationAffiliation to model the HIE membership instead, and adding the mCSD defined code DocShare-federate to reflect that the affiliation supports federated document sharing. In other words, Endpoints belonging to the OrganizationAffiliation.organization will share documents from the OrganizationAffiliation.participatingOrganization federated organizations.
+We can solve these in a comprehensive directory by using OrganizationAffiliation to model the HIE membership instead, and using two mCSD defined codes: HIEInitiator to reflect Endpoints accessible by members of the HIE, and DocShare-federate-int to reflect that the affiliation supports federated document sharing through these Endpoints to its members. In other words, Endpoints belonging to the OrganizationAffiliation.organization will share documents from the OrganizationAffiliation.participatingOrganization federated organizations.
 
 In our example we can see that:
+- All organizations affiliated with Valley HIE can access its central Endpoints.
 - All organizations affiliated with Valley HIE except Valley Benefits share clinical documents.
 - The local facility “Urgent Health Valley” is part of a nationwide chain, but this business relationship does not convey any document sharing meaning. Valley HIE will not share clinical documents from Urgent Health USA.
 
 ![Document Access: Intra-Community With Central Services in Multiple Community Directory](images/access-intra-central-orgAff.svg)
 
-**Figure 5.1.7-1: Intra-Community With Central Services in Multiple Community Directory**
+**Figure 5.1.7-1: Intra-Community With Central Services in Multiple Community Directory Using OrganizationAffiliation**
 
 And the search:
 
 ![Document Access: Intra-Community With Central Services in Multiple Community Directory: Doing the search](images/access-intra-central-orgAff-seq.svg)
 
-**Figure 5.1.7-2: Intra-Community With Central Services in Multiple Community Directory: Doing the search**
+**Figure 5.1.7-2: Intra-Community With Central Services in Multiple Community Directory Using OrganizationAffiliation: Doing the search**
 
 ### 5.1.8 Document Access: Putting it all together
 
-In our comprehensive Document Access example, the full directory supports multiple perspectives, based on access:
-- Member of Big Health Exchange
-- Member of Valley Region HIE
-- Member of Valley Region HIE wishing to call out to Big Health Exchange
+In our comprehensive Document Access example, the full directory supports multiple perspectives, based on access. It does not rely on selective visibility based on the directory consumer’s perspective; all consumers can see all directory details.
 
-Note that our example does not rely on selective visibility based on the directory consumer’s perspective; all consumers can see all directory details. See section 6: [mCSD Explicit Endpoint Accessibility Option](https://github.com/IHE/ITI.Topologies/blob/main/topologies.md#explicit-endpoint-accessibility-option) for some suggested requirements for directory consumers to determine their perspective, specifically as it relates to which Endpoints their client(s) have access to.
+We have made some changes to our example to show these capabilities:
+- Valley Region HIE has joined a nationwide health information exchange, Big Health Exchange.
+- Big Health Exchange doesn't have any central service endpoints; it is peer to peer.
+- We've moved New Hope out of Valley HIE into Big Health to show how it can still access the desired organizations by virtue of Valley HIE's participation in Big Health. New Hope will get to these organizations through the endpoints "Valley BigHx Responding Gateway".
+- For now, Valley HIE is leaving its PDQ and XDS internal service endpoints for its members, but has added initiating gateway endpoints for its members to access Big Health (as well as aggregate internal data).
+- We added async endpoints and their response endpoints to show that even though members of Valley HIE utilize central services, they need individual async endpoints to receive responses.
 
 We’ve elided some details to make the diagram as simple as possible:
+- We omitted Seaside HIE, as we've already shown how to reflect no connectivity.
 - We omit New Hope’s Responding Gateway and internal details, since they aren’t involved in this Document Access example.
 - We omit push-style endpoint connection types, since they aren’t involved in this Document Access example.
 
