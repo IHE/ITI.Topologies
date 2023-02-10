@@ -162,14 +162,12 @@ For the sake of clarity, this white paper will refer to the most atomic actors i
 
 ### Document Sharing Federation
 
-**Document Sharing Federation** refers to the act of architecting a document sharing network such that actors within the network exchange healthcare documents directly with one another rather than through a central actor. 
-Since there is no central actor that facilitates exchange, the network actors must join together to form a larger entity - the document sharing network. 
-In this model, the removal of any actor from the network is subtractive - the network has lost the information made available by that actor. 
+**Document Sharing Federation** refers to the act of architecting a document sharing network such that members within the network exchange healthcare documents directly with each other rather than through a central actor. 
+Since there is no central actor that drives exchange, the network members are forming a federation with one another, resulting in the emergence of the document sharing network. 
 
-In contrast, a centralized network has a set of central actors that aggregate information, and a set of ancillary actors that communicate with the central actors. 
-In this contrasting model, the removal of ancillary actors does not subtract from the information available in the network, since that information remains available in the central actors. 
+In contrast, a centralized network has one or more central actors that act as an information repository, and other members communicate directly only with the central actors. 
 
-Federation can occur at any layer of a multi-layered document sharing network, though it becomes more likely as higher and higher layers are added, because centralization becomes cumbersome as the network topological depth increases. 
+Federation can occur at any layer of a multi-layered document sharing network, though it becomes more likely as higher and higher layers are added, because centralization becomes cumbersome as the network depth increases. 
 
 ### Care Services Directory
 
