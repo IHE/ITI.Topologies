@@ -1,0 +1,31 @@
+@startuml access-orgs-practitioner-abstract
+hide footbox
+allowmixing
+
+object ":Organization" as Partners
+Partners : name = "New Hope\nMedical Partners"
+note right : Needs to message\nUniversity Health
+
+cloud "Valley Region HIE" as hie
+
+object ":Organization" as Valley
+Valley : name = "Valley Access\nHealthcare"
+Valley : OrgID = 1.2.3.2
+
+object ":Organization" as OU
+OU : name = "University Health"
+OU : alias = "OU Health System",\n"OU Health"
+OU : OrgID = 1.2.3.3
+
+object ":Organization" as Urgent
+Urgent : name = "Urgent Health"
+Urgent : OrgID = 4.5.6.7
+
+hie -- Valley : <<participates in>>
+hie -- OU : <<participates in>>
+hie -- Urgent : <<participates in>>
+
+actor "Dr. Santos" as specialist
+specialist -- OU : <<practices for>>
+
+@enduml

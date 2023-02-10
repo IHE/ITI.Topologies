@@ -60,7 +60,7 @@ Ideally, these would be the same standards based interfaces used to communicate 
 That said, there a a few instances where members of one network might need to introspect into another network in order to interpret the information they are receiving.
 The two cases this white paper will address are
 
-1. Situations where information received from another network needs to be attributed to a particular organization inside of that network
+1. Situations where information received from another network needs to be attributed to a particular organization that resides within that other network
 2. Situations where a message needs to be delivered to a particular recipient within another network
 
 In both of these cases, the centralized directory will be used to correlate identifiers in document sharing messages with Organization Resources in the directory, such that a discrete association can be made programmatically.
@@ -1065,7 +1065,37 @@ We’ve elided some details to make the diagram as simple as possible:
 
 ## Push
 
-TODO
+We now repeat this exercise for the Push user story from section 2. 
+
+### Abstract View of the Organizations
+
+We have the same organizations as in the document query and retrieve use case, but we now introduce Dr. Santos as a Practitioner at University Health. 
+While Valley Access Healthcare and Urgent Health do not play a role in this use case, we still show them to illustrate the complexity that needs to be dealt with. 
+
+![Document Access: Organizations And Practitioners](images/access-orgs-practitioner-abstract.svg)
+
+### Directory Representation
+
+Consider the following facts from the story:
+
+* New Hope Medical Partners is a participant of a network called "Big Health Exchange"
+* Valley Access Healthcare, University Health, and Urgent Health are participants in a network called "Valley Region HIE"
+* Both Big Health Exchange and Valley Region HIE are further members of a nationwide document sharing network to facilitate document sharing between members of both exchanges.
+* Dr. Santos practices for University Health. As a result, a message to be read by Dr. Santos needs to be transmitted to University Health's EMR system. 
+
+Taking the full picture from the previous use case, this yields the following diagram:
+
+![Push: Comprehensive Multi-Perspective Example](images/access-multi-level-community-practitioner.svg)
+
+Note that the diagram has omitted details not relevant to the push route to Dr. Santos from New Hope Medical Partners. 
+
+In this example, the route from New Hope Medical Partners to Dr. Santos is via Valley Region HIE (via Big Health Exchange) to University Health. 
+New Hope Medical Partners will send the message to Valley Region HIE with an intended recipient of "dr.santos@universityhealth.org". 
+Both Valley Region HIE and University Health can conclude that the message should be delivered to Dr. Santos by matching that up to his email address in the directory. 
+
+This is what the sequence diagram looks like:
+
+![Push: Intra-Community With Central Services in Multiple Community Directory: Referral](images/push-sequence.svg)
 
 # 6 Miscellaneous
 

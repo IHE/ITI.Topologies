@@ -1,4 +1,4 @@
-@startuml
+@startuml access-intra-central-orgAff-seq
 hide footbox
 
 actor "Dr. Suwati" as actor1

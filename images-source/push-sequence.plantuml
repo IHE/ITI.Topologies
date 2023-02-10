@@ -1,0 +1,56 @@
+@startuml push-sequence
+hide footbox
+
+actor "Dr. Suwati" as actor1
+participant "New Hope EHR" as ehr
+participant "Big Health Exchange\nDirectory" as dir
+participant "Valley Region XCDR" as xcdr
+participant "University Health XDR" as xdr
+actor "Dr. Santos" as actor2
+
+actor1 -> ehr: "Refer Patient to Dr. Santos\n@University Health"
+ehr -> dir: Search Orgs for University Health
+dir --> ehr: Org 1.2.3.3
+ehr -> dir : Search Practitioners for Dr. Santos
+dir --> ehr : Return Resource
+ehr -> dir : Search for Practitioner Role\nConnecting Dr. Santos to University Health
+dir --> ehr : Return Practitioner Role
+
+note over ehr : Dr. Santos practices at University Health. Need an endpoint.
+
+ehr -> dir: Search for OrganizationAffiliation where University Health\nis participatingOrganization
+dir --> ehr: : Return Resources
+
+note over ehr : University Health is a Responder for Valley Region.\nIs New Hope Medical Partners an Initiator?
+
+ehr -> dir : Search for OrganizationAffiliation where Valley Region is organization
+dir --> ehr : Return Resources
+
+note over ehr : Not a member. Valley Region also federates.\nIs there access to Valley Region?
+
+ehr -> dir : Search for OrganizationAffiliation where Valley Region is participatingOrganization
+dir --> ehr : Return Resources
+ehr -> dir : Search for OrganiztionAffiliation where Big Health Exchange is organization
+dir --> ehr : Return Resources
+
+note over ehr : New Hope can Initiate in Big Health Exchange,\nand Valley Region Responds. 
+
+ehr -> xcdr : Transmit Referral. HCID=1.2.3; intendedRecipient=dr.santos@universityhealth.org
+
+note over xcdr : Message destined for this community.
+
+xcdr -> dir : Search for PractitionerRole with telecom = dr.santos@universityhealth.org
+dir --> xcdr : Return Resource
+
+note over xcdr : Message should go to University Health.
+
+xcdr -> xdr : Forward message
+
+note over xdr : Message addressed to Dr. Santos.
+
+xdr -> actor2 : Deliver message
+
+xdr --> xcdr : Return success
+xcdr --> ehr : Return success
+
+@enduml
