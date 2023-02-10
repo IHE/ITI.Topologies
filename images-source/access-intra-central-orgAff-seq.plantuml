@@ -1,4 +1,4 @@
-@startuml access-intra-central-orgAff-seq
+@startuml
 hide footbox
 
 actor "Dr. Suwati" as actor1
@@ -11,13 +11,19 @@ participant "Central XDS\n: Endpoint" as xca
 actor1 -> ehr: Kick off search\ngiven known locations\nof treatment\n"Valley Access Healthcare",\n"OU Health"
 ehr -> dir: Search Orgs for "Valley Access Healthcare",\n"OU Health" by name, alias
 dir --> ehr: : Org 1.2.3.2, Org 1.2.3.3
-note over ehr : Can I get to them?\nI know I'm in Valley Region HIE.
+note over ehr : Do they have Endpoints?\nNo, so see if they are in a doc sharing affiliation.
 
-ehr -> dir: Check if orgs have membership\nin Valley HIE by OrganizationAffiliation that has codes\n“HIE/HIO” and "DocShare-federate"
-dir --> ehr: : they do
+ehr -> dir: Check if each org is participatingOrganization\nof OrganizationAffiliation with code = "DocShare-federate-*"
+dir --> ehr: : they are, .organization = Valley Region HIE\nand .code = DocShare-federate-int
 
-ehr -> dir: Check Valley HIE for PDQ, XDS endpoints
+ehr -> dir: Check OrganizationAffiliations for PDQ, XDS endpoints
 dir --> ehr: : PDQ, XDS endpoints
+
+note over ehr : Ok, these endpoints make info from these orgs\navailable to other members of the HIE.\nCan I access these endpoints as a member?
+ehr -> dir: Check if New Hope is participatingOrganization\nof OrganizationAffiliation with .code = "HIEInitiator"\nand .organization = Valley Region HIE
+dir --> ehr: : it is
+ehr -> dir: Check if this OrganizationAffiliation points to the Endpoints I need
+dir --> ehr: : it does
 
 ehr -> xcpd : Match "Vanna Patterson"
 xcpd --> ehr: : Match(es)
