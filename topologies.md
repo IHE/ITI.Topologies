@@ -161,7 +161,7 @@ For the sake of clarity, this white paper will refer to the most atomic actors i
 
 ![Multi-Layered Simple View](images/mln-simple.svg)
 
-**Figure 1.3-1: Simple View of a Multi-Layered Network**
+**Figure 1.3.8-1: Simple View of a Multi-Layered Network**
 
 ### 1.3.9 Document Sharing Federation
 
@@ -242,6 +242,8 @@ Consider a network that consists of two separate communities. The network might 
 A **multi-layered-network** is simply a network that contains other networks within. A multi-layered network is itself a general network, but is distinguished by the fact that it consists of policy agreements and communication infrastructure to facilitate communication across different entities that themselves can operate independently as networks. 
 
 ![Comparison of Community, Network, and Multi-Layer Network](images/network_community_multi-layer_venn.svg)
+
+**Figure 1.4-1: Comparison of Community, Network, and Multi-Layer Network**
 
 ## 1.5 A Note On Hierarchical Representation
 
@@ -363,7 +365,7 @@ More information is available in [Section 3.2.3 of the HIE Whitepaper](https://p
 
 ![Single Organization Community](images/single_community.svg)
 
-**Figure 1.3-1: Single Organization Community Layout**
+**Figure 3.1-1: Single Organization Community Layout**
 
 ## 3.2 Multi-Organization Community
 
@@ -372,7 +374,7 @@ Multiple organizations can also join together into a community. In this case, qu
 The below example shows one such topology, where two organizations have chosen to belong to the same XDS Affinity Domain and therefore share the same XDS infrastructure. 
 
 ![Multi-Organization Community](images/multi_organization_community.svg)
-**Figure 1.3-1: Multi-Organization Community Layout**
+**Figure 3.2-1: Multi-Organization Community Layout**
 
 ## 3.3 Single Facade Community
 
@@ -382,7 +384,7 @@ In this example, a community is made up of three organizations that exchange dat
 
 ![Single Facade Community](images/facade_community.svg)
 
-**Figure 1.3-1: Single Facade Community Layout**
+**Figure 3.3-1: Single Facade Community Layout**
 
 ## 3.4 Multiple Community Network
 
@@ -394,7 +396,7 @@ The following diagram shows an example of a multi-community network. The network
 
 ![Multi-Community Network](images/multi_community_network.svg)
 
-**Figure 1.3-1: Multi-Community Network Layout**
+**Figure 3.4-1: Multi-Community Network Layout**
 
 ## 3.5 Multi Layered Network
 
@@ -404,7 +406,7 @@ By layering networks in this way, the interconnection of different networks can 
 
 ![Multi-Layered Diagram](images/multi_layered_network.svg)
 
-**Figure 1.3-1: Multi-Layered Network Layout**
+**Figure 3.5-1: Multi-Layered Network Layout**
 
 # 4 Directory Structure
 
@@ -547,25 +549,25 @@ This results the the simplest case shown below:
 
 ![Organization Specific Endpoint](images/dir-org-specific-endpoint-self.svg)
 
-**Figure 1:46.8.1-1: Organization-specific Endpoint Hosted by the Organization**
+**Figure 4.2.3.1-1: Organization-specific Endpoint Hosted by the Organization**
 
 Suppose instead Organization A is a subsidiary of its parent, B. B provides IT services and support to its subsidiaries, but each subsidiary has a unique document sharing endpoint that behaves identically to if it had hosted its own endpoint. The Endpoint is pointed at by Organization A to communicate that the Endpoint is logically "owned by" A, while it points to B as the managingOrganization to indicate that B is providing technical support for the endpoint:
 
 ![Organization Specific Endpoint Hosted by a Parent](images/dir-org-specific-endpoint-parent.svg)
 
-**Figure 1:46.8.1-2: Organization-specific Endpoint Hosted by Parent**
+**Figure 4.2.3.1-2: Organization-specific Endpoint Hosted by Parent**
 
 Suppose a similar relationship between organizations C and D, but where D is not a parent organization to C, rather it is a third party affiliate that provides IT services and support. In that case, the OrganizationAffiliation Resource might be used to convey the relationship rather than Organization.partOf:
 
 ![Organization Specific Endpoint Hosted by an Affiliate](images/dir-org-specific-endpoint-affil.svg)
 
-**Figure 1:46.8.1-3: Organization-specific Endpoint Hosted by Affiliation**
+**Figure 4.2.3.1-3: Organization-specific Endpoint Hosted by Affiliation**
 
 Another similar relationship between E and F might exist, but E handles network support for its own endpoint. In that case, E is still the managing organization, and F need not be represented in the directory at all:
 
 ![Organization Specific Endpoint Hosted By Unrepresented Intermediary](images/dir-org-specific-endpoint-inter.svg)
 
-**Figure 1:46.8.1-4: Organization-specific Endpoint Hosted by Unrepresented Intermediary**
+**Figure 4.2.3.1-4: Organization-specific Endpoint Hosted by Unrepresented Intermediary**
 
 #### 4.2.3.2 Organizations with Multiple Endpoints
 
@@ -574,9 +576,9 @@ For example, endpoints might be needed for IHE XCPD, XCA, XCDR, and a FHIR endpo
 
 ![Multiple Endpoints per Organization](images/dir-endpoint-xdr-mhd.svg)
 
-This example does not specify the specificType extension for the RESTful FHIR endpoint because the needed information can be retrieved by retrieving the Organization's CapabilityStatement. However, one might choose to publish a list of supported FHIR profiles on the FHIR endpoint so that that information is available in the directory. 
+**Figure 4.2.3.2-1: Multiple Endpoints per Organization**
 
-**Figure 1:46.8.3-1: Multiple Endpoints For A Single Organization**
+This example does not specify the specificType extension for the RESTful FHIR endpoint because the needed information can be retrieved by retrieving the Organization's CapabilityStatement. However, one might choose to publish a list of supported FHIR profiles on the FHIR endpoint so that that information is available in the directory. 
 
 #### 4.2.3.3 Representing Network Membership and Connectivity
 
@@ -591,7 +593,7 @@ In this example, OrganizationAffiliation allows the Endpoint to be declared spec
 
 ![Organization Specific Endpoint Controlled by Affiliate](images/dir-org-specific-endpoint-from-affil.svg)
 
-**Figure : Organization-specific Endpoint With Access Provided By Affiliation**
+**Figure 4.2.3.3-1: Organization-specific Endpoint With Access Provided By Affiliation**
 
 Note that in this case, while the endpoint is specific to G, it is hosted by H as indicated by the managingOrganization link. 
 However, since a client does not care that H manages the endpoint, only that it is used to access G and that members of H are authorized to use it.
@@ -605,7 +607,7 @@ Since each OrganizationAffiliation resource points to the appropriate network in
 
 ![Organization With Multiple Affiliations](images/dir-org-specific-endpoint-multiple-routes.svg)
 
-**Figure : Organization-specific Endpoints From Multiple Affiliations**
+**Figure 4.2.3.4-1: Organization-specific Endpoints From Multiple Affiliations**
 
 #### 4.2.3.5 Endpoint to a Complex Organization
 
@@ -615,13 +617,13 @@ Consider the following diagram, where Organization A has two departments, modele
 
 ![Endpoint to Parent Organization](images/dir-endpoint-to-org-hierarchy.svg)
 
-**Figure 1:46.8.2-1: Endpoint to Parent Organization**
+**Figure 4.2.3.5-1: Endpoint to Parent Organization**
 
 The following shows the same Organization hierarchy, but using OrganizationAffiliation instead of partOf to declare the relationship. This might be more appropriate where Organizations AA and AB are subsidiaries that have some independent capabilities apart from Organization A, but still share IT resources. Here, the DocShare-federate codes are used to indicate that requesting data from Organization A will return data for Organization AA and AB:
 
 ![Endpoint to Parent Organization with OrgAffiliation](images/dir-endpoint-to-org-affiliates.svg)
 
-**Figure 1:46.8.2-1: Endpoint to Parent Organization with OrganizationAffiliation**
+**Figure 4.2.3.5-2: Endpoint to Parent Organization with OrganizationAffiliation**
 
 #### 4.2.3.6 Importance of Policy Specifying the Meaning of OrganizationAffiliation.code
 
@@ -633,13 +635,13 @@ Suppose a directory policy stated that parent Organizations provide access to ch
 
 ![Endpoints to Both Parent and Child Organizations](images/dir-endpoint-to-child-hierarchy.svg)
 
-**Figure 1:46.8.2-1: Endpoints to Both Parent and Child Organizations**
+**Figure 4.2.3.6-1: Endpoints to Both Parent and Child Organizations**
 
 If Organization A did provide document sharing access to Organization AA, then an explicit OrganizationAffiliation with code=DocShare-federate-int would be declared:
 
 ![Endpoints to Both Parent and Child Organizations with OrgAffiliation](images/dir-endpoint-to-child-affiliate.svg)
 
-**Figure 1:46.8.2-1: Endpoints to Both Parent and Child Organizations with OrganizationAffiliation**
+**Figure 4.2.3.6-2: Endpoints to Both Parent and Child Organizations with OrganizationAffiliation**
 
 In a multi-layered network, it is likely that different solutions will be used at different levels. 
 Here, Organization J has three subsidiaries, Organizations JA, JB, and JC, as well as a document sharing affiliation with Organization I. 
@@ -648,7 +650,7 @@ Then, if Organization I's endpoint would provide document sharing access to all 
 
 ![Endpoint to a multi-layered structure](images/dir-endpoint-to-hybrid-org-structure.svg)
 
-**Figure 1:46.8.2-3: Endpoint to Multi-Layered Organizational Structure**
+**Figure 4.2.3.6-3: Endpoint to Multi-Layered Organizational Structure**
 
 ### 4.2.4 Endpoint Discovery 
 
@@ -760,7 +762,7 @@ An important consideration when layering multiple networks is how different enti
 
 ![Multi-Layered Diagram](images/multi_layered_network.svg)
 
-**Figure 1.3-1: Multi-Layered Network Layout**
+**Figure 4.2.6-1: Multi-Layered Network Layout**
 
 Here:
 
@@ -792,7 +794,7 @@ This would be represented in an mCSD Directory as follows:
 
 ![Multi Level Diagram](images/mln-dir.svg)
 
-**Figure 1.3-1: Multi Level Directory Layout**
+**Figure 4.2.6-2: Multi Level Directory Layout**
 
 ### 4.2.7 Inclusion of Push Recipient Addresses
 
@@ -912,7 +914,7 @@ The Organization is simply represented by itself.
 
 ![Single Organization Community Directory Layout](images/single_affinity_domain_community_directory.svg)
 
-**Figure 1.3-1: Single Organization Community Directory Layout**
+**Figure 4.4-1: Single Organization Community Directory Layout**
 
 ### 4.4.2 Multi-Organization Community
 
@@ -922,7 +924,7 @@ The sub Organizations can be accessed via federation and submit their data to th
 
 ![Multi-Organization Community Directory Layout](images/multi_organization_community_directory.svg)
 
-**Figure 1.3-1: Multi-Organization Community Directory Layout**
+**Figure 4.4.2-1: Multi-Organization Community Directory Layout**
 
 ### 4.4.3 Single Facade Community
 
@@ -932,7 +934,7 @@ In this case, the directory does not facilitate communication within the communi
 
 ![Single Facade Community Directory Layout](images/single_facade_community_directory.svg)
 
-**Figure 1.3-1: Single Facade Community Directory Layout**
+**Figure 4.4.3-1: Single Facade Community Directory Layout**
 
 ### 4.4.4 Multiple Community Network
 
@@ -942,7 +944,7 @@ Note that because the upper level community is not addressable and so does not h
 
 ![Multi-Community Network Directory Layout](images/multi_community_network_directory.svg)
 
-**Figure 1.3-1: Multi-Community Network Directory Layout**
+**Figure 4.4.4-1: Multi-Community Network Directory Layout**
 
 ### 4.4.5 Multi Layered Network
 
@@ -951,7 +953,7 @@ A network with initiating and responding gateways can be connected to a higher l
 
 ![Multi Level Diagram](images/mln-dir.svg)
 
-**Figure 1.3-1: Multi Level Directory Layout**
+**Figure 4.4.5-1: Multi Level Directory Layout**
 
 # 5 Example Use Case Solutions
 This section will describe how the use cases in section 2 are enabled by the above suggestions
@@ -966,15 +968,21 @@ The example includes four organizations: New Hope Medical Partners, University H
 
 ![Document Access: Organizations Only](images/access-orgs-abstract.svg)
 
+**Figure 5.1.1-1: Document Access: Organizations Only**
+
 ### 5.1.2 One Community, Intra-community Access, Central Services
 
 In our first example, we will simplify the Document Access use case by placing all the organizations within one community, where that community has a set of central services endpoints. New Hope also belongs to Valley Region HIE, which provides a central service infrastructure that holds all clinical information for all organizations. This deployment is so simple that a purpose-built directory could just list the Organizations and Endpoints as a flat list:
 
 ![Document Access: Intra-Community With Central Services in Flat List](images/access-intra-central-purpose.svg)
 
+**Figure 5.1.2-1: Intra-Community With Central Services in Flat List**
+
 Here’s Dr. Suwati using her EHR to do the search. Here we are slightly modifying the use case by showing her searching based on the known locations of treatment, and due to the fact that Urgent Health happens to be in Valley HIE which uses central services, the documents from Urgent Health are included.
 
 ![Document Access: Intra-Community With Central Services in Flat List: Doing the search](images/access-intra-central-purpose-seq.svg)
+
+**Figure 5.1.2-2: Intra-Community With Central Services in Flat List: Doing the search**
 
 ### 5.1.3 One Community, Intra-community Access, Per-Organization Access
 
@@ -982,9 +990,13 @@ In this example, we are still focusing on one community, but now Valley HIE supp
 
 ![Document Access: Intra-Community With Per-Organization Access via Directly Owned Endpoints](images/access-intra-per-org-purpose.svg)
 
+**Figure 5.1.3-1: Intra-Community With Per-Organization Access via Directly Owned Endpoints**
+
 Here’s Dr. Suwati using her EHR to do the search. Because the Organizations each have their own Endpoints, for the EHR to get documents from Urgent Health, it will need to expand its search to more than the known locations of treatment. In this case she will just search all Organizations in the HIE.
 
 ![Document Access: Intra-Community With Per-Organization Access via Directly Owned Endpoints: Doing the search](images/access-intra-per-org-purpose-seq.svg)
+
+**Figure 5.1.3-2: Intra-Community With Per-Organization Access via Directly Owned Endpoints: Doing the search**
 
 ### 5.1.4 One Network, Cross-community Access
 
@@ -994,6 +1006,8 @@ If we have a purpose-built directory just for the members of Valley HIE, it coul
 
 ![Document Access: Cross-Community With Per-Community Access via Directly Owned Endpoints](images/access-cross-purpose.svg)
 
+**Figure 5.1.4-1: Cross-Community With Per-Community Access via Directly Owned Endpoints**
+
 The first thing to notice is that this is no more complex than the previous example; we’re just up one level, and using cross-community profiles. A purpose-built directory supporting a single perspective can be very simple, and in fact, this is the typical directory structure in multiple nationwide exchanges.
 
 We’ve given each community a Home Community ID. Our examples show that while the OrgID and HCID can be related, there isn’t any required relationship. We also show that Urgent doesn’t support asynchronous transactions.
@@ -1002,15 +1016,21 @@ Dr. Suwati’s search:
 
 ![Document Access: Cross-Community With Per-Community Access via Directly Owned Endpoints: Doing the search](images/access-cross-purpose-seq.svg)
 
+**Figure 5.1.4-2: Cross-Community With Per-Community Access via Directly Owned Endpoints: Doing the search**
+
 ### 5.1.5 Adding Proxy Intermediaries
 
 Some networks route traffic through intermediaries that may be referred to as “proxying”. Here’s a network topology showing that for our use case:
 
 ![Document Access: Multi-Community HIE With Per-Community Access via Proxies: Topology](images/access-proxied-network.svg)
 
+**Figure 5.1.5-1: Multi-Community HIE With Per-Community Access via Proxies: Topology**
+
 If we have a purpose-built directory just for the members of Valley HIE, the proxies simply replace the real endpoints:
 
 ![Document Access: Multi-Community HIE With Per-Community Access via Proxies: Purpose-Built Directory](images/access-cross-proxied-purpose.svg)
+
+**Figure 5.1.5-2: Multi-Community HIE With Per-Community Access via Proxies: Purpose-Built Directory**
 
 ### 5.1.6 Multiple Communities, Intra-community Access, Central Services, Organization Data Flow via partOf
 
@@ -1020,9 +1040,13 @@ We’ll start with our earlier simpler example, where the organizations in our u
 
 ![Document Access: Intra-Community With Central Services in Multiple Community Directory](images/access-intra-central-partOf.svg)
 
+**Figure 5.1.6-1: Intra-Community With Central Services in Multiple Community Directory**
+
 In the search, we are showing the EHR searching for Endpoints where data flows from the known locations of treatment, and due to the fact that Urgent Health happens to be in Valley HIE which uses central services, the documents from Urgent Health are included:
 
 ![Document Access: Intra-Community With Central Services in Multiple Community Directory: Doing the search](images/access-intra-central-partOf-seq.svg)
+
+**Figure 5.1.6-2: Intra-Community With Central Services in Multiple Community Directory: Doing the search**
 
 ### 5.1.7 Multiple Communities, Intra-community Access, Central Services, Organization Data Flow via OrganizationAffiliation
 
@@ -1038,9 +1062,13 @@ In our example we can see that:
 
 ![Document Access: Intra-Community With Central Services in Multiple Community Directory](images/access-intra-central-orgAff.svg)
 
+**Figure 5.1.7-1: Intra-Community With Central Services in Multiple Community Directory**
+
 And the search:
 
 ![Document Access: Intra-Community With Central Services in Multiple Community Directory: Doing the search](images/access-intra-central-orgAff-seq.svg)
+
+**Figure 5.1.7-2: Intra-Community With Central Services in Multiple Community Directory: Doing the search**
 
 ### 5.1.8 Document Access: Putting it all together
 
@@ -1057,6 +1085,8 @@ We’ve elided some details to make the diagram as simple as possible:
 
 ![Document Access: Comprehensive Multi-Perspective Example](images/access-multi-level-community.svg)
 
+**Figure 5.1.8-1: Comprehensive Multi-Perspective Example**
+
 ## 5.2 Push
 
 We now repeat this exercise for the Push user story from section 2. 
@@ -1066,7 +1096,9 @@ We now repeat this exercise for the Push user story from section 2.
 We have the same organizations as in the document query and retrieve use case, but we now introduce Dr. Santos as a Practitioner at University Health. 
 While Valley Access Healthcare and Urgent Health do not play a role in this use case, we still show them to illustrate the complexity that needs to be dealt with. 
 
-![Document Access: Organizations And Practitioners](images/access-orgs-practitioner-abstract.svg)
+![Push: Organizations And Practitioners](images/access-orgs-practitioner-abstract.svg)
+
+**Figure 5.2.1-1: Organizations And Practitioners**
 
 ### 5.2.2 Directory Representation
 
@@ -1081,6 +1113,8 @@ Taking the full picture from the previous use case, this yields the following di
 
 ![Push: Comprehensive Multi-Perspective Example](images/access-multi-level-community-practitioner.svg)
 
+**Figure 5.2.2-1: Comprehensive Multi-Perspective Example**
+
 Note that the diagram has omitted details not relevant to the push route to Dr. Santos from New Hope Medical Partners. 
 
 In this example, the route from New Hope Medical Partners to Dr. Santos is via Valley Region HIE (via Big Health Exchange) to University Health. 
@@ -1090,6 +1124,8 @@ Both Valley Region HIE and University Health can conclude that the message shoul
 This is what the sequence diagram looks like:
 
 ![Push: Intra-Community With Central Services in Multiple Community Directory: Referral](images/push-sequence.svg)
+
+**Figure 5.2.2-2: Intra-Community With Central Services in Multiple Community Directory: Referral**
 
 # 6 Miscellaneous
 
