@@ -6,6 +6,8 @@ object ":Organization" as Partners
 Partners : name = "New Hope\nMedical Partners"
 
 object "Seaside HIE" as hie2
+hie2 : OrgID = 9.8.7.6
+hie2 : HCID = 9.8.7
 object ": Endpoint(s)" as sEndpoints
 sEndpoints : connectionType = \n  PDQ-Supplier-Query,\n  XDS-Registry-Query,\n  XDS-Repository-Retrieve
 hie2 --> sEndpoints
@@ -29,18 +31,13 @@ object ":Organization" as Urgent
 Urgent : name = "Urgent Health"
 Urgent : OrgID = 4.5.6.7
 
-object "Central PDQ : Endpoint" as vEndpoints
-vEndpoints : connectionType = \n  PDQ-Supplier-Query
-
-object "Central XDS : Endpoint" as ouEndpoints
-ouEndpoints : connectionType = \n  XDS-Registry-Query,\n  XDS-Repository-Retrieve
+object ": Endpoint(s)" as vEndpoints
+vEndpoints : connectionType = \n  PDQ-Supplier-Query,\n  XDS-Registry-Query,\n  XDS-Repository-Retrieve
+hie -> vEndpoints
 
 hie <-- Valley : partOf
 hie <-- OU : partOf
 hie <-- Urgent : partOf
 Partners -> hie : partOf
-
-hie -> vEndpoints
-hie -> ouEndpoints
 
 @enduml
