@@ -1,0 +1,17 @@
+@startuml mln-simple
+title "Example Multi-Layered Network"
+skinparam linetype ortho
+rectangle topLevelNetwork as "Top Level Network" {
+    rectangle lowerNetworkB as "Lower Network B" {
+        package community3 as "HCID = 1.2.8"
+    }
+    rectangle lowerNetworkA as "Lower Network A" {
+        package community1 as "HCID = 1.2.6"
+        package community2 as "HCID = 1.2.7"
+    }
+}
+
+community1 <-> community2 
+lowerNetworkA <-> lowerNetworkB
+
+@enduml

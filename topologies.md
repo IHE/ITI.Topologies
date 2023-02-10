@@ -156,9 +156,9 @@ A **Multi-Layered Document Sharing Network** is a document sharing network that 
 
 For the sake of clarity, this white paper will refer to the most atomic actors in a multi-layered network as the "bottom" layers, and the least atomic actors as the "top" layers. 
 
-![Multi-Layered Diagram](images/multi_layered_network.svg)
+![Multi-Layered Simple View](images/mln-simple.svg)
 
-**Figure 1.3-1: Example Multi-Layered Network**
+**Figure 1.3-1: Simple View of a Multi-Layered Network**
 
 ### Document Sharing Federation
 
