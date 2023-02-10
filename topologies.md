@@ -54,13 +54,13 @@ Readers interested in those topics are advised to look to the following existing
 Note that this white paper is primarily intended for those wishing to combine existing document sharing networks or Health Information Exchanges. 
 Readers interested in constructing a new standalone Health Information Exchange are advised to refer to the [HIE White Paper](https://profiles.ihe.net/ITI/HIE-Whitepaper/index.html). 
 
-When document sharing will be federated across networks, this white paper recommends the use of a centralized directory, likely operated by an entity not part of any of the networks, that aggregates the organizational and business information about all entities in all networks in the directory as well as the technical details needed to facilitate document sharing among them all.
+When document sharing will be federated across networks, this white paper recommends the use of a centralized directory, likely operated by an entity not part of any of the networks, that collects and organizes the organizational and business information about all entities in all networks in the directory as well as the technical details needed to facilitate document sharing among them all.
 Examples will be based on the [mCSD](https://profiles.ihe.net/ITI/mCSD/index.html) Profile, which offers the functionality needed by such a directory, and also offers a transaction that can be used to synchronize the central directory with directories operated by each network.  
 
 Networks should expose to each other standard interfaces that abstract away their underlying topologies to the greatest extent possible.
-Ideally, these would be the same standards based interfaces used to communicate between communities within networks, and this can be accomplished with thoughtful and consistent use of IHE's integration profiles. If this is done well, then introspection into another network is not necessary to facilitate the flow of information. 
+Ideally, these would be the same standards based interfaces used to communicate between communities within networks, and this can be accomplished with thoughtful and consistent use of IHE's integration profiles. If this is done well, then understanding the design of the other network would not be necessary to facilitate communication.
 
-That said, there a a few instances where members of one network might need to introspect into another network in order to interpret the information they are receiving.
+That said, there a a few instances where members of one network might need to understand another network's layout in order to interpret the information they are receiving.
 The two cases this white paper will address are
 
 1. Situations where information received from another network needs to be attributed to a particular organization that resides within that other network
@@ -215,11 +215,11 @@ Push is enabled by the [XDR](https://profiles.ihe.net/ITI/TF/Volume1/ch-15.html)
 
 Rather than expose internal networks and communities directly, a network could be designed to expose a single facade community to other networks with which it is interconnected.
 Such a community would have a single Home Community ID, different from those of the internal communities. 
-The network gateways would therefore be responsible for aggregating information from all of the systems within, in order to appear as a single cohesive community to the outside. 
+The network gateways would therefore be responsible for combining information from all of the systems within, in order to appear as a single cohesive community to the outside. 
 
 A network offering a facade community must be able to act as a single community for all interactions. 
-It must maintain a patient identity cross reference manager, so that patient identities across the internal communities can be aggregated into a single patient identity in the facade community.
-When it receives a document list query, it must be able to forward that query to all communities that are part of the facade, and aggregate the responses into a single unified response. 
+It must maintain a patient identity cross reference manager, so that patient identities across the internal communities can be combined into a single patient identity in the facade community.
+When it receives a document list query, it must be able to forward that query to all communities that are part of the facade, and combine the responses into a single unified response. 
 When it receives a message for delivery, it must be able to route the message to the appropriate community without using a home community id. 
 
 The advantages of such an architecture is that it offers a simplified mechanism for interacting with the network for systems outside of the network, at the cost of complicating the network architecture. 
