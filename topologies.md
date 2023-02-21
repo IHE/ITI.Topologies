@@ -6,15 +6,15 @@
 
 **Document Sharing Across Network Topologies**
 
-**Revision 0.1 - Draft**
+**Revision 1.0. - Draft for Public Comment**
 
-Date: February 10, 2023
+Date: February 24, 2023
 
 Author: ITI Technical Committee
 
 Email: iti@ihe.net
 
-**Please verify you have the most recent version of this white paper. See [here](https://profiles.ihe.net/ITI/#1.6) for the Published version and [here](https://profiles.ihe.net/ITI/#1.3) for Public Comment versions.
+**Please verify you have the most recent version of this white paper. See [here](https://profiles.ihe.net/ITI/#1.6) for the Published version and [here](https://profiles.ihe.net/ITI/#1.3) for Public Comment versions.**
 
 **Foreword**
 
@@ -28,7 +28,7 @@ Information about the IHE IT Infrastructure domain can be found at [IHE Domains]
 
 Information about the organization of IHE Technical Frameworks and Supplements and the process used to create them can be found at [Profiles](https://www.ihe.net/resources/profiles/) and [IHE Process](https://www.ihe.net/about_ihe/ihe_process/).
 
-The current version of the IHE IT Infrastructure Technical Framework can be found at [IT Infrastructure Technical Framework](https://profiles.ihe.net/).
+The current version of the IHE IT Infrastructure Technical Framework can be found at [IT Infrastructure Technical Framework](https://profiles.ihe.net/ITI/).
 
 # 1 Introduction
 
@@ -60,8 +60,8 @@ Examples will be based on the [mCSD](https://profiles.ihe.net/ITI/mCSD/index.htm
 Networks should expose to each other standard interfaces that abstract away their underlying topologies to the greatest extent possible.
 Ideally, these would be the same standards based interfaces used to communicate between communities within networks, and this can be accomplished with thoughtful and consistent use of IHE's integration profiles. If this is done well, then understanding the design of the other network would not be necessary to facilitate communication.
 
-That said, there a a few instances where members of one network might need to understand another network's layout in order to interpret the information they are receiving.
-The two cases this white paper will address are
+That said, there are a few instances where members of one network might need to understand another network's layout in order to interpret the information they are receiving.
+The two cases this white paper will address are:
 
 1. Situations where information received from another network needs to be attributed to a particular organization that resides within that other network
 2. Situations where a message needs to be delivered to a particular recipient within another network
@@ -76,8 +76,8 @@ As such, this white paper focuses only on document sharing, and does not address
 
 ## 1.2 Intended Audience
 
-The intended audience of this white paper includes those involved in promoting, coordinating, architecting or participating in federated exchange across existing health information sharing networks. 
-This paper covers high level data exchange philosophies and architectures, but does not cover implementation details. Such details can be found in the underlying IHE profiles leveraged here. 
+The intended audience of this white paper includes those involved in promoting, coordinating, architecting, or participating in federated exchange across existing health information sharing networks. 
+This white paper covers high level data exchange philosophies and architectures, but does not cover implementation details. Such details can be found in the underlying IHE profiles leveraged here. 
 Furthermore, the intended audience is assumed to have a strong understanding of document sharing communities and other topics covered in the ITI HIE White Paper. 
 
 Some intended audiences include:
@@ -106,7 +106,7 @@ The Initiating Gateway is used by members within a community to send messages to
 The Responding Gateway is the access point for actors outside of the community to access services within the community. 
 These Actors are logically separate, but can be combined into a single system at the discretion of the implementer.
 
-This pattern was established in the [XCPD](https://profiles.ihe.net/ITI/TF/Volume1/ch-27.html) and [XCA](https://profiles.ihe.net/ITI/TF/Volume1/ch-18.html) Profiles, but can be applied to other environments as well.
+This pattern was established in the [Cross-Community Patient Discovery (XCPD)](https://profiles.ihe.net/ITI/TF/Volume1/ch-27.html) and [Cross-Community Access (XCA)](https://profiles.ihe.net/ITI/TF/Volume1/ch-18.html) Profiles, but can be applied to other environments as well.
 
 ### 1.3.3 Home Community ID
 
@@ -131,7 +131,7 @@ Therefore, where network gateways are used, participants can interact with the n
 
 The Initiating and Responding Gateway Actors are used by IHE in a variety of cross community integration profiles, including XCPD, XCA, and XCDR. 
 
-These concepts are explained further in [section 3.3 of the HIE White Paper](https://profiles.ihe.net/ITI/HIE-Whitepaper/index.html#33-federated-discovery-and-retrieve).
+These concepts are explained further in [Section 3.3 of the HIE White Paper](https://profiles.ihe.net/ITI/HIE-Whitepaper/index.html#33-federated-discovery-and-retrieve).
 
 ### 1.3.6 Proxy
 
@@ -148,7 +148,7 @@ For large networks, manual configuration is not feasible, so discovery needs to 
 Discovery can be facilitated by the addition of a central network directory into a network. 
 
 A central network directory is a care services directory that is central to the network and thus does not have bias toward one segment of the network or another. 
-Note that for the purpose of this paper, it matters only that there is a logical central network directory.
+Note that for the purpose of this white paper, it matters only that there is a logical central network directory.
 That is to say, there might be a number of systems responsible for organizing, maintaining, and distributing the directory, but it can be thought of as logically a single cohesive whole. 
 
 In a multi-layered document sharing network, central directories for different layers of the network are likely to synchronize partially or entirely with one another in order to provide other layers of the network visibility into the Organizations present outside of their immediate network. 
@@ -199,7 +199,7 @@ This model is often referred to as the "pull" model.
 It is generally used in situations where the actors consuming the document need to be able to search and retrieve information about a patient. 
 This is most often the case for end user stories that involve reviewing the medical history, or current medical chart, for the patient. 
 
-This concept is further explained in [section 3.2 of the HIE White Paper](https://profiles.ihe.net/ITI/HIE-Whitepaper/index.html#32-centralized-discovery-and-retrieve). Document Query and Retrieve is enabled by the [XCA](https://profiles.ihe.net/ITI/TF/Volume1/ch-18.html) Profile in a network setting, but can also be enabled by the [MHD](https://profiles.ihe.net/ITI/MHD/index.html) Profile. 
+This concept is further explained in [Section 3.2 of the HIE White Paper](https://profiles.ihe.net/ITI/HIE-Whitepaper/index.html#32-centralized-discovery-and-retrieve). Document Query and Retrieve is enabled by the [XCA](https://profiles.ihe.net/ITI/TF/Volume1/ch-18.html) Profile in a network setting, but can also be enabled by the [MHD](https://profiles.ihe.net/ITI/MHD/index.html) Profile. 
 
 ### 1.3.13 Push Model
 
@@ -207,9 +207,9 @@ This concept is further explained in [section 3.2 of the HIE White Paper](https:
 In this model, documents are prepared by the source and then need to be communicated and routed to a recipient that consumes them directly. 
 
 This model can be thought of as a direct replacement for email, fax, postal mail, etc. and is often referred to as a "push" model. 
-This model is further explained in [section 3.1 of the HIE White Paper](https://profiles.ihe.net/ITI/HIE-Whitepaper/index.html#31-push).
+This model is further explained in [Section 3.1 of the HIE White Paper](https://profiles.ihe.net/ITI/HIE-Whitepaper/index.html#31-push).
 
-Push is enabled by the [XDR](https://profiles.ihe.net/ITI/TF/Volume1/ch-15.html), [MHD](https://profiles.ihe.net/ITI/TF/Volume1/ch-33.html), and [XCDR](https://profiles.ihe.net/ITI/TF/Volume1/ch-40.html) Profiles. 
+Push is enabled by the [Cross-Enterprise Document Reliable Interchange (XDR)](https://profiles.ihe.net/ITI/TF/Volume1/ch-15.html), [Mobile Access to Health Documents (MHD)](https://profiles.ihe.net/ITI/TF/Volume1/ch-33.html), and [Cross-Community Document Reliable Interchange (XCDR](https://profiles.ihe.net/ITI/TF/Volume1/ch-40.html) Profiles. 
 
 ### 1.3.14 Facade Community
 
@@ -226,7 +226,7 @@ The advantages of such an architecture is that it offers a simplified mechanism 
 
 ## 1.4 Community vs Network vs Multi-Layered Network
 
-The concepts of Community, Network, and Multi-Layered network are very similar in concept, so it is important to distinguish how those terms are used here. 
+The concepts of Community, Network, and Multi-Layered Network are very similar in concept, so it is important to distinguish how those terms are used here. 
 
 A **community** is distinguished as an entity that provides infrastructure to allow access to healthcare data internally, and provide internal systems access to external communities. 
 A community is always assigned a Home Community ID that can be used to address the community in document sharing. 
@@ -254,7 +254,7 @@ This is the architecture seen most commonly in exchange communities today, and i
 This does not mean that there is a strict hierarchy. Single Organizations or Networks might choose to become members of multiple higher networks, resulting in the potential for multiple paths to a given organization. 
 However, the design is still "hierarchical" in that each of the higher Organizations is seen as providing resources for the single member Organization. 
 
-With that having been said, the purpose of this paper is to demonstrate how such a multi-layered network would be represented in a directory, and so it takes the perspective of a system examining the directory to locate a route. 
+With that having been said, the purpose of this white paper is to demonstrate how such a multi-layered network would be represented in a directory, and so it takes the perspective of a system examining the directory to locate a route. 
 Nothing precludes a network from internally being architected using any architecture, be it star, mesh, ring, etc. 
 Such a network would still present an interface to the outside world, and thus the Organizations within that network can be seen as children of the network. 
 
@@ -361,7 +361,7 @@ This white paper does not specify or endorse any particular network topology. In
 It is possible for a singleton organization to form a community by itself, and for that community to interface directly with other networks. 
 
 The community might be architected as an XDS Affinity Domain or some other architecture. 
-More information is available in [Section 3.2.3 of the HIE Whitepaper](https://profiles.ihe.net/ITI/HIE-Whitepaper/index.html#323-governance).
+More information is available in [Section 3.2.3 of the HIE White Paper](https://profiles.ihe.net/ITI/HIE-Whitepaper/index.html#323-governance).
 
 ![Single Organization Community](images/single_community.svg)
 
@@ -412,12 +412,12 @@ By layering networks in this way, the interconnection of different networks can 
 
 This section provides guidance on how the above community topologies might be represented in a central network directory. 
 
-## 4.1 Purpose Built vs Comprehensive Directories
+## 4.1 Purpose-Built vs. Comprehensive Directories
 
 Many Endpoint directories that are in production at the time of this writing are purpose-built, which is to say they only store information about organization, location, and endpoint information. 
 The sole use case of these directories is endpoint lookup, and for this reason, directories often reflect network details directly in the Organization resource, such as:
-- The organization's role in the network, like participant or sub-participant, expressed as the type of organization.
-- The organization's relationship to its connectivity parent, expressed as the organization hierarchy (i.e. Organization.partOf in FHIR).
+- The organization's role in the network, like participant or sub-participant, expressed as the type of organization
+- The organization's relationship to its connectivity parent, expressed as the organization hierarchy (i.e., Organization.partOf in FHIR)
 - The organization's connectivity state 
 - Supported communication profiles, purposes of use, etc. 
 - A single type of organizational identifier, most commonly used as the Home Community ID for IHE cross community integration profiles
@@ -433,13 +433,13 @@ At the same time, a public health worker might want to be able to quickly identi
 As expectations of connectedness and automation grow, we predict that it will be necessary to have an increasing amount of information available in a single, centralized directory.
 This means that it will be necessary to represent multiple disparate systemic hierarchies in a single directory. 
 
-The IHE mCSD integration profile is well suited to address this problem by utilizing the OrganizationAffiliation resource to provide for the representation of multiple organizational hierarchies, and by also considering how the Practitioner and PractitionerRole resources can be integrated into such a directory. 
+The IHE mCSD Integration Profile is well suited to address this problem by utilizing the OrganizationAffiliation resource to provide for the representation of multiple organizational hierarchies, and by also considering how the Practitioner and PractitionerRole resources can be integrated into such a directory. 
 This allows for data about healthcare facilities, care services, healthcare workers, and other healthcare entities to all exist in a central location along with their communication details. 
 
 ## 4.2 Directory Layout Guidance
 
-In this section, we provide guidance on how to represent the example communities introduced in section 3 in a central network directory. 
-This guidance will be focused on a central network directory that uses the HL7 FHIR Organization, OrganizationAffiliation, Location, and Endpoint resources to store directory information. The guidance is meant to be compatible with the mCSD integration profile, so that it can live in a directory that has other hierarchical relationships without conflict. 
+In this section, we provide guidance on how to represent the example communities introduced in Section 3 in a central network directory. 
+This guidance will be focused on a central network directory that uses the HL7 FHIR Organization, OrganizationAffiliation, Location, and Endpoint resources to store directory information. The guidance is meant to be compatible with the mCSD Integration Profile, so that it can live in a directory that has other hierarchical relationships without conflict. 
 
 ### 4.2.1 FHIR Resources Used For Communication Information
 
@@ -522,20 +522,20 @@ In all three cases, the Endpoint Discovery Algorithm later in this section will 
 However, the endpoint discovery algorithm will require further configuration to align the notion of a "suitable" endpoint with directory policy. 
 For example, if the directory policy declares that Organization.partOf shall not be used to convey document sharing relationships, then the Endpoint Discovery Algorithm should be configured to not traverse those relationships. 
 
-In the examples that follow, the OrganizationAffiliation Resource is used to convey document sharing connectivity information due to its increased versatility. In this paper, the following value set will be used:
-* PartnerConnectivity - this code is used to indicate that the .participatingOrganization should be able to reach the .organization directly via .Endpoint. This code does not make any claims about the connectivity available for any organizations other than the two directly linked to the OrganizationAffiliation Resource. Note that many document sharing networks might choose to distribute the information needed to establish these connections out of band rather than via the directory.
-* HIEInitiator - This code is used to indicate that the Organization linked in .participatingOrganization is a member of the network headed by the Organization in .organization, and it has permission and intent to request data from other members of the network.
+In the examples that follow, the OrganizationAffiliation Resource is used to convey document sharing connectivity information due to its increased versatility. In this white paper, the following value set will be used:
+- PartnerConnectivity - this code is used to indicate that the .participatingOrganization should be able to reach the .organization directly via .Endpoint. This code does not make any claims about the connectivity available for any organizations other than the two directly linked to the OrganizationAffiliation Resource. Note that many document sharing networks might choose to distribute the information needed to establish these connections out of band rather than via the directory.
+- HIEInitiator - This code is used to indicate that the Organization linked in .participatingOrganization is a member of the network headed by the Organization in .organization, and it has permission and intent to request data from other members of the network.
 In this case, OrganizationAffiliation.endpoint represents the endpoint used by the .participatingOrganization to make requests of the Initiating Gateway under the authority of .organization.  
-* HIEResponder - This code is used to indicate that the Organization linked in .participatingOrganization is a member of the network headed by the Organization in .organization, and it has an Endpoint that accepts requests from other members of the network that have an HIEInitiator relationship with the network governing Organization. 
+- HIEResponder - This code is used to indicate that the Organization linked in .participatingOrganization is a member of the network headed by the Organization in .organization, and it has an Endpoint that accepts requests from other members of the network that have an HIEInitiator relationship with the network governing Organization. 
 In this case, OrganizationAffiliation.endpoint contains endpoints used by other network members to send requests to .participatingOrganization.
 This Endpoint may also be used by Initiating and Responding gateways operated by the .organization. 
-* DocShare-federate-int - This code indicates that documents from the .participatingOrganization are available to organizations within the network by communicating with the network Initiating Gateway operated by .organization.
+- DocShare-federate-int - This code indicates that documents from the .participatingOrganization are available to organizations within the network by communicating with the network Initiating Gateway operated by .organization.
 In this context, "within the network" means organizations that have an HIEInitiator relationship with the .organization.
 This code is similar to the DocShare-federate code in mCSD, but is limited in scope to Organizations internal to the network.
-* DocShare-federate-ext - This code indicates that documents from the .participatingOrganization are available to organizations outside of the network by communicating with the network Responding Gateway operated by .organization. 
+- DocShare-federate-ext - This code indicates that documents from the .participatingOrganization are available to organizations outside of the network by communicating with the network Responding Gateway operated by .organization. 
 In this context, "outside the network" means organizations that do not have a child relationship with the .organization, but do have upper level network or peer connectivity with that Organization. 
 This code is similar to the DocShare-federate code in mCSD, but is limited in scope to Organizations external to the network.
-* Other codes are used to indicate relationships irrelevant to document sharing access. 
+- Other codes are used to indicate relationships irrelevant to document sharing access. 
 
 ### 4.2.3 Example Community Directory Layouts
 
@@ -766,10 +766,10 @@ An important consideration when layering multiple networks is how different enti
 
 Here:
 
-* The community with HCID 1.2.8 is a member of the Top Level Network
-* The Lower Network A network is also a member of the Top Level Network
-* The community with HCID 1.2.7 is a member of Lower Network A
-* The community with HCID 1.2.6 is a member of Lower Network A
+- The community with HCID 1.2.8 is a member of the Top Level Network
+- The Lower Network A network is also a member of the Top Level Network
+- The community with HCID 1.2.7 is a member of Lower Network A
+- The community with HCID 1.2.6 is a member of Lower Network A
 
 We will start at the top level and work our way down:
 
@@ -778,8 +778,8 @@ However, each network cannot directly access the lower organizations in the netw
 
 A combination of OrganizationAffiliation Resources would be used to complete this representation:
 
-* An Organization at the top level represents the Upper Network. This Organization does not have any endpoints and does not directly facilitate exchange, but exists to represent the entity in charge of operating the upper network.
-* The Lower Networks connect to the upper network via a pair of OrganizationAffiliation Resources. 
+- An Organization at the top level represents the Upper Network. This Organization does not have any endpoints and does not directly facilitate exchange, but exists to represent the entity in charge of operating the upper network.
+- The Lower Networks connect to the upper network via a pair of OrganizationAffiliation Resources. 
 One OrganizationAffiliation Resource will have code="HIEResponder" and their upper network accessible endpoint to indicate that they will respond on the network.
 The other will have code "HIEInitiator" to indicate that they are a client on the upper network.
 Since both Organizations are both initiators and responders on upper network, they can access each other's endpoints. 
@@ -885,7 +885,7 @@ The result of this is very simplistic endpoint discovery at the top level at the
 
 This directory might have the following policy:
 
-- Organizations at the top level network must be present in the directory.
+- Organizations at the top level network must be present in the directory
 - Organizations at the top level store their endpoints at Organization.endpoint, and all endpoints are accessible to all other top level Organizations
 - All other Organizations must have a partOf chain to the top level
 - Top level Organizations must be able to provide document sharing access to all Organizations underneath
@@ -905,7 +905,7 @@ Some examples include:
 - Network participants might choose to configure the endpoints to access their network gateways rather than pull those endpoints from the directory
 
 ## 4.4 Examples
-In this section we will take the example topologies from above and show how they would be represented in an mCSD directory
+In this section, we will take the example topologies from above and show how they would be represented in an mCSD directory.
 
 ### 4.4.1 Single Organization Community
 
@@ -914,7 +914,7 @@ The Organization is simply represented by itself.
 
 ![Single Organization Community Directory Layout](images/single_affinity_domain_community_directory.svg)
 
-**Figure 4.4-1: Single Organization Community Directory Layout**
+**Figure 4.4.1-1: Single Organization Community Directory Layout**
 
 ### 4.4.2 Multi-Organization Community
 
@@ -956,11 +956,11 @@ A network with initiating and responding gateways can be connected to a higher l
 **Figure 4.4.5-1: Multi Level Directory Layout**
 
 # 5 Example Use Case Solutions
-This section will describe how the use cases in section 2 are enabled by the above suggestions
+This section will describe how the use cases in Section 2 are enabled by the above suggestions.
 
 ## 5.1 Document Access 
 
-Let us consider the Document Access use case from section 2, and how the objects could be represented in a directory and utilized based on different topologies.
+Let us consider the Document Access use case from Section 2, and how the objects could be represented in a directory and utilized based on different topologies.
 
 ### 5.1.1 Abstract View of the Organizations
 
@@ -1000,7 +1000,7 @@ Here’s Dr. Suwati using her EHR to do the search. Because the Organizations ea
 
 ### 5.1.4 One Network, Cross-community Access
 
-In this example, we are showing the use case as cross-community access, as it is in section 2. Valley HIE will now be a multi-community network, and each organization provides its own endpoints, which support cross-community profiles XCPD and XCA.
+In this example, we are showing the use case as cross-community access, as it is in Section 2. Valley HIE will now be a multi-community network, and each organization provides its own endpoints, which support cross-community profiles XCPD and XCA.
 
 If we have a purpose-built directory just for the members of Valley HIE, it could look like this:
 
@@ -1034,7 +1034,7 @@ If we have a purpose-built directory just for the members of Valley HIE, the pro
 
 ### 5.1.6 Disjoint Communities, Intra-community Access, Central Services, Endpoint Access and Data Flow via partOf
 
-Now we’d like to represent disjoint (i.e. unconnected) communities in a single directory, as well as indicate organizational structure within communities. We will use this structure to indicate two things:
+Now we’d like to represent disjoint (i.e., unconnected) communities in a single directory, as well as indicate organizational structure within communities. We will use this structure to indicate two things:
 - Which Endpoints can be accessed by which Organizations (note this is our first time showing multiple "perspectives" in this directory)
 - How data from Organizations flows through those Endpoints
 
@@ -1054,9 +1054,9 @@ In the search, we are showing the EHR searching for Endpoints where data flows f
 
 ### 5.1.7 Disjoint Communities, Intra-community Access, Central Services, Endpoint Access and Data Flow via OrganizationAffiliation
 
-But there are some cases that would cause this structure to break down, e.g.:
+But there are some cases that would cause this structure to break down. For example:
 - We want to reserve partOf to reflect the organizations’ real business relationships, which are unrelated to HIE membership.
-- We want to show organizations that are in the HIE but not accessible at this time (i.e data does not flow).
+- We want to show organizations that are in the HIE but not accessible at this time (i.e., data does not flow).
 
 We can solve these in a comprehensive directory by using OrganizationAffiliation to model the HIE membership instead, and using two mCSD defined codes: HIEInitiator to reflect Endpoints accessible by members of the HIE, and DocShare-federate-int to reflect that the affiliation supports federated document sharing through these Endpoints to its members. In other words, Endpoints belonging to the OrganizationAffiliation.organization will share documents from the OrganizationAffiliation.participatingOrganization federated organizations.
 
@@ -1097,7 +1097,7 @@ We’ve elided some details to make the diagram as simple as possible:
 
 ## 5.2 Push
 
-We now repeat this exercise for the Push user story from section 2. 
+We now repeat this exercise for the Push user story from Section 2. 
 
 ### 5.2.1 Abstract View of the Organizations
 
@@ -1112,10 +1112,10 @@ While Valley Access Healthcare and Urgent Health do not play a role in this use 
 
 Consider the following facts from the story:
 
-* New Hope Medical Partners is a participant of a network called "Big Health Exchange"
-* Valley Access Healthcare, University Health, and Urgent Health are participants in a network called "Valley Region HIE"
-* Both Big Health Exchange and Valley Region HIE are further members of a nationwide document sharing network to facilitate document sharing between members of both exchanges.
-* Dr. Santos practices for University Health. As a result, a message to be read by Dr. Santos needs to be transmitted to University Health's EMR system. 
+- New Hope Medical Partners is a participant of a network called "Big Health Exchange".
+- Valley Access Healthcare, University Health, and Urgent Health are participants in a network called "Valley Region HIE".
+- Both Big Health Exchange and Valley Region HIE are further members of a nationwide document sharing network to facilitate document sharing between members of both exchanges.
+- Dr. Santos practices for University Health. As a result, a message to be read by Dr. Santos needs to be transmitted to University Health's EMR system. 
 
 Taking the full picture from the previous use case, this yields the following diagram:
 
@@ -1160,12 +1160,12 @@ In the case of networks that have Organizations which respond to requests for in
 
 ## 6.2 Opportunities To Define and Enhance Standards
 
-In the process of writing this paper, there were a number of opportunities to improve existing or create new standards that have been identified. 
+In the process of writing this white paper, there were a number of opportunities to improve existing or create new standards that have been identified. 
 This section outlines those identified opportunities. 
 
 ### 6.2.1 Value-Set for OrganizationAffiliation.code
 
-The examples in this paper illustrate the use of several codes that would be found within the value set for OrganizationAffiliation.code. 
+The examples in this white paper illustrate the use of several codes that would be found within the value set for OrganizationAffiliation.code. 
 Today, the mCSD Organization Affiliation Types ValueSet includes only a single code in addition to the base FHIR specification - DocShare-federate. 
 
 We would propose a number of additional codes be added to support the capabilities desired in this white paper. 
@@ -1216,11 +1216,11 @@ The resulting Value-Set should be extensible to allow for deployments to impleme
 
 This white paper proposes strategies that can be used to manage a complex, multi-layered network and represent it in a centralized directory, with the mCSD integration profile being the basis of the directory used in examples. 
 It would be potentially useful for IHE's suite of integration profiles to specify normative, testable requirements for implementations to align with. 
-Such requirements might take the form of either content profiles on the mCSD directory contents and optional endpoint discovery requirements for Care Services Selective Consumer actors. 
+Such requirements might take the form of either content profiles on the mCSD directory contents and optional endpoint discovery requirements for Care Services Selective Consumer Actors. 
 
 ### 6.2.3 Additional Targeting Capabilities in Cross Community Profiles
 
-The use cases and examples in this paper assume and/or imply that when a data consumer is searching for and requesting data from a data provider, it is generally interested in casting a wide net and thus receiving data from all available data providers. 
+The use cases and examples in this white paper assume and/or imply that when a data consumer is searching for and requesting data from a data provider, it is generally interested in casting a wide net and thus receiving data from all available data providers. 
 However, a consumer might wish to target only a single data provider where the source of the needed data is known. 
 Targeting a single data provider would reduce the computational burden of searching for data across non-targeted providers as well as for the consumer. 
 
@@ -1231,16 +1231,16 @@ Defining such behavior would benefit deployments that have this need, thus impro
 
 With respect to XCA, queries are generally targeted to either a home community or to a patient identifier. 
 While it is unlikely that two communities would share patient ID assigning authorities, and thus the full patient identifier (including assigning authority) would uniquely target a community, this is not a guarantee. 
-More importantly, the directory model outlined in this paper does not suggest a mechanism to associate an assigning authority with a responding gateway. 
+More importantly, the directory model outlined in this white paper does not suggest a mechanism to associate an assigning authority with a responding gateway. 
 Thus, and XCA initiating gateway might not have a mechanism to determine which community should respond to a particular request. 
 This could be alleviated by suggesting that document consumers should supply the home community ID of a patient identifier even in XCA query requests that contain a patient identifier, to facilitate message routing. 
 
 ### 6.2.4 Use of Home Community IDs in IHE FHIR Integration Profiles
 
-For network gateways that do not act as facade communities, the mechanisms described in this paper rely on Home Community ID for message routing. 
+For network gateways that do not act as facade communities, the mechanisms described in this white paper rely on Home Community ID for message routing. 
 Home Community ID is only defined for the IHE XCPD, XCA, and XCDR integration profiles, for Patient Discovery, Document Query and Retrieve, and Push use cases, respectively. 
 Many deployments today are moving toward a FHIR based model of data exchange. 
-In order to achieve federation following the same patterns outlined in this paper, the IHE FHIR integration profiles would need to be enhanced to incorporate message routing. 
+In order to achieve federation following the same patterns outlined in this white paper, the IHE FHIR integration profiles would need to be enhanced to incorporate message routing. 
 This might be done using the same patterns established in XCPD, XCA, and XCDR, or it might involve alternative solutions such as clever encoding of routing information inside of FHIR Resource IDs. 
 Further exploration of this topic is needed. 
 
