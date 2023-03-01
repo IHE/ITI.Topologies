@@ -8,7 +8,7 @@
 
 **Revision 1.0. - Draft for Public Comment**
 
-Date: February 24, 2023
+Date: March 3, 2023
 
 Author: ITI Technical Committee
 
@@ -297,10 +297,10 @@ In order to respond quickly enough for Dr. Suwati's busy schedule, all of this n
 
 For the purpose of this illustration, let's assume that the following infrastructure in place:
 
-* New Hope Medical Partners is a participant of a network called "Big Health Exchange"
-* Valley Access Healthcare, University Health, and Urgent Health are participants in a network called "Valley Region HIE"
-* Both Big Health Exchange and Valley Region HIE are further members of a nationwide document sharing network to facilitate document sharing between members of both exchanges. 
-* All three networks are built using IHE document sharing integration profiles, particularly XCPD and XCA. 
+- New Hope Medical Partners is a participant of a network called "Big Health Exchange"
+- Valley Access Healthcare, University Health, and Urgent Health are participants in a network called "Valley Region HIE"
+- Both Big Health Exchange and Valley Region HIE are further members of a nationwide document sharing network to facilitate document sharing between members of both exchanges. 
+- All three networks are built using IHE document sharing integration profiles, particularly XCPD and XCA. 
 
 Dr. Suwati's goal is to request records from Valley Access Healthcare and University health. In order for her to instruct her EMR to request records for those organizations, the EMR needs to know not only that they exist, but how to communicate with them. 
 
@@ -449,11 +449,11 @@ HL7 FHIR defines an Organization as a group of people or organizations that form
 Organizations often exist in one or more hierarchies, where those hierarchies might represent business entity relationships, jurisdictional relationships, IT relationships, etc. 
 Organizations have a few key attributes that are relevant for Document Sharing:
 
-* A logical Identifier that uniquely identifies the Organization as an entity
-* The Name by which a human user would know of the organization
-* Telecommunication identifiers that can be used to reach the Organization
-* Information about what larger Organization the Organization might be part of
-* One or more endpoints for electronic communication and data exchange
+- A logical Identifier that uniquely identifies the Organization as an entity
+- The Name by which a human user would know of the organization
+- Telecommunication identifiers that can be used to reach the Organization
+- Information about what larger Organization the Organization might be part of
+- One or more endpoints for electronic communication and data exchange
 
 As stated above, an Organization might belong to a variety of hierarchies for different purposes. 
 While the Organization Resource can only refer to one parent Organization directly, the OrganizationAffiliation Resource can be used to establish additional hierarchies. 
