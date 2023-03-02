@@ -258,8 +258,6 @@ With that having been said, the purpose of this white paper is to demonstrate ho
 Nothing precludes a network from internally being architected using any architecture, be it star, mesh, ring, etc. 
 Such a network would still present an interface to the outside world, and thus the Organizations within that network can be seen as children of the network. 
 
-**Figure 1.3-1: Comparison of Community, Network, and Multi-Layer Network**
-
 # 2 Federation Use Cases
 
 ## 2.1 Document Access
