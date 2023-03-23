@@ -5,3 +5,9 @@ This IHE white paper expands on the existing HIE white paper by exploring strate
 # Link to Working Copy
 
 [Topologies](topologies.md)
+
+# Youtube presentation
+
+[Youtube](https://youtu.be/4nwgg9m2GNI)
+
+[PPTX](https://github.com/IHE/IT-Infrastructure/blob/master/Presentations/Topologies-Public-Comment.pptx)
