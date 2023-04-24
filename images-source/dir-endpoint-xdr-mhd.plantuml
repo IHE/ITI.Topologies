@@ -17,7 +17,7 @@ object ":Endpoint" as Responder39
 Responder39 : address = https://orgA.org/resp/xca/retrieve
 Responder39 : connectionType = ihe-xca
 Responder39 : extension:specificType = XCA-RespGateway-Retrieve
-object ":Endponit" as Responder41
+object ":Endpoint" as Responder41
 Responder41 : address = https://orgA.org/resp/xcdr
 Responder41 : connectionType = ihe-xcdr
 Responder41 : extension:specificType = XDR-Recipient-ProvideReg
