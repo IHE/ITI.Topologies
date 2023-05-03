@@ -6,15 +6,15 @@
 
 **Document Sharing Across Network Topologies**
 
-**Revision 1.0. - Draft for Public Comment**
+**Revision 1.1 - Published**
 
-Date: March 3, 2023
+Date: May 4, 2023
 
 Author: ITI Technical Committee
 
 Email: iti@ihe.net
 
-**Please verify you have the most recent version of this white paper. See [here](https://profiles.ihe.net/ITI/#1.6) for the Published version and [here](https://profiles.ihe.net/ITI/#1.3) for Public Comment versions.**
+**Please verify you have the most recent version of this white paper. See [here](https://profiles.ihe.net/ITI/#1.6) for the Published version and [here](https://profiles.ihe.net/ITI/#1.3) for Public Comment version (if applicable).**
 
 **Foreword**
 
@@ -104,7 +104,7 @@ A **Document Sharing Community** is a group of facilities/enterprises that have 
 Within each community, there exists a pair of gateways that are used to exchange data across community boundaries. 
 The Initiating Gateway is used by members within a community to send messages to actors outside of the community. 
 The Responding Gateway is the access point for actors outside of the community to access services within the community. 
-These Actors are logically separate, but can be combined into a single system at the discretion of the implementer.
+These actors are logically separate, but can be combined into a single system at the discretion of the implementer.
 
 This pattern was established in the [Cross-Community Patient Discovery (XCPD)](https://profiles.ihe.net/ITI/TF/Volume1/ch-27.html) and [Cross-Community Access (XCA)](https://profiles.ihe.net/ITI/TF/Volume1/ch-18.html) Profiles, but can be applied to other environments as well.
 
@@ -192,8 +192,8 @@ Other IHE profiles, such as the PDQ family of profiles, do not allow distinguish
 ### 1.3.12 Query and Retrieve
 
 **Document Query and Retrieve** refers to a document sharing model where documents are exchanged in a two step process. 
-In the first step, the document consumer actor sends a request for a list of available documents. 
-In the second step, the document consumer actor reviews the obtained list of documents and retrieves certain documents from the list. 
+In the first step, the Document Consumer Actor sends a request for a list of available documents. 
+In the second step, the Document Consumer Actor reviews the obtained list of documents and retrieves certain documents from the list. 
 
 This model is often referred to as the "pull" model. 
 It is generally used in situations where the actors consuming the document need to be able to search and retrieve information about a patient. 
@@ -305,11 +305,11 @@ Dr. Suwati's goal is to request records from Valley Access Healthcare and Univer
 > #### Problem 1
 > How can an EMR discover the existence of outside organizations it does not have a direct trust relationship with? How can a route to request information from that organization be discovered?
 
-Assuming a solution to Problem 1 is available, then the EMR will have identified a community from which the patient's record can be requested, and a set of communication endpoints that can be used to reach that community. In order to communicate the patient for which records are requested, the patient's identity within that community must first be determined. The XCPD integration profile is used to accomplish that goal. 
+Assuming a solution to Problem 1 is available, then the EMR will have identified a community from which the patient's record can be requested, and a set of communication endpoints that can be used to reach that community. In order to communicate the patient for which records are requested, the patient's identity within that community must first be determined. The XCPD Integration Profile is used to accomplish that goal. 
 
 For the purpose of this illustration, assume that Valley Region HIE is structured as a single community with a single patient identifier domain, and Valley Region HIE's XCPD Initiating Gateway is reachable via Big Health Exchange's Responding Gateway, which will broadcast patient discovery requests to all communities it can reach. So, Dr. Suwati can determine Vanna's identity in Valley Region HIE by simply sending an XCPD request to Big Health Exchange's Responding Gateway. 
 
-Once the appropriate responding community and patient identifier for that community is determined, healthcare documents can be requested via the XCA integration profile. The XCPD response will have included a patient identity and Home Community ID pair for Vanna's Valley Region HIE record. So, the XCA integration profile can be used to request the healthcare documents available for Vanna from Valley Region HIE. 
+Once the appropriate responding community and patient identifier for that community is determined, healthcare documents can be requested via the XCA Integration Profile. The XCPD response will have included a patient identity and Home Community ID pair for Vanna's Valley Region HIE record. So, the XCA Integration Profile can be used to request the healthcare documents available for Vanna from Valley Region HIE. 
 
 Once the data is retrieved, one problem remains, though - in order to enable filtering and sorting functionality to improve Dr. Suwati's efficiency, the EMR should be able to discretely associate each available document with the healthcare provider organization that authored it. 
 
@@ -338,14 +338,14 @@ The EHR needs to be able to send a message that will be received by the communit
 
 ### 2.2.2 Interoperability Challenge
 
-The IHE XDR integration profile enables the sending of an unsolicited message from a source to a destination, and the IHE XCDR integration profile supplement allows for routing via Home Community ID. So, if Dr. Suwati's EMR can construct a message and send it to an XCDR initiating gateway that has access to University Health, then the XCDR initiating gateway can route the message to that organization. However, before that can happen, the EMR must be able to determine that Dr. Santos is a physician that cares for patients at University Health, and that University Health is reachable via the network. This problem is very similar to Problem 1 above. 
+The IHE XDR Integration Profile enables the sending of an unsolicited message from a source to a destination, and the IHE XCDR Integration Profile supplement allows for routing via Home Community ID. So, if Dr. Suwati's EMR can construct a message and send it to an XCDR initiating gateway that has access to University Health, then the XCDR initiating gateway can route the message to that organization. However, before that can happen, the EMR must be able to determine that Dr. Santos is a physician that cares for patients at University Health, and that University Health is reachable via the network. This problem is very similar to Problem 1 above. 
 
->#### Problem 3
-> How can an EMR discover the message transmission route to send a message to a recipient at an outside organization which which it does not have a direct trust relationship?
+> #### Problem 3
+> How can an EMR discover the message transmission route to send a message to a recipient at an outside organization with which it does not have a direct trust relationship?
 
-If Problem 3 were to be solved, then the EMR would know that by sending an XDR message with the Transmits Home Community ID option to the Big Health Exchange initiating gateway, it can ensure that the message is routed to the Valley Region HIE. But that is not sufficient for Dr. Santos to receive it, the message needs to be further routed to his incoming mail box at University Health. This is the final problem this white paper seeks to address:
+If Problem 3 were to be solved, then the EMR would know that by sending an XDR message with the Transmits Home Community ID Option to the Big Health Exchange initiating gateway, it can ensure that the message is routed to the Valley Region HIE. But that is not sufficient for Dr. Santos to receive it, the message needs to be further routed to his incoming mail box at University Health. This is the final problem this white paper seeks to address:
 
->#### Problem 4
+> #### Problem 4
 > How can a pushed message be addressed to an individual or organization within a community?
 
 As will be illustrated below, the use of a centralized directory to represent the network topology is one solution to greatly facilitate the solution to these problems. 
@@ -372,6 +372,7 @@ Multiple organizations can also join together into a community. In this case, qu
 The below example shows one such topology, where two organizations have chosen to belong to the same XDS Affinity Domain and therefore share the same XDS infrastructure. 
 
 ![Multi-Organization Community](images/multi_organization_community.svg)
+
 **Figure 3.2-1: Multi-Organization Community Layout**
 
 ## 3.3 Single Facade Community
@@ -388,7 +389,7 @@ In this example, a community is made up of three organizations that exchange dat
 
 Multiple communities can be joined together to form a network of communities. The network infrastructure can offer initiating and responding gateways that make the internals of the network accessible to other networks. This would allow other networks access to all communities in the network, but they would typically need to interact with one community at a time.
 
-The XCPD integration profile provides a mechanism to query the network with patient demographics with the result being the list of community+patient identifier pairs that have data for the patient. Each community can be queried for data using the patient ID for that community via the network gateway. This is a bit more burdensome on consumers in other networks. If it is desired to interact with the network as if it were a single community, then architecting a facade community might be considered. 
+The XCPD Integration Profile provides a mechanism to query the network with patient demographics with the result being the list of community+patient identifier pairs that have data for the patient. Each community can be queried for data using the patient ID for that community via the network gateway. This is a bit more burdensome on consumers in other networks. If it is desired to interact with the network as if it were a single community, then architecting a facade community might be considered. 
 
 The following diagram shows an example of a multi-community network. The network contains three communities, the inner details of which are not shown:
 
@@ -483,7 +484,7 @@ Finally, the Practitioner and PractitionerRole Resources provide information abo
 They are relevant to DocumentSharing in that they will commonly be referenced in documents and their metadata, but they are also relevant for push use cases in the event a message needs to be delivered to an individual. 
 
 Directory policy will dictate the relationships between these Resources in the directory. 
-A key decision that needs to be made is the primary hierarchy of the directory, i.e. what Organization.partOf represents. 
+A key decision that needs to be made is the primary hierarchy of the directory, i.e., what Organization.partOf represents. 
 If the directory is comprehensive, it will need to represent multiple hierarchies, and so all but one will need to be represented using OrganizationAffiliation Resources rather than Organization.partOf relationships. 
 The value set of OrganizationAffiliation.code will also be critically determined by the directory policy, since consumers of the directory will need to know how to interpret each hierarchy. 
 When deciding how Organization, Endpoint, and OrganizationAffiliation Resources should be layed out in the directory, the trust policy of the network and the perspective of actors in the directory should be considered. 
@@ -543,7 +544,7 @@ In a Single Organization Community, the Community can be represented as a single
 Since the Community's Responding Gateway serves a single Organization, Endpoints for each service provided by the Responding Gateway can be tied directly to the Organization resource, using the Organization.endpoint element. 
 
 An Organization might manage its own Endpoint. 
-This results the the simplest case shown below:
+This results in the simplest case shown below:
 
 ![Organization Specific Endpoint](images/dir-org-specific-endpoint-self.svg)
 
@@ -980,7 +981,7 @@ Here’s Dr. Suwati using her EHR to do the search. Here we are slightly modifyi
 
 ![Document Access: Intra-Community With Central Services in Flat List: Doing the search](images/access-intra-central-purpose-seq.svg)
 
-**Figure 5.1.2-2: Intra-Community With Central Services in Flat List: Doing the search**
+**Figure 5.1.2-2: Intra-Community With Central Services in Flat List: Doing the Search**
 
 ### 5.1.3 One Community, Intra-community Access, Per-Organization Access
 
@@ -994,7 +995,7 @@ Here’s Dr. Suwati using her EHR to do the search. Because the Organizations ea
 
 ![Document Access: Intra-Community With Per-Organization Access via Directly Owned Endpoints: Doing the search](images/access-intra-per-org-purpose-seq.svg)
 
-**Figure 5.1.3-2: Intra-Community With Per-Organization Access via Directly Owned Endpoints: Doing the search**
+**Figure 5.1.3-2: Intra-Community With Per-Organization Access via Directly Owned Endpoints: Doing the Search**
 
 ### 5.1.4 One Network, Cross-community Access
 
@@ -1014,7 +1015,7 @@ Dr. Suwati’s search:
 
 ![Document Access: Cross-Community With Per-Community Access via Directly Owned Endpoints: Doing the search](images/access-cross-purpose-seq.svg)
 
-**Figure 5.1.4-2: Cross-Community With Per-Community Access via Directly Owned Endpoints: Doing the search**
+**Figure 5.1.4-2: Cross-Community With Per-Community Access via Directly Owned Endpoints: Doing the Search**
 
 ### 5.1.5 Adding Proxy Intermediaries
 
@@ -1042,13 +1043,13 @@ Valley and Seaside each get a Home Community ID (HCID) so they can be identified
 
 ![Document Access: Intra-Community With Central Services in Multiple Community Directory](images/access-intra-central-partOf.svg)
 
-**Figure 5.1.6-1: Intra-Community With Central Services in Multiple Community Directory using partOf**
+**Figure 5.1.6-1: Intra-Community With Central Services in Multiple Community Directory Using partOf**
 
 In the search, we are showing the EHR searching for Endpoints where data flows from the known locations of treatment, and due to the fact that Urgent Health happens to be in Valley HIE which uses central services, the documents from Urgent Health are included:
 
 ![Document Access: Intra-Community With Central Services in Multiple Community Directory: Doing the search](images/access-intra-central-partOf-seq.svg)
 
-**Figure 5.1.6-2: Intra-Community With Central Services in Multiple Community Directory using partOf: Doing the search**
+**Figure 5.1.6-2: Intra-Community With Central Services in Multiple Community Directory Using partOf: Doing the Search**
 
 ### 5.1.7 Disjoint Communities, Intra-community Access, Central Services, Endpoint Access and Data Flow via OrganizationAffiliation
 
@@ -1071,7 +1072,7 @@ And the search:
 
 ![Document Access: Intra-Community With Central Services in Multiple Community Directory: Doing the search](images/access-intra-central-orgAff-seq.svg)
 
-**Figure 5.1.7-2: Intra-Community With Central Services in Multiple Community Directory Using OrganizationAffiliation: Doing the search**
+**Figure 5.1.7-2: Intra-Community With Central Services in Multiple Community Directory Using OrganizationAffiliation: Doing the Search**
 
 ### 5.1.8 Document Access: Putting it all together
 
@@ -1212,7 +1213,7 @@ The resulting Value-Set should be extensible to allow for deployments to impleme
 
 ### 6.2.2 Normative Requirements Consistent With This Guidance
 
-This white paper proposes strategies that can be used to manage a complex, multi-layered network and represent it in a centralized directory, with the mCSD integration profile being the basis of the directory used in examples. 
+This white paper proposes strategies that can be used to manage a complex, multi-layered network and represent it in a centralized directory, with the mCSD Integration Profile being the basis of the directory used in examples. 
 It would be potentially useful for IHE's suite of integration profiles to specify normative, testable requirements for implementations to align with. 
 Such requirements might take the form of either content profiles on the mCSD directory contents and optional endpoint discovery requirements for Care Services Selective Consumer Actors. 
 
@@ -1222,9 +1223,9 @@ The use cases and examples in this white paper assume and/or imply that when a d
 However, a consumer might wish to target only a single data provider where the source of the needed data is known. 
 Targeting a single data provider would reduce the computational burden of searching for data across non-targeted providers as well as for the consumer. 
 
-There is opportunity to improve the targeting guidance in the IHE XCPD and XCA integration profiles. 
+There is opportunity to improve the targeting guidance in the IHE XCPD and XCA Integration Profiles. 
 In XCPD, many deployments today use the device receiver ID to target a patient discovery request to a single community, and some initiating and responding gateways respect that behavior. 
-However, this behavior is not actually defined in the XCPD integration profile. 
+However, this behavior is not actually defined in the XCPD Integration Profile. 
 Defining such behavior would benefit deployments that have this need, thus improving interoperability. 
 
 With respect to XCA, queries are generally targeted to either a home community or to a patient identifier. 
@@ -1236,7 +1237,7 @@ This could be alleviated by suggesting that document consumers should supply the
 ### 6.2.4 Use of Home Community IDs in IHE FHIR Integration Profiles
 
 For network gateways that do not act as facade communities, the mechanisms described in this white paper rely on Home Community ID for message routing. 
-Home Community ID is only defined for the IHE XCPD, XCA, and XCDR integration profiles, for Patient Discovery, Document Query and Retrieve, and Push use cases, respectively. 
+Home Community ID is only defined for the IHE XCPD, XCA, and XCDR Integration Profiles, for Patient Discovery, Document Query and Retrieve, and Push use cases, respectively. 
 Many deployments today are moving toward a FHIR based model of data exchange. 
 In order to achieve federation following the same patterns outlined in this white paper, the IHE FHIR integration profiles would need to be enhanced to incorporate message routing. 
 This might be done using the same patterns established in XCPD, XCA, and XCDR, or it might involve alternative solutions such as clever encoding of routing information inside of FHIR Resource IDs. 
@@ -1244,7 +1245,7 @@ Further exploration of this topic is needed.
 
 ### 6.2.5 Federated FHIR Data Exchange Outside of Document Sharing
 
-The topics and guidance presented here are presented through the lense of exchanging healthcare data via document sharing. 
+The topics and guidance presented here are presented through the lens of exchanging healthcare data via document sharing. 
 However, modern deployments are looking to move toward RESTful exchange of discrete healthcare data elements in the form of individual FHIR Resources, such as the exchange patterns profiled by the HL7 IPA Implementation Guide. 
 The use of document sharing simplifies the federation scenarios by significantly limiting the number of individual artifacts that need to be exchanged and the linkages between artifacts. 
 Exploration of FHIR RESTful data exchange is likely necessary to achieve a successful deployment. 
